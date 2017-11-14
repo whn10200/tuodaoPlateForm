@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.operation.persistence.mapper.basic.OpScoreMallMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.operation.persistence.model.basic.OpScoreMall" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="type_code" property="typeCode" jdbcType="VARCHAR" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="need_score" property="needScore" jdbcType="INTEGER" />
+    <result column="num_value" property="numValue" jdbcType="INTEGER" />
+    <result column="num_value_view" property="numValueView" jdbcType="VARCHAR" />
+    <result column="effect_day" property="effectDay" jdbcType="INTEGER" />
+    <result column="mall_status" property="mallStatus" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP" />
+    <result column="gmt_creator" property="gmtCreator" jdbcType="VARCHAR" />
+    <result column="gmt_modifier" property="gmtModifier" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, type, type_code, type_name, need_score, num_value, num_value_view, effect_day, 
+    mall_status, remark, gmt_create, gmt_modify, gmt_creator, gmt_modifier, is_del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreMallExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from op_score_mall
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from op_score_mall
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from op_score_mall
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreMallExample" >
+    delete from op_score_mall
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreMall" >
+    insert into op_score_mall (id, type, type_code, 
+      type_name, need_score, num_value, 
+      num_value_view, effect_day, mall_status, 
+      remark, gmt_create, gmt_modify, 
+      gmt_creator, gmt_modifier, is_del
+      )
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{typeCode,jdbcType=VARCHAR}, 
+      #{typeName,jdbcType=VARCHAR}, #{needScore,jdbcType=INTEGER}, #{numValue,jdbcType=INTEGER}, 
+      #{numValueView,jdbcType=VARCHAR}, #{effectDay,jdbcType=INTEGER}, #{mallStatus,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}, 
+      #{gmtCreator,jdbcType=VARCHAR}, #{gmtModifier,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreMall" >
+    insert into op_score_mall
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="typeCode != null" >
+        type_code,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="needScore != null" >
+        need_score,
+      </if>
+      <if test="numValue != null" >
+        num_value,
+      </if>
+      <if test="numValueView != null" >
+        num_value_view,
+      </if>
+      <if test="effectDay != null" >
+        effect_day,
+      </if>
+      <if test="mallStatus != null" >
+        mall_status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModify != null" >
+        gmt_modify,
+      </if>
+      <if test="gmtCreator != null" >
+        gmt_creator,
+      </if>
+      <if test="gmtModifier != null" >
+        gmt_modifier,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="needScore != null" >
+        #{needScore,jdbcType=INTEGER},
+      </if>
+      <if test="numValue != null" >
+        #{numValue,jdbcType=INTEGER},
+      </if>
+      <if test="numValueView != null" >
+        #{numValueView,jdbcType=VARCHAR},
+      </if>
+      <if test="effectDay != null" >
+        #{effectDay,jdbcType=INTEGER},
+      </if>
+      <if test="mallStatus != null" >
+        #{mallStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null" >
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreator != null" >
+        #{gmtCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModifier != null" >
+        #{gmtModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreMallExample" resultType="java.lang.Integer" >
+    select count(*) from op_score_mall
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update op_score_mall
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeCode != null" >
+        type_code = #{record.typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeName != null" >
+        type_name = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needScore != null" >
+        need_score = #{record.needScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.numValue != null" >
+        num_value = #{record.numValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.numValueView != null" >
+        num_value_view = #{record.numValueView,jdbcType=VARCHAR},
+      </if>
+      <if test="record.effectDay != null" >
+        effect_day = #{record.effectDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.mallStatus != null" >
+        mall_status = #{record.mallStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null" >
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModify != null" >
+        gmt_modify = #{record.gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtCreator != null" >
+        gmt_creator = #{record.gmtCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtModifier != null" >
+        gmt_modifier = #{record.gmtModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update op_score_mall
+    set id = #{record.id,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=INTEGER},
+      type_code = #{record.typeCode,jdbcType=VARCHAR},
+      type_name = #{record.typeName,jdbcType=VARCHAR},
+      need_score = #{record.needScore,jdbcType=INTEGER},
+      num_value = #{record.numValue,jdbcType=INTEGER},
+      num_value_view = #{record.numValueView,jdbcType=VARCHAR},
+      effect_day = #{record.effectDay,jdbcType=INTEGER},
+      mall_status = #{record.mallStatus,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{record.gmtModify,jdbcType=TIMESTAMP},
+      gmt_creator = #{record.gmtCreator,jdbcType=VARCHAR},
+      gmt_modifier = #{record.gmtModifier,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreMall" >
+    update op_score_mall
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeCode != null" >
+        type_code = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="needScore != null" >
+        need_score = #{needScore,jdbcType=INTEGER},
+      </if>
+      <if test="numValue != null" >
+        num_value = #{numValue,jdbcType=INTEGER},
+      </if>
+      <if test="numValueView != null" >
+        num_value_view = #{numValueView,jdbcType=VARCHAR},
+      </if>
+      <if test="effectDay != null" >
+        effect_day = #{effectDay,jdbcType=INTEGER},
+      </if>
+      <if test="mallStatus != null" >
+        mall_status = #{mallStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null" >
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreator != null" >
+        gmt_creator = #{gmtCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModifier != null" >
+        gmt_modifier = #{gmtModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreMall" >
+    update op_score_mall
+    set type = #{type,jdbcType=INTEGER},
+      type_code = #{typeCode,jdbcType=VARCHAR},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      need_score = #{needScore,jdbcType=INTEGER},
+      num_value = #{numValue,jdbcType=INTEGER},
+      num_value_view = #{numValueView,jdbcType=VARCHAR},
+      effect_day = #{effectDay,jdbcType=INTEGER},
+      mall_status = #{mallStatus,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      gmt_creator = #{gmtCreator,jdbcType=VARCHAR},
+      gmt_modifier = #{gmtModifier,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

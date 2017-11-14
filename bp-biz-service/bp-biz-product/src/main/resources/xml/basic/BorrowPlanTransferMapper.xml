@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuodao.bp.product.db.mapper.basic.BorrowPlanTransferMapper">
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.product.db.model.basic.BorrowPlanTransfer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
+    <result column="borrow_name" jdbcType="VARCHAR" property="borrowName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="account" jdbcType="DECIMAL" property="account" />
+    <result column="account_yes" jdbcType="DECIMAL" property="accountYes" />
+    <result column="account_success_yes" jdbcType="DECIMAL" property="accountSuccessYes" />
+    <result column="start_period" jdbcType="INTEGER" property="startPeriod" />
+    <result column="left_period" jdbcType="INTEGER" property="leftPeriod" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="period_type" jdbcType="INTEGER" property="periodType" />
+    <result column="award_apr" jdbcType="DECIMAL" property="awardApr" />
+    <result column="apr" jdbcType="DECIMAL" property="apr" />
+    <result column="rayment_type" jdbcType="INTEGER" property="raymentType" />
+    <result column="pre_borrow_id" jdbcType="INTEGER" property="preBorrowId" />
+    <result column="transfe_start_time" jdbcType="TIMESTAMP" property="transfeStartTime" />
+    <result column="success_time" jdbcType="TIMESTAMP" property="successTime" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, tender_id, borrow_name, status, type, account, account_yes, account_success_yes, 
+    start_period, left_period, period, period_type, award_apr, apr, rayment_type, pre_borrow_id, 
+    transfe_start_time, success_time, add_time, remarks
+  </sql>
+  <select id="selectByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowPlanTransferExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from borrow_plan_transfer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from borrow_plan_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from borrow_plan_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowPlanTransferExample">
+    delete from borrow_plan_transfer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.product.db.model.basic.BorrowPlanTransfer">
+    insert into borrow_plan_transfer (id, user_id, tender_id, 
+      borrow_name, status, type, 
+      account, account_yes, account_success_yes, 
+      start_period, left_period, period, 
+      period_type, award_apr, apr, 
+      rayment_type, pre_borrow_id, transfe_start_time, 
+      success_time, add_time, remarks
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{tenderId,jdbcType=INTEGER}, 
+      #{borrowName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{account,jdbcType=DECIMAL}, #{accountYes,jdbcType=DECIMAL}, #{accountSuccessYes,jdbcType=DECIMAL}, 
+      #{startPeriod,jdbcType=INTEGER}, #{leftPeriod,jdbcType=INTEGER}, #{period,jdbcType=INTEGER}, 
+      #{periodType,jdbcType=INTEGER}, #{awardApr,jdbcType=DECIMAL}, #{apr,jdbcType=DECIMAL}, 
+      #{raymentType,jdbcType=INTEGER}, #{preBorrowId,jdbcType=INTEGER}, #{transfeStartTime,jdbcType=TIMESTAMP}, 
+      #{successTime,jdbcType=TIMESTAMP}, #{addTime,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.product.db.model.basic.BorrowPlanTransfer">
+    insert into borrow_plan_transfer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="tenderId != null">
+        tender_id,
+      </if>
+      <if test="borrowName != null">
+        borrow_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="accountYes != null">
+        account_yes,
+      </if>
+      <if test="accountSuccessYes != null">
+        account_success_yes,
+      </if>
+      <if test="startPeriod != null">
+        start_period,
+      </if>
+      <if test="leftPeriod != null">
+        left_period,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="periodType != null">
+        period_type,
+      </if>
+      <if test="awardApr != null">
+        award_apr,
+      </if>
+      <if test="apr != null">
+        apr,
+      </if>
+      <if test="raymentType != null">
+        rayment_type,
+      </if>
+      <if test="preBorrowId != null">
+        pre_borrow_id,
+      </if>
+      <if test="transfeStartTime != null">
+        transfe_start_time,
+      </if>
+      <if test="successTime != null">
+        success_time,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowName != null">
+        #{borrowName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="accountYes != null">
+        #{accountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="accountSuccessYes != null">
+        #{accountSuccessYes,jdbcType=DECIMAL},
+      </if>
+      <if test="startPeriod != null">
+        #{startPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="leftPeriod != null">
+        #{leftPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="periodType != null">
+        #{periodType,jdbcType=INTEGER},
+      </if>
+      <if test="awardApr != null">
+        #{awardApr,jdbcType=DECIMAL},
+      </if>
+      <if test="apr != null">
+        #{apr,jdbcType=DECIMAL},
+      </if>
+      <if test="raymentType != null">
+        #{raymentType,jdbcType=INTEGER},
+      </if>
+      <if test="preBorrowId != null">
+        #{preBorrowId,jdbcType=INTEGER},
+      </if>
+      <if test="transfeStartTime != null">
+        #{transfeStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null">
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowPlanTransferExample" resultType="java.lang.Long">
+    select count(*) from borrow_plan_transfer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update borrow_plan_transfer
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenderId != null">
+        tender_id = #{record.tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowName != null">
+        borrow_name = #{record.borrowName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.account != null">
+        account = #{record.account,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accountYes != null">
+        account_yes = #{record.accountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accountSuccessYes != null">
+        account_success_yes = #{record.accountSuccessYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.startPeriod != null">
+        start_period = #{record.startPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.leftPeriod != null">
+        left_period = #{record.leftPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.period != null">
+        period = #{record.period,jdbcType=INTEGER},
+      </if>
+      <if test="record.periodType != null">
+        period_type = #{record.periodType,jdbcType=INTEGER},
+      </if>
+      <if test="record.awardApr != null">
+        award_apr = #{record.awardApr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.apr != null">
+        apr = #{record.apr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.raymentType != null">
+        rayment_type = #{record.raymentType,jdbcType=INTEGER},
+      </if>
+      <if test="record.preBorrowId != null">
+        pre_borrow_id = #{record.preBorrowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.transfeStartTime != null">
+        transfe_start_time = #{record.transfeStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.successTime != null">
+        success_time = #{record.successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update borrow_plan_transfer
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      tender_id = #{record.tenderId,jdbcType=INTEGER},
+      borrow_name = #{record.borrowName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      account = #{record.account,jdbcType=DECIMAL},
+      account_yes = #{record.accountYes,jdbcType=DECIMAL},
+      account_success_yes = #{record.accountSuccessYes,jdbcType=DECIMAL},
+      start_period = #{record.startPeriod,jdbcType=INTEGER},
+      left_period = #{record.leftPeriod,jdbcType=INTEGER},
+      period = #{record.period,jdbcType=INTEGER},
+      period_type = #{record.periodType,jdbcType=INTEGER},
+      award_apr = #{record.awardApr,jdbcType=DECIMAL},
+      apr = #{record.apr,jdbcType=DECIMAL},
+      rayment_type = #{record.raymentType,jdbcType=INTEGER},
+      pre_borrow_id = #{record.preBorrowId,jdbcType=INTEGER},
+      transfe_start_time = #{record.transfeStartTime,jdbcType=TIMESTAMP},
+      success_time = #{record.successTime,jdbcType=TIMESTAMP},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      remarks = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.product.db.model.basic.BorrowPlanTransfer">
+    update borrow_plan_transfer
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowName != null">
+        borrow_name = #{borrowName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="accountYes != null">
+        account_yes = #{accountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="accountSuccessYes != null">
+        account_success_yes = #{accountSuccessYes,jdbcType=DECIMAL},
+      </if>
+      <if test="startPeriod != null">
+        start_period = #{startPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="leftPeriod != null">
+        left_period = #{leftPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="periodType != null">
+        period_type = #{periodType,jdbcType=INTEGER},
+      </if>
+      <if test="awardApr != null">
+        award_apr = #{awardApr,jdbcType=DECIMAL},
+      </if>
+      <if test="apr != null">
+        apr = #{apr,jdbcType=DECIMAL},
+      </if>
+      <if test="raymentType != null">
+        rayment_type = #{raymentType,jdbcType=INTEGER},
+      </if>
+      <if test="preBorrowId != null">
+        pre_borrow_id = #{preBorrowId,jdbcType=INTEGER},
+      </if>
+      <if test="transfeStartTime != null">
+        transfe_start_time = #{transfeStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null">
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.product.db.model.basic.BorrowPlanTransfer">
+    update borrow_plan_transfer
+    set user_id = #{userId,jdbcType=VARCHAR},
+      tender_id = #{tenderId,jdbcType=INTEGER},
+      borrow_name = #{borrowName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      account = #{account,jdbcType=DECIMAL},
+      account_yes = #{accountYes,jdbcType=DECIMAL},
+      account_success_yes = #{accountSuccessYes,jdbcType=DECIMAL},
+      start_period = #{startPeriod,jdbcType=INTEGER},
+      left_period = #{leftPeriod,jdbcType=INTEGER},
+      period = #{period,jdbcType=INTEGER},
+      period_type = #{periodType,jdbcType=INTEGER},
+      award_apr = #{awardApr,jdbcType=DECIMAL},
+      apr = #{apr,jdbcType=DECIMAL},
+      rayment_type = #{raymentType,jdbcType=INTEGER},
+      pre_borrow_id = #{preBorrowId,jdbcType=INTEGER},
+      transfe_start_time = #{transfeStartTime,jdbcType=TIMESTAMP},
+      success_time = #{successTime,jdbcType=TIMESTAMP},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getPlanReverifyTransferList"  resultMap="BaseResultMap" >
+    SELECT
+    *
+    FROM borrow_plan_transfer
+    WHERE status = 1
+    AND account = account_success_yes
+
+  </select>
+
+
+</mapper>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.operation.persistence.mapper.basic.OpScoreDrawPrizeMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.operation.persistence.model.basic.OpScoreDrawPrize" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="draw_type" property="drawType" jdbcType="INTEGER" />
+    <result column="prize_name" property="prizeName" jdbcType="VARCHAR" />
+    <result column="win_rate" property="winRate" jdbcType="DECIMAL" />
+    <result column="prize_type" property="prizeType" jdbcType="INTEGER" />
+    <result column="prize_value" property="prizeValue" jdbcType="INTEGER" />
+    <result column="money_limit" property="moneyLimit" jdbcType="INTEGER" />
+    <result column="date_limit" property="dateLimit" jdbcType="INTEGER" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP" />
+    <result column="gmt_creator" property="gmtCreator" jdbcType="VARCHAR" />
+    <result column="gmt_modifier" property="gmtModifier" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, draw_type, prize_name, win_rate, prize_type, prize_value, money_limit, date_limit, 
+    gmt_create, gmt_modify, gmt_creator, gmt_modifier, is_del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreDrawPrizeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from op_score_draw_prize
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from op_score_draw_prize
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from op_score_draw_prize
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreDrawPrizeExample" >
+    delete from op_score_draw_prize
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreDrawPrize" >
+    insert into op_score_draw_prize (id, draw_type, prize_name, 
+      win_rate, prize_type, prize_value, 
+      money_limit, date_limit, gmt_create, 
+      gmt_modify, gmt_creator, gmt_modifier, 
+      is_del)
+    values (#{id,jdbcType=BIGINT}, #{drawType,jdbcType=INTEGER}, #{prizeName,jdbcType=VARCHAR}, 
+      #{winRate,jdbcType=DECIMAL}, #{prizeType,jdbcType=INTEGER}, #{prizeValue,jdbcType=INTEGER}, 
+      #{moneyLimit,jdbcType=INTEGER}, #{dateLimit,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModify,jdbcType=TIMESTAMP}, #{gmtCreator,jdbcType=VARCHAR}, #{gmtModifier,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreDrawPrize" >
+    insert into op_score_draw_prize
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="drawType != null" >
+        draw_type,
+      </if>
+      <if test="prizeName != null" >
+        prize_name,
+      </if>
+      <if test="winRate != null" >
+        win_rate,
+      </if>
+      <if test="prizeType != null" >
+        prize_type,
+      </if>
+      <if test="prizeValue != null" >
+        prize_value,
+      </if>
+      <if test="moneyLimit != null" >
+        money_limit,
+      </if>
+      <if test="dateLimit != null" >
+        date_limit,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModify != null" >
+        gmt_modify,
+      </if>
+      <if test="gmtCreator != null" >
+        gmt_creator,
+      </if>
+      <if test="gmtModifier != null" >
+        gmt_modifier,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="drawType != null" >
+        #{drawType,jdbcType=INTEGER},
+      </if>
+      <if test="prizeName != null" >
+        #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="winRate != null" >
+        #{winRate,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeType != null" >
+        #{prizeType,jdbcType=INTEGER},
+      </if>
+      <if test="prizeValue != null" >
+        #{prizeValue,jdbcType=INTEGER},
+      </if>
+      <if test="moneyLimit != null" >
+        #{moneyLimit,jdbcType=INTEGER},
+      </if>
+      <if test="dateLimit != null" >
+        #{dateLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null" >
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreator != null" >
+        #{gmtCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModifier != null" >
+        #{gmtModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreDrawPrizeExample" resultType="java.lang.Integer" >
+    select count(*) from op_score_draw_prize
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update op_score_draw_prize
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.drawType != null" >
+        draw_type = #{record.drawType,jdbcType=INTEGER},
+      </if>
+      <if test="record.prizeName != null" >
+        prize_name = #{record.prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.winRate != null" >
+        win_rate = #{record.winRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.prizeType != null" >
+        prize_type = #{record.prizeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.prizeValue != null" >
+        prize_value = #{record.prizeValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneyLimit != null" >
+        money_limit = #{record.moneyLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.dateLimit != null" >
+        date_limit = #{record.dateLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.gmtCreate != null" >
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModify != null" >
+        gmt_modify = #{record.gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtCreator != null" >
+        gmt_creator = #{record.gmtCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtModifier != null" >
+        gmt_modifier = #{record.gmtModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update op_score_draw_prize
+    set id = #{record.id,jdbcType=BIGINT},
+      draw_type = #{record.drawType,jdbcType=INTEGER},
+      prize_name = #{record.prizeName,jdbcType=VARCHAR},
+      win_rate = #{record.winRate,jdbcType=DECIMAL},
+      prize_type = #{record.prizeType,jdbcType=INTEGER},
+      prize_value = #{record.prizeValue,jdbcType=INTEGER},
+      money_limit = #{record.moneyLimit,jdbcType=INTEGER},
+      date_limit = #{record.dateLimit,jdbcType=INTEGER},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{record.gmtModify,jdbcType=TIMESTAMP},
+      gmt_creator = #{record.gmtCreator,jdbcType=VARCHAR},
+      gmt_modifier = #{record.gmtModifier,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreDrawPrize" >
+    update op_score_draw_prize
+    <set >
+      <if test="drawType != null" >
+        draw_type = #{drawType,jdbcType=INTEGER},
+      </if>
+      <if test="prizeName != null" >
+        prize_name = #{prizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="winRate != null" >
+        win_rate = #{winRate,jdbcType=DECIMAL},
+      </if>
+      <if test="prizeType != null" >
+        prize_type = #{prizeType,jdbcType=INTEGER},
+      </if>
+      <if test="prizeValue != null" >
+        prize_value = #{prizeValue,jdbcType=INTEGER},
+      </if>
+      <if test="moneyLimit != null" >
+        money_limit = #{moneyLimit,jdbcType=INTEGER},
+      </if>
+      <if test="dateLimit != null" >
+        date_limit = #{dateLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null" >
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreator != null" >
+        gmt_creator = #{gmtCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModifier != null" >
+        gmt_modifier = #{gmtModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpScoreDrawPrize" >
+    update op_score_draw_prize
+    set draw_type = #{drawType,jdbcType=INTEGER},
+      prize_name = #{prizeName,jdbcType=VARCHAR},
+      win_rate = #{winRate,jdbcType=DECIMAL},
+      prize_type = #{prizeType,jdbcType=INTEGER},
+      prize_value = #{prizeValue,jdbcType=INTEGER},
+      money_limit = #{moneyLimit,jdbcType=INTEGER},
+      date_limit = #{dateLimit,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      gmt_creator = #{gmtCreator,jdbcType=VARCHAR},
+      gmt_modifier = #{gmtModifier,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuodao.bp.traningcenter.db.mapper.basic.BorrowRepaymentMapper">
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.traningcenter.db.model.basic.BorrowRepayment">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="borrow_id" jdbcType="INTEGER" property="borrowId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="periods" jdbcType="INTEGER" property="periods" />
+    <result column="fee" jdbcType="DECIMAL" property="fee" />
+    <result column="pre_interest" jdbcType="DECIMAL" property="preInterest" />
+    <result column="pre_capital" jdbcType="DECIMAL" property="preCapital" />
+    <result column="pre_repay_time" jdbcType="TIMESTAMP" property="preRepayTime" />
+    <result column="interest" jdbcType="DECIMAL" property="interest" />
+    <result column="capital" jdbcType="DECIMAL" property="capital" />
+    <result column="repay_time" jdbcType="TIMESTAMP" property="repayTime" />
+    <result column="repay_mode" jdbcType="INTEGER" property="repayMode" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="borrow_nid" jdbcType="VARCHAR" property="borrowNid" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, user_id, borrow_id, status, period, periods, fee, pre_interest, pre_capital, 
+    pre_repay_time, interest, capital, repay_time, repay_mode, remarks, borrow_nid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from borrow_repayment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from borrow_repayment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowRepayment">
+    <!--
+      @create by mybatis
+    -->
+    insert into borrow_repayment (id, user_id, borrow_id, 
+      status, period, periods, 
+      fee, pre_interest, pre_capital, 
+      pre_repay_time, interest, capital, 
+      repay_time, repay_mode, remarks, 
+      borrow_nid)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{borrowId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{period,jdbcType=INTEGER}, #{periods,jdbcType=INTEGER}, 
+      #{fee,jdbcType=DECIMAL}, #{preInterest,jdbcType=DECIMAL}, #{preCapital,jdbcType=DECIMAL}, 
+      #{preRepayTime,jdbcType=TIMESTAMP}, #{interest,jdbcType=DECIMAL}, #{capital,jdbcType=DECIMAL}, 
+      #{repayTime,jdbcType=TIMESTAMP}, #{repayMode,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{borrowNid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowRepayment">
+    <!--
+      @create by mybatis
+    -->
+    insert into borrow_repayment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="borrowId != null">
+        borrow_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="periods != null">
+        periods,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="preInterest != null">
+        pre_interest,
+      </if>
+      <if test="preCapital != null">
+        pre_capital,
+      </if>
+      <if test="preRepayTime != null">
+        pre_repay_time,
+      </if>
+      <if test="interest != null">
+        interest,
+      </if>
+      <if test="capital != null">
+        capital,
+      </if>
+      <if test="repayTime != null">
+        repay_time,
+      </if>
+      <if test="repayMode != null">
+        repay_mode,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="borrowNid != null">
+        borrow_nid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowId != null">
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null">
+        #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="preInterest != null">
+        #{preInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="preCapital != null">
+        #{preCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="preRepayTime != null">
+        #{preRepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interest != null">
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="capital != null">
+        #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="repayTime != null">
+        #{repayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayMode != null">
+        #{repayMode,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null">
+        #{borrowNid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowRepayment">
+    <!--
+      @create by mybatis
+    -->
+    update borrow_repayment
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowId != null">
+        borrow_id = #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null">
+        periods = #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="preInterest != null">
+        pre_interest = #{preInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="preCapital != null">
+        pre_capital = #{preCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="preRepayTime != null">
+        pre_repay_time = #{preRepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interest != null">
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="capital != null">
+        capital = #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="repayTime != null">
+        repay_time = #{repayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayMode != null">
+        repay_mode = #{repayMode,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null">
+        borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowRepayment">
+    <!--
+      @create by mybatis
+    -->
+    update borrow_repayment
+    set user_id = #{userId,jdbcType=VARCHAR},
+      borrow_id = #{borrowId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      period = #{period,jdbcType=INTEGER},
+      periods = #{periods,jdbcType=INTEGER},
+      fee = #{fee,jdbcType=DECIMAL},
+      pre_interest = #{preInterest,jdbcType=DECIMAL},
+      pre_capital = #{preCapital,jdbcType=DECIMAL},
+      pre_repay_time = #{preRepayTime,jdbcType=TIMESTAMP},
+      interest = #{interest,jdbcType=DECIMAL},
+      capital = #{capital,jdbcType=DECIMAL},
+      repay_time = #{repayTime,jdbcType=TIMESTAMP},
+      repay_mode = #{repayMode,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      borrow_nid = #{borrowNid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="BorrowRepayment">
+        insert into borrow_repayment(
+            user_id,
+            borrow_id,
+            status,
+            period,
+            periods,
+            fee,
+            pre_interest,
+            pre_capital,
+            pre_repay_time
+        )values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.userId},
+            #{item.borrowId},
+            #{item.status},
+            #{item.period},
+            #{item.periods},
+            #{item.fee},
+            #{item.preInterest},
+            #{item.preCapital},
+            #{item.preRepayTime}
+            )
+        </foreach>
+    </insert>
+
+  <select id="selectByBorrowId" resultType="BorrowRepayment">
+    SELECT
+    <include refid="BaseColumnList"/>
+    FROM
+    borrow_repayment
+    WHERE borrow_id = #{borrowId}
+    and status !=0
+    order by pre_repay_time desc
+  </select>
+
+  <select id="selectByBorrowIdAndStatus" resultType="BorrowRepayment">
+    SELECT
+    <include refid="BaseColumnList"/>
+    FROM
+    borrow_repayment
+    WHERE borrow_id = #{borrowId}
+    and status = #{status}
+    order by pre_repay_time asc
+  </select>
+</mapper>

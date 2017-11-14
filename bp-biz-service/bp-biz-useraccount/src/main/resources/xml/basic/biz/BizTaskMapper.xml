@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.useraccount.persistence.mapper.biz.BizTaskMapper">
+
+
+    <insert id="accountFinaceDailyCopy">
+        INSERT INTO account_finance_daily (
+            user_id,
+            deposit_no,
+            total_fund,
+            total_earnings,
+            dui_in_fund,
+            usable_fund,
+            due_in_principal,
+            due_in_interest,
+            freeze_fund,
+            can_withdraw_fund,
+            total_recharge,
+            total_withdraw,
+            investment_times,
+            investment_amount,
+            return_amount,
+            coupons_amount,
+            usable_scores,
+            usable_coupons,
+            usable_interest,
+            gmt_create,
+            gmt_modify,
+            gmt_creator,
+            gmt_modifier,
+            is_del
+        ) SELECT
+              user_id,
+              deposit_no,
+              total_fund,
+              total_earnings,
+              dui_in_fund,
+              usable_fund,
+              due_in_principal,
+              due_in_interest,
+              freeze_fund,
+              can_withdraw_fund,
+              total_recharge,
+              total_withdraw,
+              investment_times,
+              investment_amount,
+              return_amount,
+              coupons_amount,
+              usable_scores,
+              usable_coupons,
+              usable_interest,
+              gmt_create,
+              gmt_modify,
+              gmt_creator,
+              gmt_modifier,
+              is_del
+          FROM
+              account_finance
+          WHERE total_fund > 0
+            AND is_del = 1
+    </insert>
+
+    <!--上月日均账户资产 根据用户分组-->
+    <select id="selectFinaceDailyLastMonthAvgMap" resultType="java.util.Map" parameterType="java.lang.String">
+        SELECT
+            user_id AS userId,
+            avg(total_fund) AS monthavg
+        FROM
+            account_finance_daily
+        WHERE
+	        DATE_FORMAT(gmt_create, '%Y%m') = DATE_FORMAT(
+		      DATE_SUB(CURDATE(), INTERVAL 1 MONTH),
+		      '%Y%m'
+	        )
+	    GROUP BY user_id
+
+    </select>
+
+    <!--用户上月日均账户资产-->
+    <select id="selectFinaceDailyLastMonthAvgByUid" resultType="java.math.BigDecimal" parameterType="java.lang.String">
+        SELECT
+            avg(total_fund) AS monthavg
+        FROM
+            account_finance_daily
+        WHERE
+	        DATE_FORMAT(gmt_create, '%Y%m') = DATE_FORMAT(
+		      DATE_SUB(CURDATE(), INTERVAL 1 MONTH),
+		      '%Y%m'
+	        )
+	    AND user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <!--用户本月日均账户资产-->
+    <select id="selectFinaceDailyThisMonthAvgByUid" resultType="java.math.BigDecimal" parameterType="java.lang.String">
+        SELECT
+        avg(total_fund) AS monthavg
+        FROM
+        account_finance_daily
+        WHERE
+        DATE_FORMAT(gmt_create, '%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m')
+        AND user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectNewbieUser" resultType="java.lang.String">
+            SELECT
+                user_id
+            FROM
+                user_info t
+            WHERE
+                t.is_del = 1
+            AND t.is_newbie = 1
+            AND TIMESTAMPDIFF(DAY, t.gmt_create, SYSDATE()) > 6
+    </select>
+
+
+    <select id="selectBirthdayUsers" resultType="java.lang.String">
+        SELECT
+        user_id
+        FROM
+        user_info_detail t
+        WHERE
+        t.is_del = 1
+        AND date_format(t.birthday,'%m-%d') = date_format(SYSDATE(),'%m-%d')
+    </select>
+</mapper>

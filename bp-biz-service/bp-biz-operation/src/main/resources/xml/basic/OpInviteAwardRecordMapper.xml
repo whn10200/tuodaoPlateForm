@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.operation.persistence.mapper.basic.OpInviteAwardRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.operation.persistence.model.basic.OpInviteAwardRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="invite_phone_num" property="invitePhoneNum" jdbcType="VARCHAR" />
+    <result column="direct_invitee" property="directInvitee" jdbcType="VARCHAR" />
+    <result column="indirect_invitee" property="indirectInvitee" jdbcType="VARCHAR" />
+    <result column="award_type" property="awardType" jdbcType="INTEGER" />
+    <result column="award_money" property="awardMoney" jdbcType="DECIMAL" />
+    <result column="release_time" property="releaseTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, invite_phone_num, direct_invitee, indirect_invitee, award_type, award_money, 
+    release_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpInviteAwardRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from op_invite_award_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from op_invite_award_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from op_invite_award_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpInviteAwardRecordExample" >
+    delete from op_invite_award_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpInviteAwardRecord" >
+    insert into op_invite_award_record (id, user_id, invite_phone_num, 
+      direct_invitee, indirect_invitee, award_type, 
+      award_money, release_time, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{invitePhoneNum,jdbcType=VARCHAR}, 
+      #{directInvitee,jdbcType=VARCHAR}, #{indirectInvitee,jdbcType=VARCHAR}, #{awardType,jdbcType=INTEGER}, 
+      #{awardMoney,jdbcType=DECIMAL}, #{releaseTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpInviteAwardRecord" >
+    insert into op_invite_award_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="invitePhoneNum != null" >
+        invite_phone_num,
+      </if>
+      <if test="directInvitee != null" >
+        direct_invitee,
+      </if>
+      <if test="indirectInvitee != null" >
+        indirect_invitee,
+      </if>
+      <if test="awardType != null" >
+        award_type,
+      </if>
+      <if test="awardMoney != null" >
+        award_money,
+      </if>
+      <if test="releaseTime != null" >
+        release_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="invitePhoneNum != null" >
+        #{invitePhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="directInvitee != null" >
+        #{directInvitee,jdbcType=VARCHAR},
+      </if>
+      <if test="indirectInvitee != null" >
+        #{indirectInvitee,jdbcType=VARCHAR},
+      </if>
+      <if test="awardType != null" >
+        #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardMoney != null" >
+        #{awardMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="releaseTime != null" >
+        #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpInviteAwardRecordExample" resultType="java.lang.Integer" >
+    select count(*) from op_invite_award_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update op_invite_award_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invitePhoneNum != null" >
+        invite_phone_num = #{record.invitePhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.directInvitee != null" >
+        direct_invitee = #{record.directInvitee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.indirectInvitee != null" >
+        indirect_invitee = #{record.indirectInvitee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.awardType != null" >
+        award_type = #{record.awardType,jdbcType=INTEGER},
+      </if>
+      <if test="record.awardMoney != null" >
+        award_money = #{record.awardMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.releaseTime != null" >
+        release_time = #{record.releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update op_invite_award_record
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      invite_phone_num = #{record.invitePhoneNum,jdbcType=VARCHAR},
+      direct_invitee = #{record.directInvitee,jdbcType=VARCHAR},
+      indirect_invitee = #{record.indirectInvitee,jdbcType=VARCHAR},
+      award_type = #{record.awardType,jdbcType=INTEGER},
+      award_money = #{record.awardMoney,jdbcType=DECIMAL},
+      release_time = #{record.releaseTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpInviteAwardRecord" >
+    update op_invite_award_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="invitePhoneNum != null" >
+        invite_phone_num = #{invitePhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="directInvitee != null" >
+        direct_invitee = #{directInvitee,jdbcType=VARCHAR},
+      </if>
+      <if test="indirectInvitee != null" >
+        indirect_invitee = #{indirectInvitee,jdbcType=VARCHAR},
+      </if>
+      <if test="awardType != null" >
+        award_type = #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardMoney != null" >
+        award_money = #{awardMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="releaseTime != null" >
+        release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpInviteAwardRecord" >
+    update op_invite_award_record
+    set user_id = #{userId,jdbcType=VARCHAR},
+      invite_phone_num = #{invitePhoneNum,jdbcType=VARCHAR},
+      direct_invitee = #{directInvitee,jdbcType=VARCHAR},
+      indirect_invitee = #{indirectInvitee,jdbcType=VARCHAR},
+      award_type = #{awardType,jdbcType=INTEGER},
+      award_money = #{awardMoney,jdbcType=DECIMAL},
+      release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

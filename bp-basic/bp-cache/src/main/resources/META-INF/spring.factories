@@ -1,0 +1,4 @@
+# autoconfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.tuodao.bp.cache.EnableRedisCacheAutoConfiguration,\
+com.tuodao.bp.cache.EnableRedissonAutoConfiguration

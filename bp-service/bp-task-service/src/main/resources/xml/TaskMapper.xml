@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.task.server.dao.mapper.TaskMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.task.server.dao.model.Task" >
+    <id column="taskId" property="taskid" jdbcType="INTEGER" />
+    <result column="taskName" property="taskname" jdbcType="VARCHAR" />
+    <result column="businessId" property="businessid" jdbcType="INTEGER" />
+    <result column="mathematics" property="mathematics" jdbcType="INTEGER" />
+    <result column="dispatch" property="dispatch" jdbcType="INTEGER" />
+    <result column="businessServerId" property="businessserverid" jdbcType="INTEGER" />
+    <result column="notify" property="notify" jdbcType="INTEGER" />
+    <result column="corn" property="corn" jdbcType="VARCHAR" />
+    <result column="overtime" property="overtime" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    taskId, taskName, businessId, mathematics, dispatch, businessServerId, notify, corn, 
+    overtime, description, status, createTime, updateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.task.server.dao.model.TaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where taskId = #{taskid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task
+    where taskId = #{taskid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.task.server.dao.model.TaskExample" >
+    delete from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.task.server.dao.model.Task" >
+    <selectKey resultType="java.lang.Integer" keyProperty="taskid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into task (taskName, businessId, mathematics, 
+      dispatch, businessServerId, notify, 
+      corn, overtime, description, 
+      status, createTime, updateTime
+      )
+    values (#{taskname,jdbcType=VARCHAR}, #{businessid,jdbcType=INTEGER}, #{mathematics,jdbcType=INTEGER}, 
+      #{dispatch,jdbcType=INTEGER}, #{businessserverid,jdbcType=INTEGER}, #{notify,jdbcType=INTEGER}, 
+      #{corn,jdbcType=VARCHAR}, #{overtime,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.task.server.dao.model.Task" >
+    <selectKey resultType="java.lang.Integer" keyProperty="taskid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskname != null" >
+        taskName,
+      </if>
+      <if test="businessid != null" >
+        businessId,
+      </if>
+      <if test="mathematics != null" >
+        mathematics,
+      </if>
+      <if test="dispatch != null" >
+        dispatch,
+      </if>
+      <if test="businessserverid != null" >
+        businessServerId,
+      </if>
+      <if test="notify != null" >
+        notify,
+      </if>
+      <if test="corn != null" >
+        corn,
+      </if>
+      <if test="overtime != null" >
+        overtime,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskname != null" >
+        #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="businessid != null" >
+        #{businessid,jdbcType=INTEGER},
+      </if>
+      <if test="mathematics != null" >
+        #{mathematics,jdbcType=INTEGER},
+      </if>
+      <if test="dispatch != null" >
+        #{dispatch,jdbcType=INTEGER},
+      </if>
+      <if test="businessserverid != null" >
+        #{businessserverid,jdbcType=INTEGER},
+      </if>
+      <if test="notify != null" >
+        #{notify,jdbcType=INTEGER},
+      </if>
+      <if test="corn != null" >
+        #{corn,jdbcType=VARCHAR},
+      </if>
+      <if test="overtime != null" >
+        #{overtime,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.task.server.dao.model.TaskExample" resultType="java.lang.Integer" >
+    select count(*) from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update task
+    <set >
+      <if test="record.taskid != null" >
+        taskId = #{record.taskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskname != null" >
+        taskName = #{record.taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessid != null" >
+        businessId = #{record.businessid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mathematics != null" >
+        mathematics = #{record.mathematics,jdbcType=INTEGER},
+      </if>
+      <if test="record.dispatch != null" >
+        dispatch = #{record.dispatch,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessserverid != null" >
+        businessServerId = #{record.businessserverid,jdbcType=INTEGER},
+      </if>
+      <if test="record.notify != null" >
+        notify = #{record.notify,jdbcType=INTEGER},
+      </if>
+      <if test="record.corn != null" >
+        corn = #{record.corn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overtime != null" >
+        overtime = #{record.overtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update task
+    set taskId = #{record.taskid,jdbcType=INTEGER},
+      taskName = #{record.taskname,jdbcType=VARCHAR},
+      businessId = #{record.businessid,jdbcType=INTEGER},
+      mathematics = #{record.mathematics,jdbcType=INTEGER},
+      dispatch = #{record.dispatch,jdbcType=INTEGER},
+      businessServerId = #{record.businessserverid,jdbcType=INTEGER},
+      notify = #{record.notify,jdbcType=INTEGER},
+      corn = #{record.corn,jdbcType=VARCHAR},
+      overtime = #{record.overtime,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.task.server.dao.model.Task" >
+    update task
+    <set >
+      <if test="taskname != null" >
+        taskName = #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="businessid != null" >
+        businessId = #{businessid,jdbcType=INTEGER},
+      </if>
+      <if test="mathematics != null" >
+        mathematics = #{mathematics,jdbcType=INTEGER},
+      </if>
+      <if test="dispatch != null" >
+        dispatch = #{dispatch,jdbcType=INTEGER},
+      </if>
+      <if test="businessserverid != null" >
+        businessServerId = #{businessserverid,jdbcType=INTEGER},
+      </if>
+      <if test="notify != null" >
+        notify = #{notify,jdbcType=INTEGER},
+      </if>
+      <if test="corn != null" >
+        corn = #{corn,jdbcType=VARCHAR},
+      </if>
+      <if test="overtime != null" >
+        overtime = #{overtime,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where taskId = #{taskid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.task.server.dao.model.Task" >
+    update task
+    set taskName = #{taskname,jdbcType=VARCHAR},
+      businessId = #{businessid,jdbcType=INTEGER},
+      mathematics = #{mathematics,jdbcType=INTEGER},
+      dispatch = #{dispatch,jdbcType=INTEGER},
+      businessServerId = #{businessserverid,jdbcType=INTEGER},
+      notify = #{notify,jdbcType=INTEGER},
+      corn = #{corn,jdbcType=VARCHAR},
+      overtime = #{overtime,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where taskId = #{taskid,jdbcType=INTEGER}
+  </update>
+</mapper>

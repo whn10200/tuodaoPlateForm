@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.traningcenter.db.mapper.basic.BorrowCollectionMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.traningcenter.db.model.basic.BorrowCollection" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="tender_id" property="tenderId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="periods" property="periods" jdbcType="INTEGER" />
+    <result column="pre_collection_time" property="preCollectionTime" jdbcType="TIMESTAMP" />
+    <result column="pre_collection_month" property="preCollectionMonth" jdbcType="VARCHAR" />
+    <result column="pre_interest" property="preInterest" jdbcType="DECIMAL" />
+    <result column="pre_capital" property="preCapital" jdbcType="DECIMAL" />
+    <result column="collection_time" property="collectionTime" jdbcType="TIMESTAMP" />
+    <result column="interest" property="interest" jdbcType="DECIMAL" />
+    <result column="capital" property="capital" jdbcType="DECIMAL" />
+    <result column="coupon_account" property="couponAccount" jdbcType="DECIMAL" />
+    <result column="platform_account" property="platformAccount" jdbcType="DECIMAL" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
+    <result column="tender_nid" property="tenderNid" jdbcType="INTEGER" />
+    <result column="simulated_interest" property="simulatedInterest" jdbcType="INTEGER" />
+    <result column="product_id" property="borrowId" jdbcType="INTEGER"/> <!--查询使用-->
+    <result column="is_revocer" property="isRevocer" jdbcType="INTEGER" />
+    <result column="is_capital" property="isCapital" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="recoverList" type="com.tuodao.bp.model.business.traningcenter.output.RecoverListOutput" >
+    <result column="preInterest" property="preInterest" jdbcType="VARCHAR" />
+    <result column="preCollectionTime" property="preCollectionTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="selectClaimOutput" type="com.tuodao.bp.model.business.traningcenter.output.SelectClaimOutput" >
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+    <result column="tenderId" property="tenderId" jdbcType="INTEGER" />
+    <result column="preCapital" property="preCapital" jdbcType="DECIMAL" />
+    <result column="periods" property="periods" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="borrowId" property="borrowId" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    t.id, t.user_id, t.tender_id, t.status, t.period, t.periods, t.pre_collection_time, t.pre_interest,
+    t.pre_capital, t.collection_time, t.interest, t.capital, t.coupon_account, t.platform_account,
+    t.remarks, t.is_show, t.tender_nid,t.pre_collection_month,t.is_revocer,t.is_capital
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from borrow_collection t
+    where t.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from borrow_collection
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowCollection" >
+      insert into borrow_collection (id, user_id, tender_id,
+      status, period, periods,
+      pre_collection_time, pre_interest, pre_capital,
+      collection_time, interest, capital,
+      coupon_account, platform_account, remarks,
+      is_show, tender_nid,simulated_interest,pre_collection_month,borrow_id,is_revocer,is_capital)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{tenderId,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER}, #{period,jdbcType=INTEGER}, #{periods,jdbcType=INTEGER},
+      #{preCollectionTime,jdbcType=TIMESTAMP}, #{preInterest,jdbcType=DECIMAL}, #{preCapital,jdbcType=DECIMAL},
+      #{collectionTime,jdbcType=TIMESTAMP}, #{interest,jdbcType=DECIMAL}, #{capital,jdbcType=DECIMAL},
+      #{couponAccount,jdbcType=DECIMAL}, #{platformAccount,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR},
+      #{isShow,jdbcType=INTEGER}, #{tenderNid,jdbcType=INTEGER},#{simulatedInterest},#{preCollectionMonth,jdbcType=VARCHAR},
+      #{borrowId,jdbcType=VARCHAR}, #{isRevocer,jdbcType=INTEGER}, #{isCapital,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowCollection" >
+    insert into borrow_collection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="tenderId != null" >
+        tender_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="periods != null" >
+        periods,
+      </if>
+      <if test="preCollectionTime != null" >
+        pre_collection_time,
+      </if>
+      <if test="preInterest != null" >
+        pre_interest,
+      </if>
+      <if test="preCapital != null" >
+        pre_capital,
+      </if>
+      <if test="collectionTime != null" >
+        collection_time,
+      </if>
+      <if test="interest != null" >
+        interest,
+      </if>
+      <if test="capital != null" >
+        capital,
+      </if>
+      <if test="couponAccount != null" >
+        coupon_account,
+      </if>
+      <if test="platformAccount != null" >
+        platform_account,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+      <if test="tenderNid != null" >
+        tender_nid,
+      </if>
+      <if test="preCollectionMonth != null and preCollectionMonth != ''">
+          pre_collection_month,
+      </if>
+      <if test="isRecover != null">
+        is_recover,
+      </if>
+      <if test="isCapital != null">
+        is_capital,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderId != null" >
+        #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null" >
+        #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="preCollectionTime != null" >
+        #{preCollectionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preInterest != null" >
+        #{preInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="preCapital != null" >
+        #{preCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="collectionTime != null" >
+        #{collectionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="capital != null" >
+        #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="couponAccount != null" >
+        #{couponAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="platformAccount != null" >
+        #{platformAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="tenderNid != null" >
+        #{tenderNid,jdbcType=INTEGER},
+      </if>
+      <if test="preCollectionMonth != null and preCollectionMonth != ''">
+          #{preCollectionMonth,jdbcType=VARCHAR}
+      </if>
+      <if test="isRevocer != null">
+        #{isRevocer,jdbcType=VARCHAR}
+      </if>
+      <if test="isCapital != null">
+        #{isCapital,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+    <!-- 获取用户已回款总额-->
+  <select id="getTotalCollectionByUserId" resultType="BigDecimal">
+     select COALESCE(sum(interest + capital),0) from borrow_collection where status = 1 and user_id = #{userId}
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowCollection" >
+    update borrow_collection
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderId != null" >
+        tender_id = #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null" >
+        periods = #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="preCollectionTime != null" >
+        pre_collection_time = #{preCollectionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="preInterest != null" >
+        pre_interest = #{preInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="preCapital != null" >
+        pre_capital = #{preCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="collectionTime != null" >
+        collection_time = #{collectionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interest != null" >
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="capital != null" >
+        capital = #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="couponAccount != null" >
+        coupon_account = #{couponAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="platformAccount != null" >
+        platform_account = #{platformAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="tenderNid != null" >
+        tender_nid = #{tenderNid,jdbcType=INTEGER},
+      </if>
+        <if test="preCollectionMonth != null and preCollectionMonth != ''">
+            pre_collection_month = #{preCollectionMonth,jdbcType=VARCHAR},
+        </if>
+        <if test="isRevocer != null">
+            is_revocer = #{isRevocer,jdbcType=VARCHAR},
+        </if>
+        <if test="isCapital != null">
+            is_capital = #{isCapital,jdbcType=VARCHAR},
+        </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowCollection" >
+    update borrow_collection
+    set user_id = #{userId,jdbcType=VARCHAR},
+      tender_id = #{tenderId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      period = #{period,jdbcType=INTEGER},
+      periods = #{periods,jdbcType=INTEGER},
+      pre_collection_time = #{preCollectionTime,jdbcType=TIMESTAMP},
+      pre_interest = #{preInterest,jdbcType=DECIMAL},
+      pre_capital = #{preCapital,jdbcType=DECIMAL},
+      collection_time = #{collectionTime,jdbcType=TIMESTAMP},
+      interest = #{interest,jdbcType=DECIMAL},
+      capital = #{capital,jdbcType=DECIMAL},
+      coupon_account = #{couponAccount,jdbcType=DECIMAL},
+      platform_account = #{platformAccount,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=INTEGER},
+      tender_nid = #{tenderNid,jdbcType=INTEGER},
+      pre_collection_month = #{preCollectionMonth,jdbcType=VARCHAR},
+      is_revocer = #{isRevocer,jdbcType=VARCHAR},
+      is_capital = #{isCapital,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByTenderIdListAndStatus" resultType="BorrowCollectionCapital">
+    select sum(pre_capital)/100 as capital,count(1) as sumCount,
+    sum(interest)/100 as interest,  tender_id
+    from borrow_collection
+    <where>
+      <if test="status != null">
+        and status = #{status}
+      </if>
+      <if test="tenderIdList != null and tenderIdList.size > 0">
+        and tender_id in
+        <foreach item="item" index="index" collection="tenderIdList" open="("
+                 separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+    group by tender_id
+  </select>
+
+    <!-- 批量插入回款信息 默认未回款 -->
+    <insert id="insertBatch" parameterType="com.tuodao.bp.model.traningcenter.input.BorrowCollectionInput" >
+        insert into borrow_collection(
+        user_id,
+        tender_id,
+        status,
+        period,
+        periods,
+        pre_collection_time,
+        pre_interest,
+        pre_capital,
+        coupon_account,
+        platform_account,
+        is_show,
+        borrow_id,
+        pre_collection_month
+        )values
+
+        <foreach collection="list" index="index" item="item" separator=",">
+            (
+            #{item.userId},
+            #{item.tenderId},
+            0,
+            #{item.period},
+            #{item.periods},
+            #{item.preCollectionTime},
+            #{item.preInterest},
+            #{item.preCapital},
+            #{item.couponAccount},
+            #{item.platformAccount},
+            #{item.isShow},
+            #{borrowId},
+            #{item.preCollectionMonth}
+            )
+        </foreach>
+    </insert>
+
+  <!-- 批量插入回款信息 默认未回款 -->
+  <insert id="batchInsert" parameterType="BorrowCollection" >
+    insert into borrow_collection(
+    user_id,
+    tender_id,
+    status,
+    period,
+    periods,
+    pre_collection_time,
+    pre_interest,
+    pre_capital,
+    coupon_account,
+    platform_account,
+    is_show,
+    borrow_id
+    )values
+
+    <foreach collection="list" index="index" item="item" separator=",">
+      (
+      #{item.userId},
+      #{item.tenderId},
+      #{item.status},
+      #{item.period},
+      #{item.periods},
+      #{item.preCollectionTime},
+      #{item.preInterest},
+      #{item.preCapital},
+      #{item.couponAccount},
+      #{item.platformAccount},
+      #{item.isShow},
+      #{item.borrowId}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectBackByTenderId" resultType="BorrowCollectionCapital">
+    select sum(pre_capital)/100 as pre_capital,count(1) as sumCount,
+    sum(interest)/100 as interest,  tender_id
+    from borrow_collection
+    <where>
+      <if test="tenderId != null">
+        and tender_id = #{tenderId}
+      </if>
+      and status !=0;
+    </where>
+  </select>
+
+  <select id="selectUnBackByTenderId" resultType="BorrowCollectionCapital">
+    select sum(pre_capital)/100 as preCapital,count(1) as sumCount,
+    sum(pre_interest)/100 as interest,  tender_id
+    from borrow_collection
+    <where>
+      <if test="tenderId != null">
+        and tender_id = #{tenderId}
+      </if>
+      and status =0;
+    </where>
+  </select>
+
+  <select id="selectByTenderIdAndUserId" resultType="BorrowCollection">
+    SELECT
+    c.status, c.period, c.periods,
+    CASE WHEN c.`collection_time` IS NULL THEN c.pre_collection_time ELSE c.collection_time END collection_time,
+    CASE WHEN c.capital = 0.00 THEN c.pre_capital ELSE c.capital END capital,
+    CASE WHEN c.interest = 0.00 THEN c.pre_interest ELSE c.interest END interest,
+    c.collection_time
+    FROM borrow_collection c
+    <where>
+      <if test="userId != null and userId != ''">
+        and c.user_id = #{userId}
+      </if>
+      <if test="tenderId != null">
+        and c.tender_id = #{tenderId}
+      </if>
+      <if test="showed != null">
+        and c.is_show = #{showed}
+      </if>
+    </where>
+    order by c.period asc
+  </select>
+
+  <select id="selectByTenderIdAndStatus" resultType="BorrowCollection">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM borrow_collection t
+    WHERE t.tender_id = #{tenderId}
+    and t.status = #{status}
+    order by t.pre_collection_time asc
+  </select>
+
+    <!-- 根据条件获取回款信息-->
+    <select id="getList"  resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from borrow_collection t  where t.is_show = 1 and t.status = 0 and t.is_revocer = 1
+
+        <if test="advance == true">
+            and t.period &gt;= #{period}
+        </if>
+        <if test="advance == false">
+            and t.period = #{period}
+        </if>
+        <if test="borrowId != null">
+            and t.borrow_id = #{borrowId}
+        </if>
+        <if test="userId != null and userId != ''">
+            and t.user_id = #{userId}
+        </if>
+        order by t.pre_collection_time asc
+    </select>
+
+    <!--按天获取用户回款信息-->
+    <select id="getByDay" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>,r.borrow_id
+        from borrow_collection t left join borrow_tender r on t.tender_id = r.id where t.is_show = 1
+        <if test="type == 0"><!--按月查询-->
+            and (
+            (t.status = 1 and collection_month = #{day} ) or <!-- 已回款的按实际回款日 -->
+            (t.status = 0 and pre_collection_month = #{day}) <!-- 未回款的按预计回款日 -->
+            )
+        </if>
+        <if test="type == 1"><!--按天查询-->
+            and (
+            (t.status = 1 and DATE_FORMAT(t.collection_time,'%Y-%m-%d') = #{day} ) or <!-- 已回款的按实际回款日 -->
+            (t.status = 0 and DATE_FORMAT(t.pre_collection_time,'%Y-%m-%d') = #{day}) <!-- 未回款的按预计回款日 -->
+            )
+        </if>
+        and t.user_id = #{userId}
+    </select>
+
+
+  <select id="selectSumRecoverByTenderId" resultType="java.lang.Double" parameterType="java.lang.Integer">
+      select IFNUll(sum(pre_interest)/100,0) from borrow_collection where status=1 and tender_id in (select id from borrow_tender where status=1 and choiceness_tender_id in(select id from borrow_choiceness_tender where id=#{tenderId} or
+
+        before_tender_id=#{tenderId}))
+  </select>
+
+  <select id="selectRecoverListBychioId" resultMap="recoverList" parameterType="java.lang.Integer">
+    select  convert(IFNULL(pre_interest/100,0),decimal(10,2))+convert(IFNULL(pre_capital/100,0),decimal(10,2)) as preInterest,DATE_FORMAT(pre_collection_time,"%Y-%m-%d") as preCollectionTime,case when status=0 then '未还款' else '已还款' end as status from borrow_collection where tender_id in ( select id from borrow_tender where
+    choiceness_tender_id in(select id from borrow_choiceness_tender where id=#{tenderId} or before_tender_id=#{tenderId}
+    )  and status in(0,1)) or tender_nid=(select borrow_id from borrow_choiceness_tender where id=#{tenderId})  order by pre_collection_time asc
+  </select>
+
+  <select id="selectByTenderId" resultType="BorrowCollection">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM borrow_collection t
+    WHERE t.tender_id = #{tenderId}
+    order by t.pre_collection_time asc
+  </select>
+
+    <resultMap id="collectionMap" type="java.util.Map">
+        <result column="interest" property="interest" jdbcType="DECIMAL" />
+        <result column="capital" property="capital" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <!-- 月或天实际回款-->
+    <select id="getRealCollection" resultMap="collectionMap" parameterType="com.tuodao.bp.model.facade.traningcenter.input.CollectionParam">
+        select COALESCE(sum(interest),0) as interest,COALESCE(sum(capital),0) as capital from
+        borrow_collection
+        <where>
+            <!--按天查询 -->
+            <if test="type == 0">
+                collection_time = #{day} and status in (1,2) and user_id = #{userId}
+            </if>
+            <!-- 按月查询 -->
+            <if test="type == 1">
+                collection_month = #{day} and status in (1,2) and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <!-- 月或天预计回款 -->
+    <select id="getPreCollection" resultMap="collectionMap" parameterType="com.tuodao.bp.model.facade.traningcenter.input.CollectionParam">
+        select COALESCE(sum(pre_interest),0) as interest,COALESCE(sum(pre_capital),0) as capital from
+        borrow_collection
+        <where>
+            <!--按天查询 -->
+            <if test="type == 0">
+                pre_collection_time = #{day} and status= 0 and user_id = #{userId}
+            </if>
+            <!-- 按月查询 -->
+            <if test="type == 1">
+                pre_collection_month = #{day} and status= 0 and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取某个月回款日期 -->
+    <select id="getCollectionDays" resultMap="BaseResultMap">
+        select status,pre_collection_time,collection_time from borrow_collection
+        where is_show = 1
+        and (
+        (status = 1 and collection_month = #{month} ) or <!-- 已回款的按实际回款月 -->
+        (status = 0 and pre_collection_month = #{month}) <!-- 未回款的按预计回款月 -->
+        )
+        and user_id = #{userId}
+        order by status asc
+    </select>
+
+
+  <!-- 根据理财计划产品id或者投资id查询释放的债权-->
+  <select id="selectClaim" resultMap="selectClaimOutput" parameterType="java.lang.Integer">
+
+    select  user_id as userId,tender_id as tenderId,sum(pre_capital) as preCapital,count(1) as periods,min(period) as period,borrow_id as borrowId from borrow_collection  WHERE status=0
+    and tender_id
+    <if test="tenderId != null">
+      = #{tenderId}
+    </if>
+    <if test="borrowId != null">
+      in (select id from borrow_tender where choiceness_tender_id in  (select id from borrow_choiceness_tender where borrow_id = #{borrowId}))
+    </if>
+    GROUP BY tender_id
+  </select>
+  <select id="selectClaimInside" resultType="BorrowCollection" parameterType="java.lang.String">
+
+    select  user_id as userId,tender_id as tenderId,sum(pre_capital) as preCapital,count(1) as periods,min(period) as period,borrow_id as borrowId from borrow_collection  WHERE status=0
+    and user_id
+    <if test="userId != null">
+      = #{userId}
+    </if>
+    GROUP BY tender_id
+  </select>
+
+    <!--获取精选计划最后一期回款信息-->
+    <select id="getChoicenessTenderCollection" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from borrow_collection t where t.period = t.periods and  t.tender_id = #{tenderId} and t.tender_nid = #{borrowId}
+    </select>
+
+    <select id="getBottomCollection" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from borrow_collection t
+        where t.tender_nid is null and t.is_show = 1 and exists
+        (select 1 from borrow_tender s where t.tender_id = s.id and s.status =  and s.choiceness_tender_id = #{tenderId});
+
+
+    </select>
+
+    <!-- 查询精选计划投标信息,由于精选计划投标可能出现投标投标多次才能完成整个投标过程,因此在最开始时 直接过滤投标完成
+     在投中,由于回款是生成完整的回款信息因此过滤掉多余的不显示的字段,同时是未回款的 -->
+    <select id="getTendingByChoicenessTenderId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from borrow_collection t  WHERE t.status = 0 and t.is_show = 1  AND
+        EXISTS (SELECT 1 from borrow_tender r where  r.status = 2 and t.tender_id = r.id and r.choiceness_tender_id = #{tenderId})
+        <if test="borrowId != null">
+            and t.tender_nid = #{borrowId}
+        </if>
+    </select>
+
+    <!-- 批量更新状态 -->
+    <update id="updateBatchStatus" parameterType="BorrowCollection">
+        <foreach collection="list" item="item" index="index"  separator=";">
+            update borrow_collection set
+            status = #{item.status},
+            collection_time = now(),
+            collection_month = DATE_FORMAT(now(),'%Y-%m'),
+            interest = #{item.interest},
+            capital = #{item.capital},
+            coupon_account = #{item.couponAccount},
+            platform_account = #{item.platformAccount}
+            where id = #{item.id}
+        </foreach>
+    </update>
+    <resultMap id="UserCollectionInterestMap" type="com.tuodao.bp.model.business.traningcenter.output.CollectionCountOutput">
+        <result column="tender_interest" property="tenderInterest" jdbcType="DECIMAL" />
+        <result column="platform_interest" property="platformInterest" jdbcType="DECIMAL" />
+        <result column="coupon_interest" property="couponInterest" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <select id="getUserCollectionInterest" resultMap="UserCollectionInterestMap">
+       select COALESCE(sum(interest),0) as tender_interest,
+              COALESCE(sum(coupon_account),0) as platform_interest,
+              COALESCE(sum(platform_account),0) as coupon_interest
+       from borrow_collection where status = 1 or status = 2 and user_id = #{userId}
+    </select>
+
+</mapper>

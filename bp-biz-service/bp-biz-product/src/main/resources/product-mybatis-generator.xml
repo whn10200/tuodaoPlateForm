@@ -1,0 +1,52 @@
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="generatorTables" targetRuntime="MyBatis3">
+
+		<plugin type="com.tuodao.hechuan.mybatis.plugin.SerializableModelExamplePlugin"></plugin>
+
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://72.127.2.158:3306/finance?useUnicode=true&amp;characterEncoding=UTF-8"
+						userId="root" password="tuodao_mysql">
+		</jdbcConnection>
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+		<!--connectionURL="jdbc:mysql://localhost:3306/finance?useUnicode=true&amp;characterEncoding=UTF-8"-->
+		<!--userId="root" password="root">-->
+		<!--</jdbcConnection>-->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="com.tuodao.bp.product.db.model.basic"
+							targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="xml.basic" targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER"
+							 targetPackage="com.tuodao.bp.product.db.mapper.basic" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!--<table tableName="product" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="product_audit_record" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="product_details" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="borrow_expand" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="borrow_define_type" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="borrow_plan_transfer" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="borrow_collection" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="borrow_repayment" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<table tableName="borrow_mapping_bank" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>
+	</context>
+
+</generatorConfiguration>

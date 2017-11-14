@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.traningcenter.db.mapper.basic.AccountLogMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.traningcenter.db.model.basic.AccountLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="DECIMAL" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="DECIMAL" />
+    <result column="cash_frost" property="cashFrost" jdbcType="DECIMAL" />
+    <result column="tender_frost" property="tenderFrost" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="recharge" property="recharge" jdbcType="DECIMAL" />
+    <result column="await_interest" property="awaitInterest" jdbcType="DECIMAL" />
+    <result column="await_capital" property="awaitCapital" jdbcType="DECIMAL" />
+    <result column="from_account" property="fromAccount" jdbcType="VARCHAR" />
+    <result column="from_remarks" property="fromRemarks" jdbcType="VARCHAR" />
+    <result column="to_account" property="toAccount" jdbcType="VARCHAR" />
+    <result column="to_remarks" property="toRemarks" jdbcType="VARCHAR" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
+    <result column="intrest_account" property="intrestAccount" jdbcType="DECIMAL" />
+    <result column="fee_account" property="feeAccount" jdbcType="DECIMAL" />
+    <result column="change_type" property="changeType" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, user_id, order_no, type, account, add_time, remarks, total, cash_frost, tender_frost, 
+    balance, recharge, await_interest, await_capital, from_account, from_remarks, to_account, 
+    to_remarks, is_show, intrest_account, fee_account, change_type
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from account_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AccountLog" >
+    insert into account_log (id, user_id, order_no, 
+      type, account, add_time, 
+      remarks, total, cash_frost, 
+      tender_frost, balance, recharge, 
+      await_interest, await_capital, from_account, 
+      from_remarks, to_account, to_remarks, 
+      is_show, intrest_account, fee_account, 
+      change_type)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{account,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{total,jdbcType=DECIMAL}, #{cashFrost,jdbcType=DECIMAL}, 
+      #{tenderFrost,jdbcType=DECIMAL}, #{balance,jdbcType=DECIMAL}, #{recharge,jdbcType=DECIMAL}, 
+      #{awaitInterest,jdbcType=DECIMAL}, #{awaitCapital,jdbcType=DECIMAL}, #{fromAccount,jdbcType=VARCHAR}, 
+      #{fromRemarks,jdbcType=VARCHAR}, #{toAccount,jdbcType=VARCHAR}, #{toRemarks,jdbcType=VARCHAR}, 
+      #{isShow,jdbcType=INTEGER}, #{intrestAccount,jdbcType=DECIMAL}, #{feeAccount,jdbcType=DECIMAL}, 
+      #{changeType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AccountLog" >
+    insert into account_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="cashFrost != null" >
+        cash_frost,
+      </if>
+      <if test="tenderFrost != null" >
+        tender_frost,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="recharge != null" >
+        recharge,
+      </if>
+      <if test="awaitInterest != null" >
+        await_interest,
+      </if>
+      <if test="awaitCapital != null" >
+        await_capital,
+      </if>
+      <if test="fromAccount != null" >
+        from_account,
+      </if>
+      <if test="fromRemarks != null" >
+        from_remarks,
+      </if>
+      <if test="toAccount != null" >
+        to_account,
+      </if>
+      <if test="toRemarks != null" >
+        to_remarks,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+      <if test="intrestAccount != null" >
+        intrest_account,
+      </if>
+      <if test="feeAccount != null" >
+        fee_account,
+      </if>
+      <if test="changeType != null" >
+        change_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="cashFrost != null" >
+        #{cashFrost,jdbcType=DECIMAL},
+      </if>
+      <if test="tenderFrost != null" >
+        #{tenderFrost,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null" >
+        #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="awaitInterest != null" >
+        #{awaitInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="awaitCapital != null" >
+        #{awaitCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="fromAccount != null" >
+        #{fromAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fromRemarks != null" >
+        #{fromRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccount != null" >
+        #{toAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="toRemarks != null" >
+        #{toRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="intrestAccount != null" >
+        #{intrestAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="feeAccount != null" >
+        #{feeAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="changeType != null" >
+        #{changeType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AccountLog" >
+    update account_log
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="cashFrost != null" >
+        cash_frost = #{cashFrost,jdbcType=DECIMAL},
+      </if>
+      <if test="tenderFrost != null" >
+        tender_frost = #{tenderFrost,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null" >
+        recharge = #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="awaitInterest != null" >
+        await_interest = #{awaitInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="awaitCapital != null" >
+        await_capital = #{awaitCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="fromAccount != null" >
+        from_account = #{fromAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="fromRemarks != null" >
+        from_remarks = #{fromRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccount != null" >
+        to_account = #{toAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="toRemarks != null" >
+        to_remarks = #{toRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="intrestAccount != null" >
+        intrest_account = #{intrestAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="feeAccount != null" >
+        fee_account = #{feeAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="changeType != null" >
+        change_type = #{changeType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AccountLog" >
+    update account_log
+    set user_id = #{userId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      account = #{account,jdbcType=DECIMAL},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      total = #{total,jdbcType=DECIMAL},
+      cash_frost = #{cashFrost,jdbcType=DECIMAL},
+      tender_frost = #{tenderFrost,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=DECIMAL},
+      recharge = #{recharge,jdbcType=DECIMAL},
+      await_interest = #{awaitInterest,jdbcType=DECIMAL},
+      await_capital = #{awaitCapital,jdbcType=DECIMAL},
+      from_account = #{fromAccount,jdbcType=VARCHAR},
+      from_remarks = #{fromRemarks,jdbcType=VARCHAR},
+      to_account = #{toAccount,jdbcType=VARCHAR},
+      to_remarks = #{toRemarks,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=INTEGER},
+      intrest_account = #{intrestAccount,jdbcType=DECIMAL},
+      fee_account = #{feeAccount,jdbcType=DECIMAL},
+      change_type = #{changeType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <!-- 根据条件获取列表 -->
+    <select id="getList" parameterType="com.tuodao.bp.model.business.traningcenter.input.AccountLogInput" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from account_log
+        <where>
+            is_show = 1
+            <if test="orderNo != null and orderNo != ''">
+                and order_no = #{orderNo}
+            </if>
+            <if test="type != -1 ">
+                and type = #{type}
+            </if>
+            <if test="type == -1">
+                and type in (0,2,4,8,9,10,11,14,15,16,17,18,19,20,21,22)
+            </if>
+            <if test="startTime != null">
+                and add_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null">
+                and add_time &lt; #{endTime}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+  <select id="selectByOderNo" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from account_log
+    where order_no = #{orderNo}
+  </select>
+
+</mapper>

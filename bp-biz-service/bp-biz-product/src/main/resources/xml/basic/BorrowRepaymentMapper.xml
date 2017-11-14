@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.product.db.mapper.basic.BorrowRepaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.product.db.model.basic.BorrowRepayment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="borrow_id" property="borrowId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="periods" property="periods" jdbcType="INTEGER" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="pre_interest" property="preInterest" jdbcType="DECIMAL" />
+    <result column="pre_capital" property="preCapital" jdbcType="DECIMAL" />
+    <result column="pre_repay_time" property="preRepayTime" jdbcType="TIMESTAMP" />
+    <result column="interest" property="interest" jdbcType="DECIMAL" />
+    <result column="capital" property="capital" jdbcType="DECIMAL" />
+    <result column="repay_time" property="repayTime" jdbcType="TIMESTAMP" />
+    <result column="repay_mode" property="repayMode" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="borrow_nid" property="borrowNid" jdbcType="VARCHAR" />
+    <result column="repay_step" property="repayStep"/>
+  </resultMap>
+   <resultMap id="BaseResultOubtPutMap"  extends="BaseResultMap" type="com.tuodao.bp.model.business.product.output.BorrowRepaymentOutput" >
+   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, borrow_id, status, period, periods, fee, pre_interest, pre_capital, 
+    pre_repay_time, interest, capital, repay_time, repay_mode, remarks, borrow_nid, repay_step
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.product.db.model.basic.BorrowRepaymentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from borrow_repayment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from borrow_repayment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from borrow_repayment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowRepaymentExample" >
+    delete from borrow_repayment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.product.db.model.basic.BorrowRepayment" >
+    insert into borrow_repayment (id, user_id, borrow_id, 
+      status, period, periods, 
+      fee, pre_interest, pre_capital, 
+      pre_repay_time, interest, capital, 
+      repay_time, repay_mode, remarks, 
+      borrow_nid, repay_step)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{borrowId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{period,jdbcType=INTEGER}, #{periods,jdbcType=INTEGER}, 
+      #{fee,jdbcType=DECIMAL}, #{preInterest,jdbcType=DECIMAL}, #{preCapital,jdbcType=DECIMAL}, 
+      #{preRepayTime,jdbcType=TIMESTAMP}, #{interest,jdbcType=DECIMAL}, #{capital,jdbcType=DECIMAL}, 
+      #{repayTime,jdbcType=TIMESTAMP}, #{repayMode,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{borrowNid,jdbcType=VARCHAR},#{repayStep,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.product.db.model.basic.BorrowRepayment" >
+    insert into borrow_repayment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="borrowId != null" >
+        borrow_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="periods != null" >
+        periods,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="preInterest != null" >
+        pre_interest,
+      </if>
+      <if test="preCapital != null" >
+        pre_capital,
+      </if>
+      <if test="preRepayTime != null" >
+        pre_repay_time,
+      </if>
+      <if test="interest != null" >
+        interest,
+      </if>
+      <if test="capital != null" >
+        capital,
+      </if>
+      <if test="repayTime != null" >
+        repay_time,
+      </if>
+      <if test="repayMode != null" >
+        repay_mode,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid,
+      </if>
+      <if test="repayStep != null" >
+        repay_step,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowId != null" >
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null" >
+        #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="preInterest != null" >
+        #{preInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="preCapital != null" >
+        #{preCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="preRepayTime != null" >
+        #{preRepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="capital != null" >
+        #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="repayTime != null" >
+        #{repayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayMode != null" >
+        #{repayMode,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null" >
+        #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="repayStep != null ">
+		#{repayStep},
+	  </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowRepaymentExample" resultType="java.lang.Integer" >
+    select count(*) from borrow_repayment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update borrow_repayment
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowId != null" >
+        borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.period != null" >
+        period = #{record.period,jdbcType=INTEGER},
+      </if>
+      <if test="record.periods != null" >
+        periods = #{record.periods,jdbcType=INTEGER},
+      </if>
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.preInterest != null" >
+        pre_interest = #{record.preInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.preCapital != null" >
+        pre_capital = #{record.preCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="record.preRepayTime != null" >
+        pre_repay_time = #{record.preRepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.interest != null" >
+        interest = #{record.interest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.capital != null" >
+        capital = #{record.capital,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repayTime != null" >
+        repay_time = #{record.repayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.repayMode != null" >
+        repay_mode = #{record.repayMode,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowNid != null" >
+        borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="repayStep != null  ">
+		repay_step=#{record.repayStep,jdbcType=INTEGER},
+	  </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update borrow_repayment
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      period = #{record.period,jdbcType=INTEGER},
+      periods = #{record.periods,jdbcType=INTEGER},
+      fee = #{record.fee,jdbcType=DECIMAL},
+      pre_interest = #{record.preInterest,jdbcType=DECIMAL},
+      pre_capital = #{record.preCapital,jdbcType=DECIMAL},
+      pre_repay_time = #{record.preRepayTime,jdbcType=TIMESTAMP},
+      interest = #{record.interest,jdbcType=DECIMAL},
+      capital = #{record.capital,jdbcType=DECIMAL},
+      repay_time = #{record.repayTime,jdbcType=TIMESTAMP},
+      repay_mode = #{record.repayMode,jdbcType=INTEGER},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      repay_step = #{record.repayStep,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.product.db.model.basic.BorrowRepayment" >
+    update borrow_repayment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowId != null" >
+        borrow_id = #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null" >
+        periods = #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="fee != null" >
+        fee = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="preInterest != null" >
+        pre_interest = #{preInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="preCapital != null" >
+        pre_capital = #{preCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="preRepayTime != null" >
+        pre_repay_time = #{preRepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="interest != null" >
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="capital != null" >
+        capital = #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="repayTime != null" >
+        repay_time = #{repayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayMode != null" >
+        repay_mode = #{repayMode,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="repayStep != null  ">
+		repay_step=#{repayStep,jdbcType=INTEGER},
+	  </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.product.db.model.basic.BorrowRepayment" >
+    update borrow_repayment
+    set user_id = #{userId,jdbcType=VARCHAR},
+      borrow_id = #{borrowId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      period = #{period,jdbcType=INTEGER},
+      periods = #{periods,jdbcType=INTEGER},
+      fee = #{fee,jdbcType=DECIMAL},
+      pre_interest = #{preInterest,jdbcType=DECIMAL},
+      pre_capital = #{preCapital,jdbcType=DECIMAL},
+      pre_repay_time = #{preRepayTime,jdbcType=TIMESTAMP},
+      interest = #{interest,jdbcType=DECIMAL},
+      capital = #{capital,jdbcType=DECIMAL},
+      repay_time = #{repayTime,jdbcType=TIMESTAMP},
+      repay_mode = #{repayMode,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      repay_step = #{repayStep,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getMinUnpaidByPlanId" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
+
+    SELECT
+    de.borrow_id,
+    min(period) period,
+    sum(pre_capital) capital
+    FROM
+    product_details de
+    LEFT JOIN borrow_repayment re ON re.borrow_id = de.orginal_id
+    WHERE
+    re.`status` = 0
+    <if test="productId != null" >
+     and de.product_id = ${productId}
+    </if>
+  </select>
+
+
+
+  <update id="updateDoRepay" parameterType="map" >
+    update borrow_repayment
+    <set >
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interest != null" >
+        interest = pre_interest,
+      </if>
+      <if test="record.capital != null" >
+        capital = pre_capital,
+      </if>
+      <if test="record.repayTime != null" >
+        repay_time = #{record.repayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.repayMode != null" >
+        repay_mode = #{record.repayMode,jdbcType=INTEGER},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+
+
+  <update id="doAdvanceRepay" parameterType="java.lang.Integer" >
+    UPDATE borrow_repayment ,
+    (
+    SELECT
+    sum(pre_interest) ii,
+    sum(pre_capital) cc,
+    min(period) p
+    FROM
+    borrow_repayment
+    WHERE
+    `status` = 0
+    AND borrow_id = #{borrowId}
+    ) ss
+
+    SET interest = ss.ii,
+    capital = ss.cc,
+    `status` = 2,
+	repay_time = now()
+    WHERE
+    borrow_id = #{borrowId},
+    AND `status` = 0
+    and ss.p = period
+  </update>
+
+  <resultMap id="BaseResultMap2" type="com.tuodao.bp.model.business.product.output.BorrowRepaymentInfoOutput" >
+    <result column="borrowId" property="borrowId" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="periods" property="periods" jdbcType="INTEGER" />
+    <result column="lastRepayTime" property="lastRepayTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="getRepayInfoByBorrowId" parameterType="java.lang.Integer" resultMap="BaseResultMap2" >
+      SELECT borrow_id borrowId,count(1) as period,periods,
+
+      case when count(1)= periods then
+      (SELECT re.audit_time from product_audit_record re where borrow_id =  #{borrowId} and audit_type = 3)
+      else pre_repay_time end as
+       lastRepayTime FROM `borrow_repayment` where borrow_id =  #{borrowId} and `status` = 0;
+
+  </select>
+<!--判断是否还有前面的期数未还款-->
+<select id="getRepayInfoByparam" resultMap="BaseResultOubtPutMap"  parameterType="com.tuodao.bp.model.business.product.input.BorrowRepaymentInput">
+	 select
+	<include refid="Base_Column_List"/>
+	from  borrow_repayment  
+	where 1 = 1
+	<if test="borrowId != null and borrowId != ''" >
+	    and borrow_id =  #{borrowId}
+	</if> 
+	<if test="userId != null and userId != '' and userId != ''" >
+	    and user_id =  #{userId}
+	</if>
+	<if test="status != null and status != ''" >
+	    and status =  #{status}
+	</if>
+    <if test="period != null and period != ''" >
+	    and period <![CDATA[<]]> #{period}
+	</if>
+	limit 1
+</select>
+
+<select id="getRepayInfoById" resultMap="BaseResultOubtPutMap"  parameterType="int">
+	 select
+	<include refid="Base_Column_List"/>
+	from  borrow_repayment  
+	where id=#{id}
+</select>
+
+</mapper>

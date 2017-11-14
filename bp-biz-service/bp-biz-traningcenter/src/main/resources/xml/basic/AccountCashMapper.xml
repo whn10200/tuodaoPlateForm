@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuodao.bp.traningcenter.db.mapper.basic.AccountCashMapper">
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.traningcenter.db.model.basic.AccountCash">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="bank_num" jdbcType="VARCHAR" property="bankNum" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="account" jdbcType="DECIMAL" property="account" />
+    <result column="fee" jdbcType="DECIMAL" property="fee" />
+    <result column="real_account" jdbcType="DECIMAL" property="realAccount" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="verify_remarks" jdbcType="VARCHAR" property="verifyRemarks" />
+    <result column="cash_num" jdbcType="VARCHAR" property="cashNum" />
+    <result column="add_ip" jdbcType="VARCHAR" property="addIp" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="fee_account" jdbcType="DECIMAL" property="feeAccount" />
+    <result column="use_free" jdbcType="INTEGER" property="useFree" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    t.id, t.user_id, t.order_no, t.bank_num, t.status, t.account, t.fee, t.real_account, t.add_time, t.update_time,
+    t.verify_remarks, t.cash_num, t.add_ip, t.source, t.remarks,t.fee_account,t.use_free
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from account_cash t
+    where t.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+      @create by mybatis
+    -->
+    delete from account_cash
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AccountCash">
+    <!--
+      @create by mybatis
+    -->
+    insert into account_cash (id, user_id, order_no, 
+      bank_num, status, account,
+      fee, real_account, add_time, 
+      update_time, verify_remarks, cash_num, 
+      add_ip, source, remarks,fee_account,use_free
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{bankNum,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{account,jdbcType=DECIMAL},
+      #{fee,jdbcType=DECIMAL}, #{realAccount,jdbcType=DECIMAL}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{verifyRemarks,jdbcType=VARCHAR}, #{cashNum,jdbcType=VARCHAR}, 
+      #{addIp,jdbcType=VARCHAR}, #{source,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{feeAccount,jdbcType=DECIMAL},
+      #{useFree,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AccountCash">
+    <!--
+      @create by mybatis
+    -->
+    insert into account_cash
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="bankNum != null">
+        bank_num,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="realAccount != null">
+        real_account,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="verifyRemarks != null">
+        verify_remarks,
+      </if>
+      <if test="cashNum != null">
+        cash_num,
+      </if>
+      <if test="addIp != null">
+        add_ip,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+        <if test="feeAccount != null">
+            fee_account,
+        </if>
+        <if test="useFree != null">
+            use_free,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNum != null">
+        #{bankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="realAccount != null">
+        #{realAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyRemarks != null">
+        #{verifyRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="cashNum != null">
+        #{cashNum,jdbcType=VARCHAR},
+      </if>
+      <if test="addIp != null">
+        #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+        <if test="feeAccount != null">
+            #{feeAccount,jdbcType=DECIMAL},
+        </if>
+        <if test="useFree != null">
+            #{useFree,jdbcType=INTEGER},
+        </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AccountCash">
+    <!--
+      @create by mybatis
+    -->
+    update account_cash
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankNum != null">
+        bank_num = #{bankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="realAccount != null">
+        real_account = #{realAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyRemarks != null">
+        verify_remarks = #{verifyRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="cashNum != null">
+        cash_num = #{cashNum,jdbcType=VARCHAR},
+      </if>
+      <if test="addIp != null">
+        add_ip = #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+        <if test="feeAccount != null">
+            fee_account = #{feeAccount,jdbcType=DECIMAL}
+        </if>
+        <if test="useFree != null">
+            use_free = #{useFree,jdbcType=INTEGER}
+        </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AccountCash">
+    <!--
+      @create by mybatis
+    -->
+    update account_cash
+    set user_id = #{userId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      bank_num = #{bankNum,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      account = #{account,jdbcType=DECIMAL},
+      fee = #{fee,jdbcType=DECIMAL},
+      real_account = #{realAccount,jdbcType=DECIMAL},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      verify_remarks = #{verifyRemarks,jdbcType=VARCHAR},
+      cash_num = #{cashNum,jdbcType=VARCHAR},
+      add_ip = #{addIp,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      fee_account = #{feeAccount,jdbcType=DECIMAL},
+      use_free = #{useFree,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+    <!-- 根据条件查询列表 -->
+    <select id="getList" parameterType="AccountCash" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList" />
+        from account_cash t
+        <where>
+            <if test="userId != null and userId != ''">
+                t.user_id = #{userId}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                t.and order_no = #{orderNo}
+            </if>
+            <if test="status != null">
+                t.and status = #{status}
+            </if>
+        </where>
+    </select>
+
+
+    <!-- 根据订单号查询用户提现记录 -->
+    <select id="getByOrderNo" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList" />
+        from account_cash t where t.order_no = #{orderNo}
+    </select>
+
+
+    <update id="updateAccountCashStatus" >
+        update account_cash
+        <set>
+            <if test="cash.updateTime != null">
+                update_time = #{cash.updateTime},
+            </if>
+            <if test="cash.status != null">
+                status = #{cash.status},
+            </if>
+            <if test="cash.realAccount != null">
+                real_account = #{cash.realAccount},
+            </if>
+            <if test="cash.verifyRemarks != null and cash.verifyRemarks != ''">
+                verify_remarks = #{cash.verifyRemarks},
+            </if>
+        </set>
+        where order_no = #{cash.orderNo} and status = 0
+    </update>
+
+    <!--获取总的已提现金额 -->
+    <select id="getTotalCashByUserId" resultType="BigDecimal">
+        <![CDATA[ select COALESCE(sum(account),0) from account_cash where status <> 2 and
+        user_id = #{userId}
+        ]]>
+    </select>
+
+
+</mapper>

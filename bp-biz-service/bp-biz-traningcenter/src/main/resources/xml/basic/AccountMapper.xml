@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.traningcenter.db.mapper.basic.AccountMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.traningcenter.db.model.basic.Account" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="DECIMAL" />
+    <result column="cash_frost" property="cashFrost" jdbcType="DECIMAL" />
+    <result column="tender_frost" property="tenderFrost" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="recharge" property="recharge" jdbcType="DECIMAL" />
+    <result column="await_interest" property="awaitInterest" jdbcType="DECIMAL" />
+    <result column="await_capital" property="awaitCapital" jdbcType="DECIMAL" />
+    <result column="total_recharge" property="totalRecharge" jdbcType="DECIMAL" />
+    <result column="total_earnings" property="totalEarnings" jdbcType="DECIMAL" />
+    <result column="total_withdraw" property="totalWithdraw" jdbcType="DECIMAL" />
+    <result column="return_amount" property="returnAmount" jdbcType="DECIMAL" />
+    <result column="coupons_amount" property="couponsAmount" jdbcType="DECIMAL" />
+    <result column="balance_cash" property="balanceCash" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, user_id, total, cash_frost, tender_frost, balance, recharge, await_interest, 
+    await_capital, total_recharge, total_earnings, total_withdraw, return_amount, coupons_amount,balance_cash
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+
+  <select id="getByUserId" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from account
+    where user_id = #{userId}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+
+  <insert id="insert" parameterType="com.tuodao.bp.traningcenter.db.model.basic.Account" >
+    insert into account (id, user_id, total, 
+      cash_frost, tender_frost, balance, 
+      recharge, await_interest, await_capital, 
+      total_recharge, total_earnings, total_withdraw, 
+      return_amount, coupons_amount,balance_cash)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{total,jdbcType=DECIMAL}, 
+      #{cashFrost,jdbcType=DECIMAL}, #{tenderFrost,jdbcType=DECIMAL}, #{balance,jdbcType=DECIMAL}, 
+      #{recharge,jdbcType=DECIMAL}, #{awaitInterest,jdbcType=DECIMAL}, #{awaitCapital,jdbcType=DECIMAL}, 
+      #{totalRecharge,jdbcType=DECIMAL}, #{totalEarnings,jdbcType=DECIMAL}, #{totalWithdraw,jdbcType=DECIMAL}, 
+      #{returnAmount,jdbcType=DECIMAL}, #{couponsAmount,jdbcType=DECIMAL},#{balanceCash,jdbcType=DECIMAL})
+  </insert>
+
+
+  <insert id="insertSelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.Account" >
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="cashFrost != null" >
+        cash_frost,
+      </if>
+      <if test="tenderFrost != null" >
+        tender_frost,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="recharge != null" >
+        recharge,
+      </if>
+      <if test="awaitInterest != null" >
+        await_interest,
+      </if>
+      <if test="awaitCapital != null" >
+        await_capital,
+      </if>
+      <if test="totalRecharge != null" >
+        total_recharge,
+      </if>
+      <if test="totalEarnings != null" >
+        total_earnings,
+      </if>
+      <if test="totalWithdraw != null" >
+        total_withdraw,
+      </if>
+      <if test="returnAmount != null" >
+        return_amount,
+      </if>
+      <if test="couponsAmount != null" >
+        coupons_amount,
+      </if>
+        <if test="balanceCash != null">
+            balance_cash,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="cashFrost != null" >
+        #{cashFrost,jdbcType=DECIMAL},
+      </if>
+      <if test="tenderFrost != null" >
+        #{tenderFrost,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null" >
+        #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="awaitInterest != null" >
+        #{awaitInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="awaitCapital != null" >
+        #{awaitCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="totalRecharge != null" >
+        #{totalRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="totalEarnings != null" >
+        #{totalEarnings,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWithdraw != null" >
+        #{totalWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="returnAmount != null" >
+        #{returnAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="couponsAmount != null" >
+        #{couponsAmount,jdbcType=DECIMAL},
+      </if>
+        <if test="balanceCash != null" >
+            #{balanceCash,jdbcType=DECIMAL},
+        </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.Account" >
+    update account
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="cashFrost != null" >
+        cash_frost = #{cashFrost,jdbcType=DECIMAL},
+      </if>
+      <if test="tenderFrost != null" >
+        tender_frost = #{tenderFrost,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="recharge != null" >
+        recharge = #{recharge,jdbcType=DECIMAL},
+      </if>
+      <if test="awaitInterest != null" >
+        await_interest = #{awaitInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="awaitCapital != null" >
+        await_capital = #{awaitCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="totalRecharge != null" >
+        total_recharge = #{totalRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="totalEarnings != null" >
+        total_earnings = #{totalEarnings,jdbcType=DECIMAL},
+      </if>
+      <if test="totalWithdraw != null" >
+        total_withdraw = #{totalWithdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="returnAmount != null" >
+        return_amount = #{returnAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="couponsAmount != null" >
+        coupons_amount = #{couponsAmount,jdbcType=DECIMAL},
+      </if>
+        <if test="balanceCash != null" >
+            balance_cash = #{balanceCash,jdbcType=DECIMAL},
+        </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.traningcenter.db.model.basic.Account" >
+    update account
+    set user_id = #{userId,jdbcType=VARCHAR},
+      total = #{total,jdbcType=DECIMAL},
+      cash_frost = #{cashFrost,jdbcType=DECIMAL},
+      tender_frost = #{tenderFrost,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=DECIMAL},
+      recharge = #{recharge,jdbcType=DECIMAL},
+      await_interest = #{awaitInterest,jdbcType=DECIMAL},
+      await_capital = #{awaitCapital,jdbcType=DECIMAL},
+      total_recharge = #{totalRecharge,jdbcType=DECIMAL},
+      total_earnings = #{totalEarnings,jdbcType=DECIMAL},
+      total_withdraw = #{totalWithdraw,jdbcType=DECIMAL},
+      return_amount = #{returnAmount,jdbcType=DECIMAL},
+      coupons_amount = #{couponsAmount,jdbcType=DECIMAL},
+       balance_cash = #{balanceCash,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

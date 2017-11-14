@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.common.persistence.mapper.basic.PushLogMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.common.persistence.model.basic.PushLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="push_tool" property="pushTool" jdbcType="INTEGER" />
+    <result column="push_object" property="pushObject" jdbcType="INTEGER" />
+    <result column="push_alias" property="pushAlias" jdbcType="VARCHAR" />
+    <result column="push_content" property="pushContent" jdbcType="VARCHAR" />
+    <result column="push_time" property="pushTime" jdbcType="TIMESTAMP" />
+    <result column="push_result" property="pushResult" jdbcType="VARCHAR" />
+    <result column="error_info" property="errorInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, push_tool, push_object, push_alias, push_content, push_time, push_result, error_info
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.common.persistence.model.basic.PushLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from common_push_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from common_push_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from common_push_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.common.persistence.model.basic.PushLogExample" >
+    delete from common_push_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.common.persistence.model.basic.PushLog" >
+    insert into common_push_log (id, push_tool, push_object, 
+      push_alias, push_content, push_time, 
+      push_result, error_info)
+    values (#{id,jdbcType=BIGINT}, #{pushTool,jdbcType=INTEGER}, #{pushObject,jdbcType=INTEGER}, 
+      #{pushAlias,jdbcType=VARCHAR}, #{pushContent,jdbcType=VARCHAR}, #{pushTime,jdbcType=TIMESTAMP}, 
+      #{pushResult,jdbcType=VARCHAR}, #{errorInfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.common.persistence.model.basic.PushLog" >
+    insert into common_push_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pushTool != null" >
+        push_tool,
+      </if>
+      <if test="pushObject != null" >
+        push_object,
+      </if>
+      <if test="pushAlias != null" >
+        push_alias,
+      </if>
+      <if test="pushContent != null" >
+        push_content,
+      </if>
+      <if test="pushTime != null" >
+        push_time,
+      </if>
+      <if test="pushResult != null" >
+        push_result,
+      </if>
+      <if test="errorInfo != null" >
+        error_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pushTool != null" >
+        #{pushTool,jdbcType=INTEGER},
+      </if>
+      <if test="pushObject != null" >
+        #{pushObject,jdbcType=INTEGER},
+      </if>
+      <if test="pushAlias != null" >
+        #{pushAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="pushContent != null" >
+        #{pushContent,jdbcType=VARCHAR},
+      </if>
+      <if test="pushTime != null" >
+        #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushResult != null" >
+        #{pushResult,jdbcType=VARCHAR},
+      </if>
+      <if test="errorInfo != null" >
+        #{errorInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.common.persistence.model.basic.PushLogExample" resultType="java.lang.Integer" >
+    select count(*) from common_push_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update common_push_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.pushTool != null" >
+        push_tool = #{record.pushTool,jdbcType=INTEGER},
+      </if>
+      <if test="record.pushObject != null" >
+        push_object = #{record.pushObject,jdbcType=INTEGER},
+      </if>
+      <if test="record.pushAlias != null" >
+        push_alias = #{record.pushAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pushContent != null" >
+        push_content = #{record.pushContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pushTime != null" >
+        push_time = #{record.pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pushResult != null" >
+        push_result = #{record.pushResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorInfo != null" >
+        error_info = #{record.errorInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update common_push_log
+    set id = #{record.id,jdbcType=BIGINT},
+      push_tool = #{record.pushTool,jdbcType=INTEGER},
+      push_object = #{record.pushObject,jdbcType=INTEGER},
+      push_alias = #{record.pushAlias,jdbcType=VARCHAR},
+      push_content = #{record.pushContent,jdbcType=VARCHAR},
+      push_time = #{record.pushTime,jdbcType=TIMESTAMP},
+      push_result = #{record.pushResult,jdbcType=VARCHAR},
+      error_info = #{record.errorInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.common.persistence.model.basic.PushLog" >
+    update common_push_log
+    <set >
+      <if test="pushTool != null" >
+        push_tool = #{pushTool,jdbcType=INTEGER},
+      </if>
+      <if test="pushObject != null" >
+        push_object = #{pushObject,jdbcType=INTEGER},
+      </if>
+      <if test="pushAlias != null" >
+        push_alias = #{pushAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="pushContent != null" >
+        push_content = #{pushContent,jdbcType=VARCHAR},
+      </if>
+      <if test="pushTime != null" >
+        push_time = #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushResult != null" >
+        push_result = #{pushResult,jdbcType=VARCHAR},
+      </if>
+      <if test="errorInfo != null" >
+        error_info = #{errorInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.common.persistence.model.basic.PushLog" >
+    update common_push_log
+    set push_tool = #{pushTool,jdbcType=INTEGER},
+      push_object = #{pushObject,jdbcType=INTEGER},
+      push_alias = #{pushAlias,jdbcType=VARCHAR},
+      push_content = #{pushContent,jdbcType=VARCHAR},
+      push_time = #{pushTime,jdbcType=TIMESTAMP},
+      push_result = #{pushResult,jdbcType=VARCHAR},
+      error_info = #{errorInfo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

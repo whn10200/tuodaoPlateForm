@@ -1,0 +1,41 @@
+##端口
+server:
+  port: 10036
+  tomcat:
+    ## Tomcat的并发请求处理数量=maxThreads + acceptCount
+    ## 最少备用线程数，默认初始化，默认为25
+    min-spare-threads: 50
+    ## 最大能接受的请求数，默认为150
+    max-threads: 500
+    ## 最大连接数，默认值 10000
+    max-connections: 20000
+    ## 等待处理的请求队列，默认为100，超过队列长度，服务器则拒绝客户端请求，直接返回403
+    accept-count: 200
+    connection-timeout: 20000
+
+##应用名  
+spring:
+  application:
+        name: biz-depository
+  cloud:
+    config:
+      profile: dev
+      label: develop20170831
+      uri: http://localhost:10006/
+##rabbit mq,消息队列
+  rabbitmq:
+    host: 192.168.0.226
+    port: 5673
+    username: admin
+    password: admin
+##日志
+logging:
+  config: classpath:logback-spring.xml
+  path: F:/log/bp/depository/
+  level:
+        com.tuodao.bp.depository: info
+
+
+
+
+

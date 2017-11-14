@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuodao.bp.traningcenter.db.mapper.basic.BorrowTenderMapper">
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.traningcenter.db.model.basic.BorrowTender">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="borrow_id" jdbcType="INTEGER" property="borrowId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="account" jdbcType="DECIMAL" property="account" />
+    <result column="pre_account" jdbcType="DECIMAL" property="preAccount" />
+    <result column="account_interest" jdbcType="DECIMAL" property="accountInterest" />
+    <result column="platform_interest" jdbcType="DECIMAL" property="platformInterest" />
+    <result column="tender_type" jdbcType="INTEGER" property="tenderType" />
+    <result column="channel" jdbcType="INTEGER" property="channel" />
+    <result column="tender_mode" jdbcType="INTEGER" property="tenderMode" />
+    <result column="invest_num" jdbcType="VARCHAR" property="investNum" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="add_ip" jdbcType="VARCHAR" property="addIp" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="borrow_nid" jdbcType="VARCHAR" property="borrowNid" />
+    <result column="choiceness_tender_id" jdbcType="INTEGER" property="choicenessTenderId" />
+    <result column="voucher_id" jdbcType="INTEGER" property="voucherId" />
+    <result column="voucher_money" jdbcType="DECIMAL" property="voucherMoney" />
+    <result column="fee_account" jdbcType="DECIMAL" property="feeAccount" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="voucher_coupon_id" jdbcType="INTEGER" property="voucherCouponId" />
+    <result column="voucher_coupon_money" jdbcType="DECIMAL" property="voucherCouponMoney" />
+    <result column="tender_tran_award" jdbcType="DECIMAL" property="tenderTranAward" />
+    <result column="tran_award_orderid" jdbcType="VARCHAR" property="tranAwardOrderid" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="auto_tender_id" jdbcType="INTEGER" property="autoTenderId" />
+  </resultMap>
+
+  <resultMap id="PlanBorrowResultMap" type="com.tuodao.bp.model.business.traningcenter.output.PlanBorrowTenderOutput">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="borrow_id" jdbcType="INTEGER" property="borrowId" />
+    <result column="account" jdbcType="DECIMAL" property="account" />
+    <result column="voucher_money" jdbcType="DECIMAL" property="voucherMoney" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="pre_account_interest" jdbcType="DECIMAL" property="preAllIntrest" />
+  </resultMap>
+  <resultMap id="UnderTender" type="com.tuodao.bp.model.business.traningcenter.output.UnderTenderOutput">
+    <result column="addTime" jdbcType="VARCHAR" property="addTime" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="borrowId" jdbcType="VARCHAR" property="borrowId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="investNum" jdbcType="VARCHAR" property="investNum" />
+    <result column="showAncun" jdbcType="INTEGER" property="showAncun" />
+  </resultMap>
+
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    t.id, t.user_id, t.borrow_id, t.status, t.account, t.pre_account, t.account_interest, t.platform_interest,
+    t.tender_type, t.channel, t.tender_mode, t.invest_num, t.add_time, t.update_time, t.add_ip, t.remarks,
+    t.borrow_nid, t.choiceness_tender_id, t.voucher_id, t.voucher_money, t.order_id, t.voucher_coupon_id,
+    t.tender_tran_award, t.tran_award_orderid,t.mobile,t.auto_tender_id,t.fee_account
+  </sql>
+  <sql id="BaseColumnList1">
+    borrow_id, status, account_interest, platform_interest, tender_tran_award, add_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from borrow_tender t
+    where t.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from borrow_tender t
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowTender">
+    <!--
+      @create by mybatis
+    -->
+    insert into borrow_tender (id, user_id, borrow_id, 
+      status, account, pre_account, 
+      account_interest, platform_interest, tender_type, 
+      channel, tender_mode, invest_num, 
+      add_time, update_time, add_ip, 
+      remarks, borrow_nid, choiceness_tender_id, 
+      voucher_id, voucher_money, order_id, 
+      voucher_coupon_id, tender_tran_award, tran_award_orderid,mobile,auto_tender_id,fee_account
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{borrowId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{account,jdbcType=DECIMAL}, #{preAccount,jdbcType=DECIMAL}, 
+      #{accountInterest,jdbcType=DECIMAL}, #{platformInterest,jdbcType=DECIMAL}, #{tenderType,jdbcType=INTEGER}, 
+      #{channel,jdbcType=INTEGER}, #{tenderMode,jdbcType=INTEGER}, #{investNum,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{addIp,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{borrowNid,jdbcType=VARCHAR}, #{choicenessTenderId,jdbcType=INTEGER}, 
+      #{voucherId,jdbcType=INTEGER}, #{voucherMoney,jdbcType=DECIMAL}, #{orderId,jdbcType=VARCHAR}, 
+      #{voucherCouponId,jdbcType=INTEGER}, #{tenderTranAward,jdbcType=DECIMAL}, #{tranAwardOrderid,jdbcType=VARCHAR},
+      #{mobile,jdbcType=VARCHAR},#{autoTenderId,jdbcType=INTEGER}, #{feeAccount,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowTender" useGeneratedKeys="true">
+      <selectKey keyProperty="id" resultType="integer" order="AFTER">select LAST_INSERT_ID()</selectKey>
+      <!--
+        @create by mybatis
+      -->
+    insert into borrow_tender
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="borrowId != null">
+        borrow_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="preAccount != null">
+        pre_account,
+      </if>
+      <if test="accountInterest != null">
+        account_interest,
+      </if>
+      <if test="platformInterest != null">
+        platform_interest,
+      </if>
+      <if test="tenderType != null">
+        tender_type,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="tenderMode != null">
+        tender_mode,
+      </if>
+      <if test="investNum != null">
+        invest_num,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="addIp != null">
+        add_ip,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="borrowNid != null">
+        borrow_nid,
+      </if>
+      <if test="choicenessTenderId != null">
+        choiceness_tender_id,
+      </if>
+      <if test="voucherId != null">
+        voucher_id,
+      </if>
+      <if test="voucherMoney != null">
+        voucher_money,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="voucherCouponId != null">
+        voucher_coupon_id,
+      </if>
+      <if test="tenderTranAward != null">
+        tender_tran_award,
+      </if>
+      <if test="tranAwardOrderid != null">
+        tran_award_orderid,
+      </if>
+      <if test="mobile != null and mobile != ''">
+          mobile,
+      </if>
+        <if test="autoTenderId != null">
+            auto_tender_id ,
+        </if>
+        <if test="feeAccount != null">
+            fee_account ,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowId != null">
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="preAccount != null">
+        #{preAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountInterest != null">
+        #{accountInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="platformInterest != null">
+        #{platformInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="tenderType != null">
+        #{tenderType,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=INTEGER},
+      </if>
+      <if test="tenderMode != null">
+        #{tenderMode,jdbcType=INTEGER},
+      </if>
+      <if test="investNum != null">
+        #{investNum,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addIp != null">
+        #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null">
+        #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="choicenessTenderId != null">
+        #{choicenessTenderId,jdbcType=INTEGER},
+      </if>
+      <if test="voucherId != null">
+        #{voucherId,jdbcType=INTEGER},
+      </if>
+      <if test="voucherMoney != null">
+        #{voucherMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="voucherCouponId != null">
+        #{voucherCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderTranAward != null">
+        #{tenderTranAward,jdbcType=DECIMAL},
+      </if>
+      <if test="tranAwardOrderid != null">
+        #{tranAwardOrderid,jdbcType=VARCHAR},
+      </if>
+        <if test="mobile != null and mobile != ''">
+            #{mobile},
+        </if>
+        <if test="autoTenderId != null">
+            #{autoTenderId},
+        </if>
+        <if test="feeAccount != null">
+            #{feeAccount}
+        </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowTender">
+    <!--
+      @create by mybatis
+    -->
+    update borrow_tender
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowId != null">
+        borrow_id = #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="preAccount != null">
+        pre_account = #{preAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountInterest != null">
+        account_interest = #{accountInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="platformInterest != null">
+        platform_interest = #{platformInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="tenderType != null">
+        tender_type = #{tenderType,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=INTEGER},
+      </if>
+      <if test="tenderMode != null">
+        tender_mode = #{tenderMode,jdbcType=INTEGER},
+      </if>
+      <if test="investNum != null">
+        invest_num = #{investNum,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addIp != null">
+        add_ip = #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null">
+        borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="choicenessTenderId != null">
+        choiceness_tender_id = #{choicenessTenderId,jdbcType=INTEGER},
+      </if>
+      <if test="voucherId != null">
+        voucher_id = #{voucherId,jdbcType=INTEGER},
+      </if>
+      <if test="voucherMoney != null">
+        voucher_money = #{voucherMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="voucherCouponId != null">
+        voucher_coupon_id = #{voucherCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderTranAward != null">
+        tender_tran_award = #{tenderTranAward,jdbcType=DECIMAL},
+      </if>
+      <if test="tranAwardOrderid != null">
+        tran_award_orderid = #{tranAwardOrderid,jdbcType=VARCHAR},
+      </if>
+        <if test="voucherCouponMoney != null">
+            voucher_coupon_money = #{voucherCouponMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="mobile != null and mobile != ''">
+            mobile = #{mobile,jdbcType=VARCHAR},
+        </if>
+        <if test="autoTenderId != null">
+            auto_tender_id = #{autoTenderId,jdbcType=INTEGER},
+        </if>
+        <if test="feeAccount != null">
+            fee_account = #{feeAccount,jdbcType=DECIMAL},
+        </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowTender">
+    <!--
+      @create by mybatis
+    -->
+    update borrow_tender
+    set user_id = #{userId,jdbcType=VARCHAR},
+      borrow_id = #{borrowId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      account = #{account,jdbcType=DECIMAL},
+      pre_account = #{preAccount,jdbcType=DECIMAL},
+      account_interest = #{accountInterest,jdbcType=DECIMAL},
+      platform_interest = #{platformInterest,jdbcType=DECIMAL},
+      tender_type = #{tenderType,jdbcType=INTEGER},
+      channel = #{channel,jdbcType=INTEGER},
+      tender_mode = #{tenderMode,jdbcType=INTEGER},
+      invest_num = #{investNum,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      add_ip = #{addIp,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      choiceness_tender_id = #{choicenessTenderId,jdbcType=INTEGER},
+      voucher_id = #{voucherId,jdbcType=INTEGER},
+      voucher_money = #{voucherMoney,jdbcType=DECIMAL},
+      fee_account = #{feeAccount,jdbcType=DECIMAL},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      voucher_coupon_id = #{voucherCouponId,jdbcType=INTEGER},
+      tender_tran_award = #{tenderTranAward,jdbcType=DECIMAL},
+      tran_award_orderid = #{tranAwardOrderid,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      auto_tender_id = #{autoTenderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUserId" resultType="BorrowTender">
+    SELECT
+    <include refid="BaseColumnList"/>
+    FROM borrow_tender t
+    <where>
+        t.status in (2,5,6,7)
+      <if test="userId != null and userId != ''">
+        and t.user_id = #{userId}
+      </if>
+    </where>
+    order by t.add_time asc
+  </select>
+
+  <select id="selectBorrowTenderByUserIdAndStatus" resultType="BorrowTender">
+    SELECT
+    <include refid="BaseColumnList1"/>
+    FROM borrow_tender
+    <where>
+      <if test="userId != null and userId != ''">
+        and user_id = #{userId}
+      </if>
+      <if test="status != null">
+        <choose>
+          <when test="status = 1">
+            and status in (0, 1)
+          </when>
+          <when test="status = 2">
+            and status = 2
+          </when>
+          <when test="status = 3">
+            and status = 5
+          </when>
+          <otherwise>
+            and status in (0, 1, 2, 5)
+          </otherwise>
+        </choose>
+      </if>
+      and tender_type = 1
+    </where>
+    order by add_time desc
+  </select>
+    <!-- 根据条件获取投标列表-->
+    <select id="getList" parameterType="com.tuodao.bp.traningcenter.db.model.basic.BorrowTenderQuery"  resultMap="BaseResultMap">
+        select <include refid="BaseColumnList" /> from borrow_tender t where 1=1
+
+        <if test="userId != null and userId != ''">
+            and t.user_id = #{userId}
+        </if>
+        <if test="borrowId != null">
+            and t.borrow_id = #{borrowId}
+        </if>
+        <if test="status != null">
+            and t.status = #{status}
+        </if>
+
+        <if test="filterFail == 1">
+            and t.status in (0,1,2,5)
+        </if>
+
+        <if test="tenderType != null">
+            and t.tender_type = #{tenderType}
+        </if>
+        <if test="channel != null">
+            and t.channel = #{channel}
+        </if>
+        <if test="tenderMode != null">
+            and t.tender_mode = #{tenderMode}
+        </if>
+        <if test="orderId != null and orderId != ''">
+            and t.order_id = #{orderId}
+        </if>
+        <if test="startTime != null">
+            and t.add_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and t.add_time &lt;#{endTime}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            and t.mobile = #{mobile}
+        </if>
+        <if test="autoTenderId != null">
+            and t.auto_tender_id = #{autoTenderId}
+        </if>
+        <if test="id != null">
+            and t.id = #{id}
+        </if>
+        order by t.add_time desc
+    </select>
+
+    <!-- 批量更新投标成功状态 -->
+    <update id="updateTenderStatusBatch" parameterType="BorrowTender">
+        update borrow_tender
+        <set>
+            status = #{status}
+            <if test="isTransferred != null">
+                ,is_transferred = #{isTransferred}
+            </if>
+            <if test="transferTime != null">
+                ,transfer_time = #{transferTime}
+            </if>
+        </set>
+        where pre_account >= 10000 and  id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+             #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 批量更新投标成功状态 -->
+    <update id="updateTenderStatusBatch2" parameterType="Integer">
+        update borrow_tender
+        <set>
+            status = #{status}
+            <if test="isTransferred != null">
+                ,is_transferred = #{isTransferred}
+            </if>
+            <if test="transferTime != null">
+                ,transfer_time = #{transferTime}
+            </if>
+        </set>
+        where pre_account &gt;= 10000 and  id in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!-- 查询投标中与投标成功的列表 -->
+    <select id="getListByBorrowId" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList" />
+        from borrow_tender t where t.status in (0,1) and t.borrow_id = #{borrowId}
+
+    </select>
+
+
+  <select id="selectSumTenderByTenderId" resultType="java.lang.Double" parameterType="java.lang.Integer">
+    select convert(IFNULL(sum(account)/100,0),decimal(10,2)) as sumPreAccount from borrow_tender where
+     status=1 and choiceness_tender_id in(select id from borrow_choiceness_tender where id=#{tenderId} or before_tender_id=#{tenderId})
+  </select>
+
+  <select id="selectTenderListByChoicenessTenderId" resultMap="UnderTender" parameterType="java.lang.Integer">
+    select convert(IFNULL(account/100,0),decimal(10,2)) as account,borrow_id as borrowId,invest_num as investNum,DATE_FORMAT(add_time,"%Y-%m-%d %H:%i") as addTime
+    ,case when invest_num is null then '0' else '1' end as showAncun,status from borrow_tender where
+     choiceness_tender_id in(select id from borrow_choiceness_tender where id=#{tenderId} or before_tender_id=#{tenderId})
+  </select>
+
+
+  <select id="selectTenderListOnReverify" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="BaseColumnList" />
+     from borrow_tender t where choiceness_tender_id in
+      (select id from borrow_choiceness_tender where borrow_id = #{borrowId} or before_tender_id in(select id from borrow_choiceness_tender where borrow_id= #{borrowId} and status=4))
+  </select>
+
+
+  <!-- 查询底层标的投标 理财计划底层标的复审查询 -->
+  <select id="selectTenderListOnOrgReverify" resultMap="PlanBorrowResultMap" parameterType="java.lang.Integer">
+    select borrowTender.id,borrowTender.voucher_money,borrowTender.account,borrowTender.user_id,borrowTender.order_id,tender.borrow_id
+    ,tender.pre_account_interest as preAllIntrest
+      from borrow_tender borrowTender,borrow_choiceness_tender tender
+    where borrowTender.borrow_id = #{borrowId} and borrowTender.status=1 AND  borrowTender.tender_type=2  and borrowTender.choiceness_tender_id = tender.id
+  </select>
+
+
+  <!-- 查询底层标的投标 理财计划转让标的复审查询 -->
+  <select id="selectTenderListOnDevReverify" resultMap="PlanBorrowResultMap" parameterType="java.lang.Integer">
+    select borrowTender.id,borrowTender.voucher_money,borrowTender.account,borrowTender.order_id,borrowTender.user_id,tender.borrow_id
+    ,tender.pre_account_interest as preAllIntrest
+    from borrow_tender borrowTender,borrow_choiceness_tender tender
+    where borrowTender.borrow_id = #{borrowId} and borrowTender.status=1 AND  borrowTender.tender_type=3  and borrowTender.choiceness_tender_id = tender.id
+  </select>
+
+
+  <!-- 查询底层标的投标 理财计划转让标的复审查询 -->
+  <select id="selectTenderListOnDevReverifyPlay" resultMap="PlanBorrowResultMap" parameterType="java.lang.Integer">
+    select borrowTender.id,borrowTender.voucher_money,borrowTender.account,borrowTender.order_id,borrowTender.user_id,borrowTender.borrow_id
+    ,0 as preAllIntrest
+    from borrow_tender borrowTender,borrow_choiceness_tender tender
+    where borrowTender.borrow_id = #{borrowId} and borrowTender.status=1 AND  borrowTender.tender_type=4
+  </select>
+
+    <!-- 根据状态获取投标列表 -->
+    <select id="getListByStatus" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from borrow_tender t where t.status = #{status}
+        <if test="tenderType != null">
+            and t.tender_type = #{tenderType}
+        </if>
+        <if test="borrowId != null">
+            and t.borrow_id = #{borrowId}
+        </if>
+
+    </select>
+    <!-- 投标最多的人-->
+    <select id="getMaxBorrowTender" resultMap="BaseResultMap">
+        select s.id,s.pre_account,s.mobile,s.user_id,s.channel from (select <include refid="BaseColumnList"/>
+        from borrow_tender t where t.status = 2 and t.borrow_id = #{borrowId} order by t.pre_account desc) s limit 1
+    </select>
+    <!-- 最后投标的人 -->
+    <select id="getLastBorrowTender" resultMap="BaseResultMap">
+        select s.id,s.pre_account,s.mobile,s.user_id from (select <include refid="BaseColumnList"/>
+        from borrow_tender t where t.status = 2 and t.borrow_id = #{borrowId} order by t.update_time desc) s limit 1
+    </select>
+
+    <!-- 获取用户投标信息 -->
+    <select id="getByUserIdAndBorrowId" resultType="long">
+        select count(1)
+        from borrow_tender t where (t.status = 0 or t.status = 1) and t.borrow_id = #{borrowId} and t.user_id = #{userId}
+    </select>
+    <!-- 用户投标成功次数 包含转让等 -->
+    <select id="getUserTenderCount" resultType="long">
+        select count(1) from borrow_tender t where t.status in (2,5,6,7) and tender_type = 0 and t.user_id = #{userId}
+
+    </select>
+
+    <update id="updateOrderId" >
+        update borrow_tender set order_id = #{newOrderId} where order_id = #{oldOrderId}
+    </update>
+
+    <!-- 查询用户投标列表 查询条件 状态,开始时间 结束时间 投标信息包含散标与精选计划上层投标 -->
+    <select id="getBorrowList" resultMap="BaseResultMap">
+        select s.* from (select id,add_time,pre_account,account_interest,status,voucher_id,voucher_coupon_id,0 tender_type,borrow_id
+        from  borrow_tender
+        <where>
+            choiceness_tender_id = 0
+            <if test="status != null and status == 0">
+                and status = 0 or status = 1
+            </if>
+            <if test="status != null and status == 1">
+                and status == 2
+            </if>
+            <if test="status != null and status == 2">
+                and status = 5
+            </if>
+            and user_id = #{userId}
+        </where>
+        union all
+        select id,add_time,pre_account,pre_account_interest,status,voucher_id,voucher_coupon_id,1 tender_type,borrow_id
+        from  borrow_choiceness_tender
+        <where>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="startTime != null">
+                and add_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null">
+                and add_time &lt;#{endTime}
+            </if>
+            and user_id = #{userId}
+        </where>
+        ) s order by s.add_time desc
+    </select>
+
+    <!-- 更新投标状态 -->
+    <update id="updateTenderStatus" >
+        update borrow_tender set status = #{status},update_time = now(),remarks = #{remarks}
+        where id = #{tenderId}
+    </update>
+
+    <select id="getByOrderId" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from borrow_tender t where t.order_id = #{orderId}
+    </select>
+
+  <!-- 查询投资该理财计划的所有投标 -->
+  <select id="getBorrowTenderByProductId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="BaseColumnList"/>
+    from borrow_tender t where t.choiceness_tender_id in(select id from borrow_choiceness_tender where borrow_id=#{borrowId})
+  </select>
+
+    <select id="getByChoicenessTenderId" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from borrow_tender t where t.status = 0 or t.status = 1 and t.choiceness_tender_id = #{tenderId}
+    </select>
+
+
+
+  <update id="updateBatch" parameterType="java.util.List">
+    <foreach collection="list" item="item" separator=";">
+      UPDATE borrow_tender
+      <set>
+        <if test="userId != null">
+          user_id = #{item.userId,jdbcType=VARCHAR},
+        </if>
+        <if test="borrowId != null">
+          borrow_id = #{item.borrowId,jdbcType=INTEGER},
+        </if>
+        <if test="status != null">
+          status = #{item.status,jdbcType=INTEGER},
+        </if>
+        <if test="account != null">
+          account = #{item.account,jdbcType=DECIMAL},
+        </if>
+        <if test="preAccount != null">
+          pre_account = #{item.preAccount,jdbcType=DECIMAL},
+        </if>
+        <if test="accountInterest != null">
+          account_interest = #{item.accountInterest,jdbcType=DECIMAL},
+        </if>
+        <if test="platformInterest != null">
+          platform_interest = #{item.platformInterest,jdbcType=DECIMAL},
+        </if>
+        <if test="tenderType != null">
+          tender_type = #{item.tenderType,jdbcType=INTEGER},
+        </if>
+        <if test="channel != null">
+          channel = #{item.channel,jdbcType=INTEGER},
+        </if>
+        <if test="tenderMode != null">
+          tender_mode = #{item.item.tenderMode,jdbcType=INTEGER},
+        </if>
+        <if test="investNum != null">
+          invest_num = #{item.investNum,jdbcType=VARCHAR},
+        </if>
+        <if test="addTime != null">
+          add_time = #{item.addTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null">
+          update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="addIp != null">
+          add_ip = #{item.addIp,jdbcType=VARCHAR},
+        </if>
+        <if test="remarks != null">
+          remarks = #{item.remarks,jdbcType=VARCHAR},
+        </if>
+        <if test="borrowNid != null">
+          borrow_nid = #{item.borrowNid,jdbcType=VARCHAR},
+        </if>
+        <if test="choicenessTenderId != null">
+          choiceness_tender_id = #{item.choicenessTenderId,jdbcType=INTEGER},
+        </if>
+        <if test="voucherId != null">
+          voucher_id = #{item.voucherId,jdbcType=INTEGER},
+        </if>
+        <if test="voucherMoney != null">
+          voucher_money = #{item.voucherMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="orderId != null">
+          order_id = #{item.orderId,jdbcType=VARCHAR},
+        </if>
+        <if test="voucherCouponId != null">
+          voucher_coupon_id = #{item.voucherCouponId,jdbcType=INTEGER},
+        </if>
+        <if test="tenderTranAward != null">
+          tender_tran_award = #{item.tenderTranAward,jdbcType=DECIMAL},
+        </if>
+        <if test="tranAwardOrderid != null">
+          tran_award_orderid = #{item.tranAwardOrderid,jdbcType=VARCHAR},
+        </if>
+        <if test="voucherCouponMoney != null">
+          voucher_coupon_money = #{item.voucherCouponMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="mobile != null and mobile != ''">
+          mobile = #{item.mobile,jdbcType=VARCHAR},
+        </if>
+        <if test="autoTenderId != null">
+          auto_tender_id = #{item.autoTenderId,jdbcType=INTEGER}
+        </if>
+          <if test="feeAccount != null">
+              fee_account = #{item.feeAccount,jdbcType=DECIMAL}
+          </if>
+      </set>
+      where id = #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+
+  <!--理财计划到期查询还处于复审的投资成功的记录 -->
+  <select id="selectListByNoReverify" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  select
+  <include refid="BaseColumnList" />
+   from  borrow_tender where choiceness_tender_id in(select id from borrow_choiceness_tender where borrow_id = #{borrowid}) and status=1
+  </select>
+
+    <select id="getTenderVoucherCount" resultType="java.math.BigDecimal">
+        select COALESCE(sum(voucher_money),0) from borrow_tender where voucher_id > 0 and status in (2,5,6,7) and user_id = #{userId}
+    </select>
+
+    <select id="getProductTender" resultMap="BaseResultMap">
+      SELECT <include refid="BaseColumnList"/>
+        from borrow_tender t where t.status in (1,2,5,6,7) and  t.borrow_id = #{productId} order by t.add_time asc
+    </select>
+
+    <select id="getUserTenderFrost" resultType="java.math.BigDecimal">
+        select COALESCE(sum(account),0) from borrow_tender where status in (0,1) AND user_id = #{userId}
+    </select>
+
+</mapper>

@@ -1,0 +1,60 @@
+ <!DOCTYPE generatorConfiguration 
+      PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+      "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="generatorTables" targetRuntime="MyBatis3">
+	
+		<plugin type="com.tuodao.hechuan.mybatis.plugin.SerializableModelExamplePlugin"></plugin>
+		
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://72.127.2.158:3306/finance?useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="root" password="tuodao_mysql">
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		
+		 <javaModelGenerator targetPackage="com.tuodao.bp.operation.persistence.model.basic"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="xml.basic" targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER"
+							 targetPackage="com.tuodao.bp.operation.persistence.mapper.basic" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		<!--<table tableName="op_banner_manager" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_content_manager" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_invite_award_record" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_cooperation" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_invite_award_record" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_invite_record" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_invite_rule" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_new_person_task" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_problems" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<table tableName="op_score_draw_prize" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>
+		<!--<table tableName="op_score_mall" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_score_task" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_user_discount" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_user_draw_prize_result" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_user_invite_info" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_user_score" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_user_score_detail" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_user_task_relation" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_user_sing_history" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_user_operation_data" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="op_user_discount" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+	</context>
+
+</generatorConfiguration>

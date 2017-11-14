@@ -1,0 +1,4 @@
+# autoconfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.tuodao.bp.db.datasource.DataSourceConfiguration,\
+com.tuodao.bp.db.EnablePageAutoConfiguration

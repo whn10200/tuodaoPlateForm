@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.product.db.mapper.basic.BorrowExpandMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.product.db.model.basic.BorrowExpand" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+    <result column="repay_source" property="repaySource" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="census" property="census" jdbcType="VARCHAR" />
+    <result column="car_brand" property="carBrand" jdbcType="VARCHAR" />
+    <result column="car_model" property="carModel" jdbcType="VARCHAR" />
+    <result column="buy_time" property="buyTime" jdbcType="TIMESTAMP" />
+    <result column="buy_price" property="buyPrice" jdbcType="DECIMAL" />
+    <result column="drive_kilometers" property="driveKilometers" jdbcType="DECIMAL" />
+    <result column="second_car_price" property="secondCarPrice" jdbcType="DECIMAL" />
+    <result column="explaind_type" property="explaindType" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tuodao.bp.product.db.model.basic.BorrowExpandWithBLOBs" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="intro" property="intro" jdbcType="LONGVARCHAR" />
+    <result column="explaind" property="explaind" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, product_id, product_code, repay_source, name, sex, age, job, education, census, 
+    car_brand, car_model, buy_time, buy_price, drive_kilometers, second_car_price, explaind_type, 
+    add_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    description, intro, explaind
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.tuodao.bp.product.db.model.basic.BorrowExpandExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from borrow_expand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.product.db.model.basic.BorrowExpandExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from borrow_expand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from borrow_expand
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from borrow_expand
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowExpandExample" >
+    delete from borrow_expand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.product.db.model.basic.BorrowExpandWithBLOBs" >
+    insert into borrow_expand (id, product_id, product_code, 
+      repay_source, name, sex, 
+      age, job, education, 
+      census, car_brand, car_model, 
+      buy_time, buy_price, drive_kilometers, 
+      second_car_price, explaind_type, add_time, 
+      description, intro, explaind
+      )
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, 
+      #{repaySource,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{age,jdbcType=INTEGER}, #{job,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
+      #{census,jdbcType=VARCHAR}, #{carBrand,jdbcType=VARCHAR}, #{carModel,jdbcType=VARCHAR}, 
+      #{buyTime,jdbcType=TIMESTAMP}, #{buyPrice,jdbcType=DECIMAL}, #{driveKilometers,jdbcType=DECIMAL}, 
+      #{secondCarPrice,jdbcType=DECIMAL}, #{explaindType,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=LONGVARCHAR}, #{intro,jdbcType=LONGVARCHAR}, #{explaind,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.product.db.model.basic.BorrowExpandWithBLOBs" >
+    insert into borrow_expand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productCode != null" >
+        product_code,
+      </if>
+      <if test="repaySource != null" >
+        repay_source,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="job != null" >
+        job,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="census != null" >
+        census,
+      </if>
+      <if test="carBrand != null" >
+        car_brand,
+      </if>
+      <if test="carModel != null" >
+        car_model,
+      </if>
+      <if test="buyTime != null" >
+        buy_time,
+      </if>
+      <if test="buyPrice != null" >
+        buy_price,
+      </if>
+      <if test="driveKilometers != null" >
+        drive_kilometers,
+      </if>
+      <if test="secondCarPrice != null" >
+        second_car_price,
+      </if>
+      <if test="explaindType != null" >
+        explaind_type,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="intro != null" >
+        intro,
+      </if>
+      <if test="explaind != null" >
+        explaind,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null" >
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repaySource != null" >
+        #{repaySource,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="census != null" >
+        #{census,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrand != null" >
+        #{carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carModel != null" >
+        #{carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="buyTime != null" >
+        #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyPrice != null" >
+        #{buyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="driveKilometers != null" >
+        #{driveKilometers,jdbcType=DECIMAL},
+      </if>
+      <if test="secondCarPrice != null" >
+        #{secondCarPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="explaindType != null" >
+        #{explaindType,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="intro != null" >
+        #{intro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="explaind != null" >
+        #{explaind,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowExpandExample" resultType="java.lang.Integer" >
+    select count(*) from borrow_expand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update borrow_expand
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productCode != null" >
+        product_code = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repaySource != null" >
+        repay_source = #{record.repaySource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.age != null" >
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.job != null" >
+        job = #{record.job,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null" >
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.census != null" >
+        census = #{record.census,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carBrand != null" >
+        car_brand = #{record.carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carModel != null" >
+        car_model = #{record.carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyTime != null" >
+        buy_time = #{record.buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.buyPrice != null" >
+        buy_price = #{record.buyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.driveKilometers != null" >
+        drive_kilometers = #{record.driveKilometers,jdbcType=DECIMAL},
+      </if>
+      <if test="record.secondCarPrice != null" >
+        second_car_price = #{record.secondCarPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.explaindType != null" >
+        explaind_type = #{record.explaindType,jdbcType=INTEGER},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.intro != null" >
+        intro = #{record.intro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.explaind != null" >
+        explaind = #{record.explaind,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update borrow_expand
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      repay_source = #{record.repaySource,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      age = #{record.age,jdbcType=INTEGER},
+      job = #{record.job,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      census = #{record.census,jdbcType=VARCHAR},
+      car_brand = #{record.carBrand,jdbcType=VARCHAR},
+      car_model = #{record.carModel,jdbcType=VARCHAR},
+      buy_time = #{record.buyTime,jdbcType=TIMESTAMP},
+      buy_price = #{record.buyPrice,jdbcType=DECIMAL},
+      drive_kilometers = #{record.driveKilometers,jdbcType=DECIMAL},
+      second_car_price = #{record.secondCarPrice,jdbcType=DECIMAL},
+      explaind_type = #{record.explaindType,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      intro = #{record.intro,jdbcType=LONGVARCHAR},
+      explaind = #{record.explaind,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update borrow_expand
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      repay_source = #{record.repaySource,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      age = #{record.age,jdbcType=INTEGER},
+      job = #{record.job,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      census = #{record.census,jdbcType=VARCHAR},
+      car_brand = #{record.carBrand,jdbcType=VARCHAR},
+      car_model = #{record.carModel,jdbcType=VARCHAR},
+      buy_time = #{record.buyTime,jdbcType=TIMESTAMP},
+      buy_price = #{record.buyPrice,jdbcType=DECIMAL},
+      drive_kilometers = #{record.driveKilometers,jdbcType=DECIMAL},
+      second_car_price = #{record.secondCarPrice,jdbcType=DECIMAL},
+      explaind_type = #{record.explaindType,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.product.db.model.basic.BorrowExpandWithBLOBs" >
+    update borrow_expand
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null" >
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repaySource != null" >
+        repay_source = #{repaySource,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="job != null" >
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="census != null" >
+        census = #{census,jdbcType=VARCHAR},
+      </if>
+      <if test="carBrand != null" >
+        car_brand = #{carBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="carModel != null" >
+        car_model = #{carModel,jdbcType=VARCHAR},
+      </if>
+      <if test="buyTime != null" >
+        buy_time = #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyPrice != null" >
+        buy_price = #{buyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="driveKilometers != null" >
+        drive_kilometers = #{driveKilometers,jdbcType=DECIMAL},
+      </if>
+      <if test="secondCarPrice != null" >
+        second_car_price = #{secondCarPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="explaindType != null" >
+        explaind_type = #{explaindType,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="intro != null" >
+        intro = #{intro,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="explaind != null" >
+        explaind = #{explaind,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tuodao.bp.product.db.model.basic.BorrowExpandWithBLOBs" >
+    update borrow_expand
+    set product_id = #{productId,jdbcType=INTEGER},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      repay_source = #{repaySource,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      job = #{job,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      census = #{census,jdbcType=VARCHAR},
+      car_brand = #{carBrand,jdbcType=VARCHAR},
+      car_model = #{carModel,jdbcType=VARCHAR},
+      buy_time = #{buyTime,jdbcType=TIMESTAMP},
+      buy_price = #{buyPrice,jdbcType=DECIMAL},
+      drive_kilometers = #{driveKilometers,jdbcType=DECIMAL},
+      second_car_price = #{secondCarPrice,jdbcType=DECIMAL},
+      explaind_type = #{explaindType,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=LONGVARCHAR},
+      intro = #{intro,jdbcType=LONGVARCHAR},
+      explaind = #{explaind,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.product.db.model.basic.BorrowExpand" >
+    update borrow_expand
+    set product_id = #{productId,jdbcType=INTEGER},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      repay_source = #{repaySource,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      job = #{job,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      census = #{census,jdbcType=VARCHAR},
+      car_brand = #{carBrand,jdbcType=VARCHAR},
+      car_model = #{carModel,jdbcType=VARCHAR},
+      buy_time = #{buyTime,jdbcType=TIMESTAMP},
+      buy_price = #{buyPrice,jdbcType=DECIMAL},
+      drive_kilometers = #{driveKilometers,jdbcType=DECIMAL},
+      second_car_price = #{secondCarPrice,jdbcType=DECIMAL},
+      explaind_type = #{explaindType,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.operation.persistence.mapper.biz.BizOpWelfareActivityMapper">
+
+    <select id="selectOpWelfareActivityListByCode" parameterType="java.lang.String"
+            resultType="com.tuodao.bp.operation.persistence.model.biz.BizOpWelfareActivity">
+        SELECT
+            t1.code						AS welfareActivityCode,
+            t1. NAME 					AS welfareActivityName,
+            t1.effect_date 		        AS effectDate,
+            t1.invalid_date 	        AS invalidDate,
+            t3.discount_type            AS discountType,
+            t2.quantity 			    AS quantity,
+            t3.id 						AS couponId,
+            t3.discount_title           AS discountTitle,
+            t3.discount_available       AS discountAvailable,
+            t3.money_limit 		        AS moneyLimit,
+            t3.date_limit 		        AS dateLimit,
+            t3.effect_day 		        AS effectDay,
+            t3.remark 				    AS remark
+        FROM
+            op_welfare_activity t1
+            LEFT JOIN op_welfare_coupon_ref t2 ON t1.code = t2.welfare_activity_code
+            LEFT JOIN op_coupon t3 ON t2.coupon_id = t3.id
+        WHERE
+            t1.code = #{welfareActivityCode,jdbcType=VARCHAR}
+            AND t1.is_del = 1
+            AND t2.is_del = 1
+            AND t3.is_del = 1
+    </select>
+</mapper>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.useraccount.persistence.mapper.biz.BizUserAccountMapper">
+
+    <select id="selectUserAccountInfo" resultType="com.tuodao.bp.model.business.useraccount.UserAccountInfo">
+        SELECT
+            ui.user_id             AS userId,
+            ui.user_name           AS userName,
+            ui.mobile              AS mobile,
+            ui.pw_security_level      pwSecurityLevel,
+            ui.avatar_url          AS avatarUrl,
+            ui.direct_inviter_no   AS directInviterNo,
+            ui.indirect_inviter_no AS indirectInviterNo,
+            ui.user_status         AS userStatus,
+            ui.user_type           AS userType,
+            ui.invest_flag         AS investFlag,
+            ui.invest_user_type    AS investUserType,
+            ui.is_newbie           AS isNewbie,
+            ui.is_open_deposit     AS isOpenDeposit,
+            ui.is_bind_bank        AS isBindBank,
+            ui.source_channel      AS sourceChannel,
+            ui.invite_code         AS inviteCode,
+            ui.invite_type         AS inviteType,
+            ui.gmt_create          AS registerDate,
+            af.deposit_no          AS depositNo,
+            af.total_fund          AS totalFund,
+            af.total_earnings      AS totalEarnings,
+            af.due_in_fund         AS dueInFund,
+            af.usable_fund         AS usableFund,
+            af.due_in_principal    AS dueInPrincipal,
+            af.due_in_interest     AS dueInInterest,
+            af.freeze_fund         AS freezeFund,
+            af.can_withdraw_fund   AS canWithdrawFund,
+            af.total_recharge      AS totalRecharge,
+            af.total_withdraw      AS totalWithdraw,
+            af.investment_times    AS investmentTimes,
+            af.investment_amount   AS investmentAmount,
+            af.return_amount       AS returnAmount
+        FROM
+            user_info ui
+            LEFT JOIN account_finance af ON ui.user_id = af.user_id
+        WHERE
+            ui.user_id = #{userId,jdbcType=VARCHAR}
+            AND ui.is_del = 1
+            AND af.is_del = 1
+    </select>
+
+    <select id="selectUserFinancialPlanner"
+            resultType="com.tuodao.bp.useraccount.persistence.model.biz.FinancialPlannerStatistics">
+        SELECT
+            count(1)                          AS vip1total,
+            IFNULL(SUM(af.due_in_fund), 0.00) AS dueInFundTotal
+        FROM
+            `user_info` ui
+            LEFT JOIN user_vip_info uvi ON ui.user_id = uvi.user_id
+            LEFT JOIN account_finance af ON ui.user_id = af.user_id
+        WHERE
+            ui.direct_inviter_no = #{userId,jdbcType=VARCHAR}
+            AND ui.is_del = 1
+            AND uvi.vip_level >= 1;
+    </select>
+
+    <select id="selectUserAccountInfoList" resultType="com.tuodao.bp.model.business.useraccount.UserAccountInfo">
+        SELECT
+            ui.user_id             AS userId,
+            ui.user_name           AS userName,
+            ui.mobile              AS mobile,
+            ui.pw_security_level      pwSecurityLevel,
+            ui.avatar_url          AS avatarUrl,
+            ui.direct_inviter_no   AS directInviterNo,
+            ui.indirect_inviter_no AS indirectInviterNo,
+            ui.user_status         AS userStatus,
+            ui.user_type           AS userType,
+            ui.invest_flag         AS investFlag,
+            ui.invest_user_type    AS investUserType,
+            ui.is_newbie           AS isNewbie,
+            ui.is_open_deposit     AS isOpenDeposit,
+            ui.is_bind_bank        AS isBindBank,
+            ui.source_channel      AS sourceChannel,
+            ui.invite_code         AS inviteCode,
+            ui.invite_type         AS inviteType,
+            ui.gmt_create          AS registerDate,
+            af.deposit_no          AS depositNo,
+            af.total_fund          AS totalFund,
+            af.total_earnings      AS totalEarnings,
+            af.due_in_fund         AS dueInFund,
+            af.usable_fund         AS usableFund,
+            af.due_in_principal    AS dueInPrincipal,
+            af.due_in_interest     AS dueInInterest,
+            af.freeze_fund         AS freezeFund,
+            af.can_withdraw_fund   AS canWithdrawFund,
+            af.total_recharge      AS totalRecharge,
+            af.total_withdraw      AS totalWithdraw,
+            af.investment_times    AS investmentTimes,
+            af.investment_amount   AS investmentAmount,
+            af.return_amount       AS returnAmount
+        FROM
+            user_info ui
+            LEFT JOIN account_finance af ON ui.user_id = af.user_id
+        WHERE
+            ui.is_del = 1
+            AND af.is_del = 1
+    </select>
+
+    <select id="selectDepositNoList" resultType="com.tuodao.bp.model.business.useraccount.UserDepositNo">
+        SELECT user_id AS userId,
+        deposit_no AS depositNo
+        FROM account_finance
+        WHERE 1 = 1
+        AND user_id IN
+        <foreach collection="list" index="index" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </select>
+</mapper>

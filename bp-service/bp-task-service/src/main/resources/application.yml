@@ -1,0 +1,63 @@
+##spring activemq配置
+spring:
+  activemq:
+    broker-url: tcp://192.168.0.226:61616
+    user: admin
+    password: admin
+    in-memory: true
+    packages:
+      trust-all: true
+    pool:
+      enabled: false
+##数据库
+hikari:
+  type: com.zaxxer.hikari.HikariDataSource
+  master:
+    jdbc-url: jdbc:mysql://118.178.238.210:3306/public_time_task?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: td_business
+    password: td_business!@#123456
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      validation-timeout: 60000
+      idle-timeout: 60000
+  slave1:
+    jdbc-url: jdbc:mysql://118.178.238.210:3306/public_time_task?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: td_business
+    password: td_business!@#123456
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      validation-timeout: 60000
+      idle-timeout: 60000
+  slave2:
+    jdbc-url: jdbc:mysql://118.178.238.210:3306/public_time_task?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: td_business
+    password: td_business!@#123456
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      validation-timeout: 60000
+      idle-timeout: 60000      
+
+##mapper映射路径
+mybatis:
+  mapper-locations: classpath*:xml/**/*Mapper.xml
+
+
+management:
+  security:
+    enabled: false
+
+rest:
+  ReadTimeout: 35000
+  ConnectTimeout: 5000

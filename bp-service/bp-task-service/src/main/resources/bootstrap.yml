@@ -1,0 +1,12 @@
+server:
+  port: 10009
+  
+spring:
+  application:
+    name: bp-task-server
+    
+logging:
+  config: classpath:logback-spring.xml
+  path: F:/log/bp/taskserver/
+  level:
+        com.tuodao.bp.task.server: info

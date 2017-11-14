@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuodao.bp.traningcenter.db.mapper.basic.AutoTenderLogMapper">
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.traningcenter.db.model.basic.AutoTenderLog">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="auto_tender_id" jdbcType="INTEGER" property="autoTenderId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="min_account" jdbcType="DECIMAL" property="minAccount" />
+    <result column="max_account" jdbcType="DECIMAL" property="maxAccount" />
+    <result column="min_period" jdbcType="INTEGER" property="minPeriod" />
+    <result column="max_period" jdbcType="INTEGER" property="maxPeriod" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="use_coupon" jdbcType="INTEGER" property="useCoupon" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="tender_money" jdbcType="DECIMAL" property="tenderMoney" />
+    <result column="voucher_type" jdbcType="INTEGER" property="voucherType" />
+    <result column="voucher_money" jdbcType="DECIMAL" property="voucherMoney" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, auto_tender_id, user_id, min_account, max_account, min_period, max_period, add_time, 
+    use_coupon, type, tender_money, voucher_type, voucher_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from auto_tender_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      @create by mybatis
+    -->
+    delete from auto_tender_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AutoTenderLog">
+    <!--
+      @create by mybatis
+    -->
+    insert into auto_tender_log (id, auto_tender_id, user_id, 
+      min_account, max_account, min_period, 
+      max_period, add_time, use_coupon, 
+      type, tender_money, voucher_type, 
+      voucher_money)
+    values (#{id,jdbcType=INTEGER}, #{autoTenderId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{minAccount,jdbcType=DECIMAL}, #{maxAccount,jdbcType=DECIMAL}, #{minPeriod,jdbcType=INTEGER}, 
+      #{maxPeriod,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, #{useCoupon,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{tenderMoney,jdbcType=DECIMAL}, #{voucherType,jdbcType=INTEGER}, 
+      #{voucherMoney,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AutoTenderLog">
+    <!--
+      @create by mybatis
+    -->
+    insert into auto_tender_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="autoTenderId != null">
+        auto_tender_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="minAccount != null">
+        min_account,
+      </if>
+      <if test="maxAccount != null">
+        max_account,
+      </if>
+      <if test="minPeriod != null">
+        min_period,
+      </if>
+      <if test="maxPeriod != null">
+        max_period,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="useCoupon != null">
+        use_coupon,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="tenderMoney != null">
+        tender_money,
+      </if>
+      <if test="voucherType != null">
+        voucher_type,
+      </if>
+      <if test="voucherMoney != null">
+        voucher_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="autoTenderId != null">
+        #{autoTenderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="minAccount != null">
+        #{minAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAccount != null">
+        #{maxAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="minPeriod != null">
+        #{minPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="maxPeriod != null">
+        #{maxPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useCoupon != null">
+        #{useCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="tenderMoney != null">
+        #{tenderMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="voucherType != null">
+        #{voucherType,jdbcType=INTEGER},
+      </if>
+      <if test="voucherMoney != null">
+        #{voucherMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AutoTenderLog">
+    <!--
+      @create by mybatis
+    -->
+    update auto_tender_log
+    <set>
+      <if test="autoTenderId != null">
+        auto_tender_id = #{autoTenderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="minAccount != null">
+        min_account = #{minAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAccount != null">
+        max_account = #{maxAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="minPeriod != null">
+        min_period = #{minPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="maxPeriod != null">
+        max_period = #{maxPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useCoupon != null">
+        use_coupon = #{useCoupon,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="tenderMoney != null">
+        tender_money = #{tenderMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="voucherType != null">
+        voucher_type = #{voucherType,jdbcType=INTEGER},
+      </if>
+      <if test="voucherMoney != null">
+        voucher_money = #{voucherMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.traningcenter.db.model.basic.AutoTenderLog">
+    <!--
+      @create by mybatis
+    -->
+    update auto_tender_log
+    set auto_tender_id = #{autoTenderId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      min_account = #{minAccount,jdbcType=DECIMAL},
+      max_account = #{maxAccount,jdbcType=DECIMAL},
+      min_period = #{minPeriod,jdbcType=INTEGER},
+      max_period = #{maxPeriod,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      use_coupon = #{useCoupon,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      tender_money = #{tenderMoney,jdbcType=DECIMAL},
+      voucher_type = #{voucherType,jdbcType=INTEGER},
+      voucher_money = #{voucherMoney,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="getByAutoTenderId" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from auto_tender_log where auto_tender_id = #{autoTenderId}
+    </select>
+
+    <select id="getList" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from auto_tender_log where type = 1 and user_id = #{userId}
+
+    </select>
+
+    <select id="getByUserIdAndAutoTenderId" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from auto_tender_log where type = 1 and user_id = #{userId} and auto_tender_id = #{autoTenderId}
+    </select>
+
+    <select id="getCountAutoTenderLog" resultType="long">
+        select count(1) from auto_tender_log where user_id = #{userId}
+    </select>
+
+</mapper>

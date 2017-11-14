@@ -1,0 +1,60 @@
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="generatorTables" targetRuntime="MyBatis3">
+
+		<plugin type="com.tuodao.hechuan.mybatis.plugin.SerializableModelExamplePlugin"></plugin>
+
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://72.127.2.158:3306/finance?useUnicode=true&amp;characterEncoding=UTF-8"
+						userId="root" password="tuodao_mysql">
+		</jdbcConnection>
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+		<!--connectionURL="jdbc:mysql://localhost:3306/finance?useUnicode=true&amp;characterEncoding=UTF-8"-->
+		<!--userId="root" password="root">-->
+		<!--</jdbcConnection>-->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="com.tuodao.bp.useraccount.persistence.model.basic"
+							targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="xml.basic" targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER"
+							 targetPackage="com.tuodao.bp.useraccount.persistence.mapper.basic" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!--<table tableName="account_finance" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="account_finance_daily" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="account_funds" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="account_income_detail" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="business_info" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="config_dictionary" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="user_business" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<table tableName="user_deposit_info" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>
+		<!--<table tableName="user_feedback" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="user_financial_planner" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="user_info" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="user_info_detail" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="user_info_extend" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="user_label" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="user_login_log" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="user_vip_info" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+		<!--<table tableName="user_vip_info_his" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>-->
+	</context>
+
+</generatorConfiguration>

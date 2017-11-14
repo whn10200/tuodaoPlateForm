@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.common.persistence.mapper.basic.SmsLogMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.common.persistence.model.basic.SmsLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="request_ip" property="requestIp" jdbcType="VARCHAR" />
+    <result column="request_time" property="requestTime" jdbcType="TIMESTAMP" />
+    <result column="sms_servicer" property="smsServicer" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="customs_ip" property="customsIp" jdbcType="VARCHAR" />
+    <result column="respose_time" property="resposeTime" jdbcType="TIMESTAMP" />
+    <result column="respose_content" property="resposeContent" jdbcType="VARCHAR" />
+    <result column="respose_result" property="resposeResult" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, request_ip, request_time, sms_servicer, mobile, content, customs_ip, respose_time, 
+    respose_content, respose_result, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.common.persistence.model.basic.SmsLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from common_sms_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from common_sms_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from common_sms_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.common.persistence.model.basic.SmsLogExample" >
+    delete from common_sms_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.common.persistence.model.basic.SmsLog" >
+    insert into common_sms_log (id, request_ip, request_time, 
+      sms_servicer, mobile, content, 
+      customs_ip, respose_time, respose_content, 
+      respose_result, remark)
+    values (#{id,jdbcType=INTEGER}, #{requestIp,jdbcType=VARCHAR}, #{requestTime,jdbcType=TIMESTAMP}, 
+      #{smsServicer,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{customsIp,jdbcType=VARCHAR}, #{resposeTime,jdbcType=TIMESTAMP}, #{resposeContent,jdbcType=VARCHAR}, 
+      #{resposeResult,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.common.persistence.model.basic.SmsLog" >
+    insert into common_sms_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="requestIp != null" >
+        request_ip,
+      </if>
+      <if test="requestTime != null" >
+        request_time,
+      </if>
+      <if test="smsServicer != null" >
+        sms_servicer,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="customsIp != null" >
+        customs_ip,
+      </if>
+      <if test="resposeTime != null" >
+        respose_time,
+      </if>
+      <if test="resposeContent != null" >
+        respose_content,
+      </if>
+      <if test="resposeResult != null" >
+        respose_result,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="requestIp != null" >
+        #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null" >
+        #{requestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smsServicer != null" >
+        #{smsServicer,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="customsIp != null" >
+        #{customsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="resposeTime != null" >
+        #{resposeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resposeContent != null" >
+        #{resposeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="resposeResult != null" >
+        #{resposeResult,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.common.persistence.model.basic.SmsLogExample" resultType="java.lang.Integer" >
+    select count(*) from common_sms_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update common_sms_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.requestIp != null" >
+        request_ip = #{record.requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestTime != null" >
+        request_time = #{record.requestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.smsServicer != null" >
+        sms_servicer = #{record.smsServicer,jdbcType=INTEGER},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customsIp != null" >
+        customs_ip = #{record.customsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resposeTime != null" >
+        respose_time = #{record.resposeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.resposeContent != null" >
+        respose_content = #{record.resposeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resposeResult != null" >
+        respose_result = #{record.resposeResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update common_sms_log
+    set id = #{record.id,jdbcType=INTEGER},
+      request_ip = #{record.requestIp,jdbcType=VARCHAR},
+      request_time = #{record.requestTime,jdbcType=TIMESTAMP},
+      sms_servicer = #{record.smsServicer,jdbcType=INTEGER},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      customs_ip = #{record.customsIp,jdbcType=VARCHAR},
+      respose_time = #{record.resposeTime,jdbcType=TIMESTAMP},
+      respose_content = #{record.resposeContent,jdbcType=VARCHAR},
+      respose_result = #{record.resposeResult,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.common.persistence.model.basic.SmsLog" >
+    update common_sms_log
+    <set >
+      <if test="requestIp != null" >
+        request_ip = #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null" >
+        request_time = #{requestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smsServicer != null" >
+        sms_servicer = #{smsServicer,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="customsIp != null" >
+        customs_ip = #{customsIp,jdbcType=VARCHAR},
+      </if>
+      <if test="resposeTime != null" >
+        respose_time = #{resposeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resposeContent != null" >
+        respose_content = #{resposeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="resposeResult != null" >
+        respose_result = #{resposeResult,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.common.persistence.model.basic.SmsLog" >
+    update common_sms_log
+    set request_ip = #{requestIp,jdbcType=VARCHAR},
+      request_time = #{requestTime,jdbcType=TIMESTAMP},
+      sms_servicer = #{smsServicer,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      customs_ip = #{customsIp,jdbcType=VARCHAR},
+      respose_time = #{resposeTime,jdbcType=TIMESTAMP},
+      respose_content = #{resposeContent,jdbcType=VARCHAR},
+      respose_result = #{resposeResult,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

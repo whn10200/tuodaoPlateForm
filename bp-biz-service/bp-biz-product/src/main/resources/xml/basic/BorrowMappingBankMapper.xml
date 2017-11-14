@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuodao.bp.product.db.mapper.basic.BorrowMappingBankMapper">
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.product.db.model.basic.BorrowMappingBank">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="borrow_id" jdbcType="INTEGER" property="borrowId" />
+    <result column="is_compensatory" jdbcType="INTEGER" property="isCompensatory" />
+    <result column="borrow_bank_status" jdbcType="INTEGER" property="borrowBankStatus" />
+    <result column="compensatory_amount" jdbcType="DECIMAL" property="compensatoryAmount" />
+    <result column="compensatory_amount_yes" jdbcType="DECIMAL" property="compensatoryAmountYes" />
+    <result column="compensatory_status" jdbcType="INTEGER" property="compensatoryStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, borrow_id, is_compensatory, borrow_bank_status, compensatory_amount, compensatory_amount_yes, 
+    compensatory_status
+  </sql>
+  <select id="selectByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowMappingBankExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from borrow_mapping_bank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from borrow_mapping_bank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from borrow_mapping_bank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowMappingBankExample">
+    delete from borrow_mapping_bank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.product.db.model.basic.BorrowMappingBank">
+    insert into borrow_mapping_bank (id, borrow_id, is_compensatory, 
+      borrow_bank_status, compensatory_amount, compensatory_amount_yes, 
+      compensatory_status)
+    values (#{id,jdbcType=INTEGER}, #{borrowId,jdbcType=INTEGER}, #{isCompensatory,jdbcType=INTEGER}, 
+      #{borrowBankStatus,jdbcType=INTEGER}, #{compensatoryAmount,jdbcType=DECIMAL}, #{compensatoryAmountYes,jdbcType=DECIMAL}, 
+      #{compensatoryStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.product.db.model.basic.BorrowMappingBank">
+    insert into borrow_mapping_bank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="borrowId != null">
+        borrow_id,
+      </if>
+      <if test="isCompensatory != null">
+        is_compensatory,
+      </if>
+      <if test="borrowBankStatus != null">
+        borrow_bank_status,
+      </if>
+      <if test="compensatoryAmount != null">
+        compensatory_amount,
+      </if>
+      <if test="compensatoryAmountYes != null">
+        compensatory_amount_yes,
+      </if>
+      <if test="compensatoryStatus != null">
+        compensatory_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="borrowId != null">
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="isCompensatory != null">
+        #{isCompensatory,jdbcType=INTEGER},
+      </if>
+      <if test="borrowBankStatus != null">
+        #{borrowBankStatus,jdbcType=INTEGER},
+      </if>
+      <if test="compensatoryAmount != null">
+        #{compensatoryAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="compensatoryAmountYes != null">
+        #{compensatoryAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="compensatoryStatus != null">
+        #{compensatoryStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.product.db.model.basic.BorrowMappingBankExample" resultType="java.lang.Long">
+    select count(*) from borrow_mapping_bank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update borrow_mapping_bank
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowId != null">
+        borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isCompensatory != null">
+        is_compensatory = #{record.isCompensatory,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowBankStatus != null">
+        borrow_bank_status = #{record.borrowBankStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.compensatoryAmount != null">
+        compensatory_amount = #{record.compensatoryAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.compensatoryAmountYes != null">
+        compensatory_amount_yes = #{record.compensatoryAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.compensatoryStatus != null">
+        compensatory_status = #{record.compensatoryStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update borrow_mapping_bank
+    set id = #{record.id,jdbcType=INTEGER},
+      borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      is_compensatory = #{record.isCompensatory,jdbcType=INTEGER},
+      borrow_bank_status = #{record.borrowBankStatus,jdbcType=INTEGER},
+      compensatory_amount = #{record.compensatoryAmount,jdbcType=DECIMAL},
+      compensatory_amount_yes = #{record.compensatoryAmountYes,jdbcType=DECIMAL},
+      compensatory_status = #{record.compensatoryStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.product.db.model.basic.BorrowMappingBank">
+    update borrow_mapping_bank
+    <set>
+      <if test="borrowId != null">
+        borrow_id = #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="isCompensatory != null">
+        is_compensatory = #{isCompensatory,jdbcType=INTEGER},
+      </if>
+      <if test="borrowBankStatus != null">
+        borrow_bank_status = #{borrowBankStatus,jdbcType=INTEGER},
+      </if>
+      <if test="compensatoryAmount != null">
+        compensatory_amount = #{compensatoryAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="compensatoryAmountYes != null">
+        compensatory_amount_yes = #{compensatoryAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="compensatoryStatus != null">
+        compensatory_status = #{compensatoryStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.product.db.model.basic.BorrowMappingBank">
+    update borrow_mapping_bank
+    set borrow_id = #{borrowId,jdbcType=INTEGER},
+      is_compensatory = #{isCompensatory,jdbcType=INTEGER},
+      borrow_bank_status = #{borrowBankStatus,jdbcType=INTEGER},
+      compensatory_amount = #{compensatoryAmount,jdbcType=DECIMAL},
+      compensatory_amount_yes = #{compensatoryAmountYes,jdbcType=DECIMAL},
+      compensatory_status = #{compensatoryStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getCompensationList"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from borrow_mapping_bank
+    where is_compensatory = 1  and borrow_bank_status = 2 and compensatory_amount > compensatory_amount_yes
+  </select>
+  
+
+</mapper>

@@ -1,0 +1,1486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuodao.bp.product.db.mapper.basic.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.product.db.model.basic.Product">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="business_id" jdbcType="VARCHAR" property="businessId" />
+    <result column="orginal_id" jdbcType="INTEGER" property="orginalId" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="borrow_user_id" jdbcType="VARCHAR" property="borrowUserId" />
+    <result column="borrow_user_name" jdbcType="VARCHAR" property="borrowUserName" />
+    <result column="borrow_amount" jdbcType="DECIMAL" property="borrowAmount" />
+    <result column="borrow_account_yes" jdbcType="DECIMAL" property="borrowAccountYes" />
+    <result column="borrow_fee" jdbcType="DECIMAL" property="borrowFee" />
+    <result column="borrow_apr" jdbcType="DECIMAL" property="borrowApr" />
+    <result column="borrow_type" jdbcType="INTEGER" property="borrowType" />
+    <result column="borrow_full_time" jdbcType="TIMESTAMP" property="borrowFullTime" />
+    <result column="borrow_full_status" jdbcType="INTEGER" property="borrowFullStatus" />
+    <result column="surplus_invest_amount" jdbcType="DECIMAL" property="surplusInvestAmount" />
+    <result column="is_jion" jdbcType="INTEGER" property="isJion" />
+    <result column="repay_last_time" jdbcType="TIMESTAMP" property="repayLastTime" />
+    <result column="mate_amount" jdbcType="DECIMAL" property="mateAmount" />
+    <result column="borrow_use" jdbcType="VARCHAR" property="borrowUse" />
+    <result column="is_auto_publish" jdbcType="INTEGER" property="isAutoPublish" />
+    <result column="is_yet_issue" jdbcType="INTEGER" property="isYetIssue" />
+    <result column="auto_publish_time" jdbcType="TIMESTAMP" property="autoPublishTime" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="is_auto_invest" jdbcType="INTEGER" property="isAutoInvest" />
+    <result column="product_title" jdbcType="VARCHAR" property="productTitle" />
+    <result column="refund_way" jdbcType="INTEGER" property="refundWay" />
+    <result column="product_period" jdbcType="INTEGER" property="productPeriod" />
+    <result column="period_unit" jdbcType="INTEGER" property="periodUnit" />
+    <result column="define_type" jdbcType="INTEGER" property="defineType" />
+    <result column="award_type" jdbcType="INTEGER" property="awardType" />
+    <result column="award_amount" jdbcType="DECIMAL" property="awardAmount" />
+    <result column="award_scale" jdbcType="DECIMAL" property="awardScale" />
+    <result column="min_amount" jdbcType="DECIMAL" property="minAmount" />
+    <result column="max_amount" jdbcType="DECIMAL" property="maxAmount" />
+    <result column="available_transfer_day" jdbcType="INTEGER" property="availableTransferDay" />
+    <result column="integral_fold" jdbcType="INTEGER" property="integralFold" />
+    <result column="is_auth_code" jdbcType="INTEGER" property="isAuthCode" />
+    <result column="is_issue" jdbcType="INTEGER" property="isIssue" />
+    <result column="is_app" jdbcType="INTEGER" property="isApp" />
+    <result column="appoint_password" jdbcType="VARCHAR" property="appointPassword" />
+    <result column="product_status" jdbcType="INTEGER" property="productStatus" />
+    <result column="product_type" jdbcType="INTEGER" property="productType" />
+    <result column="available_invest_time" jdbcType="TIMESTAMP" property="availableInvestTime" />
+    <result column="audit_user_id" jdbcType="VARCHAR" property="auditUserId" />
+    <result column="audit_user_name" jdbcType="VARCHAR" property="auditUserName" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="source_store" jdbcType="VARCHAR" property="sourceStore" />
+    <result column="is_timing_show" jdbcType="INTEGER" property="isTimingShow" />
+    <result column="is_turn" jdbcType="VARCHAR" property="isTurn" />
+    <result column="collect_abort_time" jdbcType="TIMESTAMP" property="collectAbortTime" />
+    <result column="valid_time" jdbcType="INTEGER" property="validTime" />
+    <result column="order_no" property="orderNo"/>
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tuodao.bp.product.db.model.basic.ProductWithBLOBs">
+    <result column="set_remark" jdbcType="LONGVARCHAR" property="setRemark" />
+    <result column="publish_remark" jdbcType="LONGVARCHAR" property="publishRemark" />
+    <result column="audit_remark" jdbcType="LONGVARCHAR" property="auditRemark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, product_code, business_id, orginal_id, parent_id, borrow_user_id, borrow_user_name, 
+    borrow_amount, borrow_account_yes, borrow_fee, borrow_apr, borrow_type, borrow_full_time, 
+    borrow_full_status, surplus_invest_amount, is_jion, repay_last_time, mate_amount, 
+    borrow_use, is_auto_publish, is_yet_issue, auto_publish_time, publish_time, is_auto_invest, 
+    product_title, refund_way, product_period, period_unit, define_type, award_type, 
+    award_amount, award_scale, min_amount, max_amount, available_transfer_day, integral_fold, 
+    is_auth_code, is_issue, is_app, appoint_password, product_status, product_type, available_invest_time, 
+    audit_user_id, audit_user_name, audit_time, create_time, source_store,
+    is_timing_show, is_turn,collect_abort_time,valid_time,order_no
+  </sql>
+  <sql id="Blob_Column_List">
+    set_remark, publish_remark, audit_remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.tuodao.bp.product.db.model.basic.ProductExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.tuodao.bp.product.db.model.basic.ProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.product.db.model.basic.ProductExample">
+    delete from product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.product.db.model.basic.ProductWithBLOBs">
+    insert into product (id, product_code, business_id, 
+      orginal_id, parent_id, borrow_user_id, 
+      borrow_user_name, borrow_amount, borrow_account_yes, 
+      borrow_fee, borrow_apr, borrow_type, 
+      borrow_full_time, borrow_full_status, surplus_invest_amount, 
+      is_jion, repay_last_time, mate_amount, 
+      borrow_use, is_auto_publish, is_yet_issue, 
+      auto_publish_time, publish_time, is_auto_invest, 
+      product_title, refund_way, product_period, 
+      period_unit, define_type, award_type, 
+      award_amount, award_scale, min_amount, 
+      max_amount, available_transfer_day, integral_fold, 
+      is_auth_code, is_issue, is_app, 
+      appoint_password, product_status, product_type, 
+      available_invest_time, audit_user_id, audit_user_name, 
+      audit_time, create_time, source_store, 
+      , is_timing_show, is_turn,
+      set_remark, publish_remark, audit_remark,collect_abort_time,valid_time,order_no
+      )
+    values (#{id,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, 
+      #{orginalId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{borrowUserId,jdbcType=VARCHAR}, 
+      #{borrowUserName,jdbcType=VARCHAR}, #{borrowAmount,jdbcType=DECIMAL}, #{borrowAccountYes,jdbcType=DECIMAL}, 
+      #{borrowFee,jdbcType=DECIMAL}, #{borrowApr,jdbcType=DECIMAL}, #{borrowType,jdbcType=INTEGER}, 
+      #{borrowFullTime,jdbcType=TIMESTAMP}, #{borrowFullStatus,jdbcType=INTEGER}, #{surplusInvestAmount,jdbcType=DECIMAL}, 
+      #{isJion,jdbcType=INTEGER}, #{repayLastTime,jdbcType=TIMESTAMP}, #{mateAmount,jdbcType=DECIMAL}, 
+      #{borrowUse,jdbcType=VARCHAR}, #{isAutoPublish,jdbcType=INTEGER}, #{isYetIssue,jdbcType=INTEGER}, 
+      #{autoPublishTime,jdbcType=TIMESTAMP}, #{publishTime,jdbcType=TIMESTAMP}, #{isAutoInvest,jdbcType=INTEGER}, 
+      #{productTitle,jdbcType=VARCHAR}, #{refundWay,jdbcType=INTEGER}, #{productPeriod,jdbcType=INTEGER}, 
+      #{periodUnit,jdbcType=INTEGER}, #{defineType,jdbcType=INTEGER}, #{awardType,jdbcType=INTEGER}, 
+      #{awardAmount,jdbcType=DECIMAL}, #{awardScale,jdbcType=DECIMAL}, #{minAmount,jdbcType=DECIMAL}, 
+      #{maxAmount,jdbcType=DECIMAL}, #{availableTransferDay,jdbcType=INTEGER}, #{integralFold,jdbcType=INTEGER}, 
+      #{isAuthCode,jdbcType=INTEGER}, #{isIssue,jdbcType=INTEGER}, #{isApp,jdbcType=INTEGER}, 
+      #{appointPassword,jdbcType=VARCHAR}, #{productStatus,jdbcType=INTEGER}, #{productType,jdbcType=INTEGER}, 
+      #{availableInvestTime,jdbcType=TIMESTAMP}, #{auditUserId,jdbcType=VARCHAR}, #{auditUserName,jdbcType=VARCHAR}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{sourceStore,jdbcType=VARCHAR}, 
+      #{isTimingShow,jdbcType=INTEGER}, #{isTurn,jdbcType=VARCHAR},
+      #{setRemark,jdbcType=LONGVARCHAR}, #{publishRemark,jdbcType=LONGVARCHAR}, #{auditRemark,jdbcType=LONGVARCHAR},
+      #{collectAbortTime,jdbcType=TIMESTAMP}, #{validTime,jdbcType=INTEGER},#{orderNo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.product.db.model.basic.ProductWithBLOBs">
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="orginalId != null">
+        orginal_id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="borrowUserId != null">
+        borrow_user_id,
+      </if>
+      <if test="borrowUserName != null">
+        borrow_user_name,
+      </if>
+      <if test="borrowAmount != null">
+        borrow_amount,
+      </if>
+      <if test="borrowAccountYes != null">
+        borrow_account_yes,
+      </if>
+      <if test="borrowFee != null">
+        borrow_fee,
+      </if>
+      <if test="borrowApr != null">
+        borrow_apr,
+      </if>
+      <if test="borrowType != null">
+        borrow_type,
+      </if>
+      <if test="borrowFullTime != null">
+        borrow_full_time,
+      </if>
+      <if test="borrowFullStatus != null">
+        borrow_full_status,
+      </if>
+      <if test="surplusInvestAmount != null">
+        surplus_invest_amount,
+      </if>
+      <if test="isJion != null">
+        is_jion,
+      </if>
+      <if test="repayLastTime != null">
+        repay_last_time,
+      </if>
+      <if test="mateAmount != null">
+        mate_amount,
+      </if>
+      <if test="borrowUse != null">
+        borrow_use,
+      </if>
+      <if test="isAutoPublish != null">
+        is_auto_publish,
+      </if>
+      <if test="isYetIssue != null">
+        is_yet_issue,
+      </if>
+      <if test="autoPublishTime != null">
+        auto_publish_time,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="isAutoInvest != null">
+        is_auto_invest,
+      </if>
+      <if test="productTitle != null">
+        product_title,
+      </if>
+      <if test="refundWay != null">
+        refund_way,
+      </if>
+      <if test="productPeriod != null">
+        product_period,
+      </if>
+      <if test="periodUnit != null">
+        period_unit,
+      </if>
+      <if test="defineType != null">
+        define_type,
+      </if>
+      <if test="awardType != null">
+        award_type,
+      </if>
+      <if test="awardAmount != null">
+        award_amount,
+      </if>
+      <if test="awardScale != null">
+        award_scale,
+      </if>
+      <if test="minAmount != null">
+        min_amount,
+      </if>
+      <if test="maxAmount != null">
+        max_amount,
+      </if>
+      <if test="availableTransferDay != null">
+        available_transfer_day,
+      </if>
+      <if test="integralFold != null">
+        integral_fold,
+      </if>
+      <if test="isAuthCode != null">
+        is_auth_code,
+      </if>
+      <if test="isIssue != null">
+        is_issue,
+      </if>
+      <if test="isApp != null">
+        is_app,
+      </if>
+      <if test="appointPassword != null">
+        appoint_password,
+      </if>
+      <if test="productStatus != null">
+        product_status,
+      </if>
+      <if test="productType != null">
+        product_type,
+      </if>
+      <if test="availableInvestTime != null">
+        available_invest_time,
+      </if>
+      <if test="auditUserId != null">
+        audit_user_id,
+      </if>
+      <if test="auditUserName != null">
+        audit_user_name,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="sourceStore != null">
+        source_store,
+      </if>
+      <if test="isTimingShow != null">
+        is_timing_show,
+      </if>
+      <if test="isTurn != null">
+        is_turn,
+      </if>
+      <if test="setRemark != null">
+        set_remark,
+      </if>
+      <if test="publishRemark != null">
+        publish_remark,
+      </if>
+      <if test="auditRemark != null">
+        audit_remark,
+      </if>
+      <if test="collectAbortTime != null">
+        collect_abort_time,
+      </if>
+      <if test="validTime != null">
+        valid_time,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="orginalId != null">
+        #{orginalId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowUserId != null">
+        #{borrowUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowUserName != null">
+        #{borrowUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowAmount != null">
+        #{borrowAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowAccountYes != null">
+        #{borrowAccountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowFee != null">
+        #{borrowFee,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowApr != null">
+        #{borrowApr,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowType != null">
+        #{borrowType,jdbcType=INTEGER},
+      </if>
+      <if test="borrowFullTime != null">
+        #{borrowFullTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowFullStatus != null">
+        #{borrowFullStatus,jdbcType=INTEGER},
+      </if>
+      <if test="surplusInvestAmount != null">
+        #{surplusInvestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isJion != null">
+        #{isJion,jdbcType=INTEGER},
+      </if>
+      <if test="repayLastTime != null">
+        #{repayLastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mateAmount != null">
+        #{mateAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowUse != null">
+        #{borrowUse,jdbcType=VARCHAR},
+      </if>
+      <if test="isAutoPublish != null">
+        #{isAutoPublish,jdbcType=INTEGER},
+      </if>
+      <if test="isYetIssue != null">
+        #{isYetIssue,jdbcType=INTEGER},
+      </if>
+      <if test="autoPublishTime != null">
+        #{autoPublishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAutoInvest != null">
+        #{isAutoInvest,jdbcType=INTEGER},
+      </if>
+      <if test="productTitle != null">
+        #{productTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="refundWay != null">
+        #{refundWay,jdbcType=INTEGER},
+      </if>
+      <if test="productPeriod != null">
+        #{productPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="periodUnit != null">
+        #{periodUnit,jdbcType=INTEGER},
+      </if>
+      <if test="defineType != null">
+        #{defineType,jdbcType=INTEGER},
+      </if>
+      <if test="awardType != null">
+        #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardAmount != null">
+        #{awardAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="awardScale != null">
+        #{awardScale,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null">
+        #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null">
+        #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="availableTransferDay != null">
+        #{availableTransferDay,jdbcType=INTEGER},
+      </if>
+      <if test="integralFold != null">
+        #{integralFold,jdbcType=INTEGER},
+      </if>
+      <if test="isAuthCode != null">
+        #{isAuthCode,jdbcType=INTEGER},
+      </if>
+      <if test="isIssue != null">
+        #{isIssue,jdbcType=INTEGER},
+      </if>
+      <if test="isApp != null">
+        #{isApp,jdbcType=INTEGER},
+      </if>
+      <if test="appointPassword != null">
+        #{appointPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="productStatus != null">
+        #{productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=INTEGER},
+      </if>
+      <if test="availableInvestTime != null">
+        #{availableInvestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditUserId != null">
+        #{auditUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUserName != null">
+        #{auditUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceStore != null">
+        #{sourceStore,jdbcType=VARCHAR},
+      </if>
+      <if test="isTimingShow != null">
+        #{isTimingShow,jdbcType=INTEGER},
+      </if>
+      <if test="isTurn != null">
+        #{isTurn,jdbcType=VARCHAR},
+      </if>
+      <if test="setRemark != null">
+        #{setRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="publishRemark != null">
+        #{publishRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditRemark != null">
+        #{auditRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="collectAbortTime != null">
+        #{collectAbortTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validTime != null">
+        #{validTime,jdbcType=INTEGER},
+      </if>
+      <if test="validTime != null">
+        #{orderNo,jdbcType=VARCHAR}
+      </if>
+
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.product.db.model.basic.ProductExample" resultType="java.lang.Long">
+    select count(*) from product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update product
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productCode != null">
+        product_code = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessId != null">
+        business_id = #{record.businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orginalId != null">
+        orginal_id = #{record.orginalId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowUserId != null">
+        borrow_user_id = #{record.borrowUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowUserName != null">
+        borrow_user_name = #{record.borrowUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowAmount != null">
+        borrow_amount = #{record.borrowAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.borrowAccountYes != null">
+        borrow_account_yes = #{record.borrowAccountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.borrowFee != null">
+        borrow_fee = #{record.borrowFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.borrowApr != null">
+        borrow_apr = #{record.borrowApr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.borrowType != null">
+        borrow_type = #{record.borrowType,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowFullTime != null">
+        borrow_full_time = #{record.borrowFullTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.borrowFullStatus != null">
+        borrow_full_status = #{record.borrowFullStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.surplusInvestAmount != null">
+        surplus_invest_amount = #{record.surplusInvestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isJion != null">
+        is_jion = #{record.isJion,jdbcType=INTEGER},
+      </if>
+      <if test="record.repayLastTime != null">
+        repay_last_time = #{record.repayLastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mateAmount != null">
+        mate_amount = #{record.mateAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.borrowUse != null">
+        borrow_use = #{record.borrowUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAutoPublish != null">
+        is_auto_publish = #{record.isAutoPublish,jdbcType=INTEGER},
+      </if>
+      <if test="record.isYetIssue != null">
+        is_yet_issue = #{record.isYetIssue,jdbcType=INTEGER},
+      </if>
+      <if test="record.autoPublishTime != null">
+        auto_publish_time = #{record.autoPublishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.publishTime != null">
+        publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isAutoInvest != null">
+        is_auto_invest = #{record.isAutoInvest,jdbcType=INTEGER},
+      </if>
+      <if test="record.productTitle != null">
+        product_title = #{record.productTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundWay != null">
+        refund_way = #{record.refundWay,jdbcType=INTEGER},
+      </if>
+      <if test="record.productPeriod != null">
+        product_period = #{record.productPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.periodUnit != null">
+        period_unit = #{record.periodUnit,jdbcType=INTEGER},
+      </if>
+      <if test="record.defineType != null">
+        define_type = #{record.defineType,jdbcType=INTEGER},
+      </if>
+      <if test="record.awardType != null">
+        award_type = #{record.awardType,jdbcType=INTEGER},
+      </if>
+      <if test="record.awardAmount != null">
+        award_amount = #{record.awardAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.awardScale != null">
+        award_scale = #{record.awardScale,jdbcType=DECIMAL},
+      </if>
+      <if test="record.minAmount != null">
+        min_amount = #{record.minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxAmount != null">
+        max_amount = #{record.maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.availableTransferDay != null">
+        available_transfer_day = #{record.availableTransferDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.integralFold != null">
+        integral_fold = #{record.integralFold,jdbcType=INTEGER},
+      </if>
+      <if test="record.isAuthCode != null">
+        is_auth_code = #{record.isAuthCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.isIssue != null">
+        is_issue = #{record.isIssue,jdbcType=INTEGER},
+      </if>
+      <if test="record.isApp != null">
+        is_app = #{record.isApp,jdbcType=INTEGER},
+      </if>
+      <if test="record.appointPassword != null">
+        appoint_password = #{record.appointPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productStatus != null">
+        product_status = #{record.productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.productType != null">
+        product_type = #{record.productType,jdbcType=INTEGER},
+      </if>
+      <if test="record.availableInvestTime != null">
+        available_invest_time = #{record.availableInvestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditUserId != null">
+        audit_user_id = #{record.auditUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditUserName != null">
+        audit_user_name = #{record.auditUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null">
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sourceStore != null">
+        source_store = #{record.sourceStore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isTimingShow != null">
+        is_timing_show = #{record.isTimingShow,jdbcType=INTEGER},
+      </if>
+      <if test="record.isTurn != null">
+        is_turn = #{record.isTurn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setRemark != null">
+        set_remark = #{record.setRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.publishRemark != null">
+        publish_remark = #{record.publishRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.auditRemark != null">
+        audit_remark = #{record.auditRemark,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="record.orderNo != null">
+        order_no =  #{orderNo,jdbcType=VARCHAR},
+      </if>
+     
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update product
+    set id = #{record.id,jdbcType=INTEGER},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      business_id = #{record.businessId,jdbcType=VARCHAR},
+      orginal_id = #{record.orginalId,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      borrow_user_id = #{record.borrowUserId,jdbcType=VARCHAR},
+      borrow_user_name = #{record.borrowUserName,jdbcType=VARCHAR},
+      borrow_amount = #{record.borrowAmount,jdbcType=DECIMAL},
+      borrow_account_yes = #{record.borrowAccountYes,jdbcType=DECIMAL},
+      borrow_fee = #{record.borrowFee,jdbcType=DECIMAL},
+      borrow_apr = #{record.borrowApr,jdbcType=DECIMAL},
+      borrow_type = #{record.borrowType,jdbcType=INTEGER},
+      borrow_full_time = #{record.borrowFullTime,jdbcType=TIMESTAMP},
+      borrow_full_status = #{record.borrowFullStatus,jdbcType=INTEGER},
+      surplus_invest_amount = #{record.surplusInvestAmount,jdbcType=DECIMAL},
+      is_jion = #{record.isJion,jdbcType=INTEGER},
+      repay_last_time = #{record.repayLastTime,jdbcType=TIMESTAMP},
+      mate_amount = #{record.mateAmount,jdbcType=DECIMAL},
+      borrow_use = #{record.borrowUse,jdbcType=VARCHAR},
+      is_auto_publish = #{record.isAutoPublish,jdbcType=INTEGER},
+      is_yet_issue = #{record.isYetIssue,jdbcType=INTEGER},
+      auto_publish_time = #{record.autoPublishTime,jdbcType=TIMESTAMP},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      is_auto_invest = #{record.isAutoInvest,jdbcType=INTEGER},
+      product_title = #{record.productTitle,jdbcType=VARCHAR},
+      refund_way = #{record.refundWay,jdbcType=INTEGER},
+      product_period = #{record.productPeriod,jdbcType=INTEGER},
+      period_unit = #{record.periodUnit,jdbcType=INTEGER},
+      define_type = #{record.defineType,jdbcType=INTEGER},
+      award_type = #{record.awardType,jdbcType=INTEGER},
+      award_amount = #{record.awardAmount,jdbcType=DECIMAL},
+      award_scale = #{record.awardScale,jdbcType=DECIMAL},
+      min_amount = #{record.minAmount,jdbcType=DECIMAL},
+      max_amount = #{record.maxAmount,jdbcType=DECIMAL},
+      available_transfer_day = #{record.availableTransferDay,jdbcType=INTEGER},
+      integral_fold = #{record.integralFold,jdbcType=INTEGER},
+      is_auth_code = #{record.isAuthCode,jdbcType=INTEGER},
+      is_issue = #{record.isIssue,jdbcType=INTEGER},
+      is_app = #{record.isApp,jdbcType=INTEGER},
+      appoint_password = #{record.appointPassword,jdbcType=VARCHAR},
+      product_status = #{record.productStatus,jdbcType=INTEGER},
+      product_type = #{record.productType,jdbcType=INTEGER},
+      available_invest_time = #{record.availableInvestTime,jdbcType=TIMESTAMP},
+      audit_user_id = #{record.auditUserId,jdbcType=VARCHAR},
+      audit_user_name = #{record.auditUserName,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      source_store = #{record.sourceStore,jdbcType=VARCHAR},
+      is_timing_show = #{record.isTimingShow,jdbcType=INTEGER},
+      is_turn = #{record.isTurn,jdbcType=VARCHAR},
+      set_remark = #{record.setRemark,jdbcType=LONGVARCHAR},
+      publish_remark = #{record.publishRemark,jdbcType=LONGVARCHAR},
+      audit_remark = #{record.auditRemark,jdbcType=LONGVARCHAR},
+      collect_abort_time = #{record.collectAbortTime,jdbcType=TIMESTAMP},
+      valid_time = #{record.validTime,jdbcType=INTEGER},
+      order_no =  #{orderNo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update product
+    set id = #{record.id,jdbcType=INTEGER},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      business_id = #{record.businessId,jdbcType=VARCHAR},
+      orginal_id = #{record.orginalId,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      borrow_user_id = #{record.borrowUserId,jdbcType=VARCHAR},
+      borrow_user_name = #{record.borrowUserName,jdbcType=VARCHAR},
+      borrow_amount = #{record.borrowAmount,jdbcType=DECIMAL},
+      borrow_account_yes = #{record.borrowAccountYes,jdbcType=DECIMAL},
+      borrow_fee = #{record.borrowFee,jdbcType=DECIMAL},
+      borrow_apr = #{record.borrowApr,jdbcType=DECIMAL},
+      borrow_type = #{record.borrowType,jdbcType=INTEGER},
+      borrow_full_time = #{record.borrowFullTime,jdbcType=TIMESTAMP},
+      borrow_full_status = #{record.borrowFullStatus,jdbcType=INTEGER},
+      surplus_invest_amount = #{record.surplusInvestAmount,jdbcType=DECIMAL},
+      is_jion = #{record.isJion,jdbcType=INTEGER},
+      repay_last_time = #{record.repayLastTime,jdbcType=TIMESTAMP},
+      mate_amount = #{record.mateAmount,jdbcType=DECIMAL},
+      borrow_use = #{record.borrowUse,jdbcType=VARCHAR},
+      is_auto_publish = #{record.isAutoPublish,jdbcType=INTEGER},
+      is_yet_issue = #{record.isYetIssue,jdbcType=INTEGER},
+      auto_publish_time = #{record.autoPublishTime,jdbcType=TIMESTAMP},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      is_auto_invest = #{record.isAutoInvest,jdbcType=INTEGER},
+      product_title = #{record.productTitle,jdbcType=VARCHAR},
+      refund_way = #{record.refundWay,jdbcType=INTEGER},
+      product_period = #{record.productPeriod,jdbcType=INTEGER},
+      period_unit = #{record.periodUnit,jdbcType=INTEGER},
+      define_type = #{record.defineType,jdbcType=INTEGER},
+      award_type = #{record.awardType,jdbcType=INTEGER},
+      award_amount = #{record.awardAmount,jdbcType=DECIMAL},
+      award_scale = #{record.awardScale,jdbcType=DECIMAL},
+      min_amount = #{record.minAmount,jdbcType=DECIMAL},
+      max_amount = #{record.maxAmount,jdbcType=DECIMAL},
+      available_transfer_day = #{record.availableTransferDay,jdbcType=INTEGER},
+      integral_fold = #{record.integralFold,jdbcType=INTEGER},
+      is_auth_code = #{record.isAuthCode,jdbcType=INTEGER},
+      is_issue = #{record.isIssue,jdbcType=INTEGER},
+      is_app = #{record.isApp,jdbcType=INTEGER},
+      appoint_password = #{record.appointPassword,jdbcType=VARCHAR},
+      product_status = #{record.productStatus,jdbcType=INTEGER},
+      product_type = #{record.productType,jdbcType=INTEGER},
+      available_invest_time = #{record.availableInvestTime,jdbcType=TIMESTAMP},
+      audit_user_id = #{record.auditUserId,jdbcType=VARCHAR},
+      audit_user_name = #{record.auditUserName,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      source_store = #{record.sourceStore,jdbcType=VARCHAR},
+      is_timing_show = #{record.isTimingShow,jdbcType=INTEGER},
+      is_turn = #{record.isTurn,jdbcType=VARCHAR},
+      collect_abort_time = #{record.collectAbortTime,jdbcType=TIMESTAMP},
+      valid_time = #{record.validTime,jdbcType=INTEGER},
+      order_no =  #{orderNo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.product.db.model.basic.ProductWithBLOBs">
+    update product
+    <set>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="orginalId != null">
+        orginal_id = #{orginalId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowUserId != null">
+        borrow_user_id = #{borrowUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowUserName != null">
+        borrow_user_name = #{borrowUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowAmount != null">
+        borrow_amount = #{borrowAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowAccountYes != null">
+        borrow_account_yes = #{borrowAccountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowFee != null">
+        borrow_fee = #{borrowFee,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowApr != null">
+        borrow_apr = #{borrowApr,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowType != null">
+        borrow_type = #{borrowType,jdbcType=INTEGER},
+      </if>
+      <if test="borrowFullTime != null">
+        borrow_full_time = #{borrowFullTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowFullStatus != null">
+        borrow_full_status = #{borrowFullStatus,jdbcType=INTEGER},
+      </if>
+      <if test="surplusInvestAmount != null">
+        surplus_invest_amount = #{surplusInvestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isJion != null">
+        is_jion = #{isJion,jdbcType=INTEGER},
+      </if>
+      <if test="repayLastTime != null">
+        repay_last_time = #{repayLastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mateAmount != null">
+        mate_amount = #{mateAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowUse != null">
+        borrow_use = #{borrowUse,jdbcType=VARCHAR},
+      </if>
+      <if test="isAutoPublish != null">
+        is_auto_publish = #{isAutoPublish,jdbcType=INTEGER},
+      </if>
+      <if test="isYetIssue != null">
+        is_yet_issue = #{isYetIssue,jdbcType=INTEGER},
+      </if>
+      <if test="autoPublishTime != null">
+        auto_publish_time = #{autoPublishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAutoInvest != null">
+        is_auto_invest = #{isAutoInvest,jdbcType=INTEGER},
+      </if>
+      <if test="productTitle != null">
+        product_title = #{productTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="refundWay != null">
+        refund_way = #{refundWay,jdbcType=INTEGER},
+      </if>
+      <if test="productPeriod != null">
+        product_period = #{productPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="periodUnit != null">
+        period_unit = #{periodUnit,jdbcType=INTEGER},
+      </if>
+      <if test="defineType != null">
+        define_type = #{defineType,jdbcType=INTEGER},
+      </if>
+      <if test="awardType != null">
+        award_type = #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardAmount != null">
+        award_amount = #{awardAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="awardScale != null">
+        award_scale = #{awardScale,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null">
+        min_amount = #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null">
+        max_amount = #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="availableTransferDay != null">
+        available_transfer_day = #{availableTransferDay,jdbcType=INTEGER},
+      </if>
+      <if test="integralFold != null">
+        integral_fold = #{integralFold,jdbcType=INTEGER},
+      </if>
+      <if test="isAuthCode != null">
+        is_auth_code = #{isAuthCode,jdbcType=INTEGER},
+      </if>
+      <if test="isIssue != null">
+        is_issue = #{isIssue,jdbcType=INTEGER},
+      </if>
+      <if test="isApp != null">
+        is_app = #{isApp,jdbcType=INTEGER},
+      </if>
+      <if test="appointPassword != null">
+        appoint_password = #{appointPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="productStatus != null">
+        product_status = #{productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productType != null">
+        product_type = #{productType,jdbcType=INTEGER},
+      </if>
+      <if test="availableInvestTime != null">
+        available_invest_time = #{availableInvestTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditUserId != null">
+        audit_user_id = #{auditUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUserName != null">
+        audit_user_name = #{auditUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceStore != null">
+        source_store = #{sourceStore,jdbcType=VARCHAR},
+      </if>
+      <if test="isTimingShow != null">
+        is_timing_show = #{isTimingShow,jdbcType=INTEGER},
+      </if>
+      <if test="isTurn != null">
+        is_turn = #{isTurn,jdbcType=VARCHAR},
+      </if>
+      <if test="setRemark != null">
+        set_remark = #{setRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="publishRemark != null">
+        publish_remark = #{publishRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="auditRemark != null">
+        audit_remark = #{auditRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="collectAbortTime != null">
+        collect_abort_time = #{record.collectAbortTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validTime != null">
+        valid_time = #{record.validTime,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null">
+        order_no =  #{orderNo,jdbcType=VARCHAR}
+      </if>
+      
+      
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tuodao.bp.product.db.model.basic.ProductWithBLOBs">
+    update product
+    set product_code = #{productCode,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      orginal_id = #{orginalId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      borrow_user_id = #{borrowUserId,jdbcType=VARCHAR},
+      borrow_user_name = #{borrowUserName,jdbcType=VARCHAR},
+      borrow_amount = #{borrowAmount,jdbcType=DECIMAL},
+      borrow_account_yes = #{borrowAccountYes,jdbcType=DECIMAL},
+      borrow_fee = #{borrowFee,jdbcType=DECIMAL},
+      borrow_apr = #{borrowApr,jdbcType=DECIMAL},
+      borrow_type = #{borrowType,jdbcType=INTEGER},
+      borrow_full_time = #{borrowFullTime,jdbcType=TIMESTAMP},
+      borrow_full_status = #{borrowFullStatus,jdbcType=INTEGER},
+      surplus_invest_amount = #{surplusInvestAmount,jdbcType=DECIMAL},
+      is_jion = #{isJion,jdbcType=INTEGER},
+      repay_last_time = #{repayLastTime,jdbcType=TIMESTAMP},
+      mate_amount = #{mateAmount,jdbcType=DECIMAL},
+      borrow_use = #{borrowUse,jdbcType=VARCHAR},
+      is_auto_publish = #{isAutoPublish,jdbcType=INTEGER},
+      is_yet_issue = #{isYetIssue,jdbcType=INTEGER},
+      auto_publish_time = #{autoPublishTime,jdbcType=TIMESTAMP},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      is_auto_invest = #{isAutoInvest,jdbcType=INTEGER},
+      product_title = #{productTitle,jdbcType=VARCHAR},
+      refund_way = #{refundWay,jdbcType=INTEGER},
+      product_period = #{productPeriod,jdbcType=INTEGER},
+      period_unit = #{periodUnit,jdbcType=INTEGER},
+      define_type = #{defineType,jdbcType=INTEGER},
+      award_type = #{awardType,jdbcType=INTEGER},
+      award_amount = #{awardAmount,jdbcType=DECIMAL},
+      award_scale = #{awardScale,jdbcType=DECIMAL},
+      min_amount = #{minAmount,jdbcType=DECIMAL},
+      max_amount = #{maxAmount,jdbcType=DECIMAL},
+      available_transfer_day = #{availableTransferDay,jdbcType=INTEGER},
+      integral_fold = #{integralFold,jdbcType=INTEGER},
+      is_auth_code = #{isAuthCode,jdbcType=INTEGER},
+      is_issue = #{isIssue,jdbcType=INTEGER},
+      is_app = #{isApp,jdbcType=INTEGER},
+      appoint_password = #{appointPassword,jdbcType=VARCHAR},
+      product_status = #{productStatus,jdbcType=INTEGER},
+      product_type = #{productType,jdbcType=INTEGER},
+      available_invest_time = #{availableInvestTime,jdbcType=TIMESTAMP},
+      audit_user_id = #{auditUserId,jdbcType=VARCHAR},
+      audit_user_name = #{auditUserName,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      source_store = #{sourceStore,jdbcType=VARCHAR},
+      is_timing_show = #{isTimingShow,jdbcType=INTEGER},
+      is_turn = #{isTurn,jdbcType=VARCHAR},
+      set_remark = #{setRemark,jdbcType=LONGVARCHAR},
+      publish_remark = #{publishRemark,jdbcType=LONGVARCHAR},
+      audit_remark = #{auditRemark,jdbcType=LONGVARCHAR},
+      collect_abort_time = #{collectAbortTime,jdbcType=TIMESTAMP},
+      valid_time = #{validTime,jdbcType=INTEGER},
+       order_no =  #{orderNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.product.db.model.basic.Product">
+    update product
+    set product_code = #{productCode,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      orginal_id = #{orginalId,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      borrow_user_id = #{borrowUserId,jdbcType=VARCHAR},
+      borrow_user_name = #{borrowUserName,jdbcType=VARCHAR},
+      borrow_amount = #{borrowAmount,jdbcType=DECIMAL},
+      borrow_account_yes = #{borrowAccountYes,jdbcType=DECIMAL},
+      borrow_fee = #{borrowFee,jdbcType=DECIMAL},
+      borrow_apr = #{borrowApr,jdbcType=DECIMAL},
+      borrow_type = #{borrowType,jdbcType=INTEGER},
+      borrow_full_time = #{borrowFullTime,jdbcType=TIMESTAMP},
+      borrow_full_status = #{borrowFullStatus,jdbcType=INTEGER},
+      surplus_invest_amount = #{surplusInvestAmount,jdbcType=DECIMAL},
+      is_jion = #{isJion,jdbcType=INTEGER},
+      repay_last_time = #{repayLastTime,jdbcType=TIMESTAMP},
+      mate_amount = #{mateAmount,jdbcType=DECIMAL},
+      borrow_use = #{borrowUse,jdbcType=VARCHAR},
+      is_auto_publish = #{isAutoPublish,jdbcType=INTEGER},
+      is_yet_issue = #{isYetIssue,jdbcType=INTEGER},
+      auto_publish_time = #{autoPublishTime,jdbcType=TIMESTAMP},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      is_auto_invest = #{isAutoInvest,jdbcType=INTEGER},
+      product_title = #{productTitle,jdbcType=VARCHAR},
+      refund_way = #{refundWay,jdbcType=INTEGER},
+      product_period = #{productPeriod,jdbcType=INTEGER},
+      period_unit = #{periodUnit,jdbcType=INTEGER},
+      define_type = #{defineType,jdbcType=INTEGER},
+      award_type = #{awardType,jdbcType=INTEGER},
+      award_amount = #{awardAmount,jdbcType=DECIMAL},
+      award_scale = #{awardScale,jdbcType=DECIMAL},
+      min_amount = #{minAmount,jdbcType=DECIMAL},
+      max_amount = #{maxAmount,jdbcType=DECIMAL},
+      available_transfer_day = #{availableTransferDay,jdbcType=INTEGER},
+      integral_fold = #{integralFold,jdbcType=INTEGER},
+      is_auth_code = #{isAuthCode,jdbcType=INTEGER},
+      is_issue = #{isIssue,jdbcType=INTEGER},
+      is_app = #{isApp,jdbcType=INTEGER},
+      appoint_password = #{appointPassword,jdbcType=VARCHAR},
+      product_status = #{productStatus,jdbcType=INTEGER},
+      product_type = #{productType,jdbcType=INTEGER},
+      available_invest_time = #{availableInvestTime,jdbcType=TIMESTAMP},
+      audit_user_id = #{auditUserId,jdbcType=VARCHAR},
+      audit_user_name = #{auditUserName,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      source_store = #{sourceStore,jdbcType=VARCHAR},
+      is_timing_show = #{isTimingShow,jdbcType=INTEGER},
+      is_turn = #{isTurn,jdbcType=VARCHAR},
+      collect_abort_time = #{collectAbortTime,jdbcType=TIMESTAMP},
+      valid_time = #{validTime,jdbcType=INTEGER},
+      order_no =  #{orderNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getOrginalByPlanId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+    SELECT p.id,p.product_period,p.period_unit,p.refund_way,p.borrow_apr,de.borrow_id,de.borrow_type
+
+    from  product_details de  LEFT JOIN   product p on p.id = de.orginal_id
+    <if test="productId != null">
+      where
+      de.product_id = ${productId}
+    </if>
+  </select>
+
+
+  <select id="selectTenderingBorrow" parameterType="com.tuodao.bp.model.business.product.input.ProductQueryInput" resultMap="ResultMapWithBLOBs">
+    SELECT
+    p.*
+    FROM
+    `product` p
+    LEFT JOIN borrow_define_type ty ON p.define_type = ty.id
+    WHERE
+    ty.`enable` = 1
+    AND p.is_yet_issue = 1
+    AND p.is_timing_show = 1
+    AND surplus_invest_amount > 0
+    AND is_jion = 0
+    <if test="productType != null">
+      AND product_type = ${productType}
+    </if>
+    <if test="productPeriodStart != null and productPeriodEnd != null">
+      and case  when period_unit= 0 then 0.03 when period_unit=2 then 12 else 1 end * product_period
+      BETWEEN ${productPeriodStart} and ${productPeriodEnd}
+    </if>
+    <if test="refundWay != null ">
+      AND refund_way = ${refundWay}
+    </if>
+    <if test="isJunior == 0 ">
+      AND define_type != 1
+    </if>
+
+    ORDER BY
+    p.borrow_full_status ASC,
+    ty.`order_number` ASC,
+    p.period_unit DESC,
+    p.product_period ASC,
+    <if test="productType == 0">
+      p.surplus_invest_amount DESC
+    </if>
+    <if test="productType == 1">
+      p.surplus_invest_amount ASC
+    </if>
+
+
+    <if test="limitSize > 0 ">
+      LIMIT ${limitBegin},${limitSize}
+    </if>
+
+  </select>
+
+
+
+  <select id="selectTenderingBorrowAmount" parameterType="com.tuodao.bp.model.business.product.input.ProductQueryInput" resultType="java.lang.Integer">
+    SELECT
+    count(1)
+    FROM
+    `product` p
+    LEFT JOIN borrow_define_type ty ON p.define_type = ty.id
+    WHERE
+    ty.`enable` = 1
+    AND p.is_yet_issue = 1
+    AND p.is_timing_show = 1
+    AND surplus_invest_amount > 0
+    AND is_jion = 0
+    <if test="productType != null">
+      AND product_type = ${productType}
+    </if>
+    <if test="productPeriodStart != null and productPeriodEnd != null">
+      and case  when period_unit= 0 then 0.03 when period_unit=2 then 12 else 1 end * product_period
+      BETWEEN ${productPeriodStart} and ${productPeriodEnd}
+    </if>
+    <if test="refundWay != null ">
+      AND refund_way = ${refundWay}
+    </if>
+    <if test="isJunior == 0 ">
+      AND define_type != 1
+    </if>
+  </select>
+
+  <select id="selectTimeBorrowAmount" parameterType="com.tuodao.bp.model.business.product.input.ProductQueryInput" resultType="java.lang.Integer">
+    SELECT COUNT(1) from (
+    SELECT
+    p.*
+    FROM
+    `product` p
+    WHERE
+    p.is_yet_issue = 1
+    AND p.is_timing_show = 1
+    AND is_auto_publish = 1
+    AND is_jion = 0
+    AND auto_publish_time > now()
+    ORDER BY
+    auto_publish_time ASC
+     ) as tt
+    <where>
+      <if test="productType != null">
+        AND product_type = ${productType}
+      </if>
+      <if test="productPeriodStart != null and productPeriodEnd != null">
+        and case  when period_unit= 0 then 0.03 when period_unit=2 then 12 else 1 end * product_period
+        BETWEEN ${productPeriodStart} and ${productPeriodEnd}
+      </if>
+      <if test="refundWay != null ">
+        AND refund_way = ${refundWay}
+      </if>
+      <if test="isJunior == 0 ">
+        AND define_type != 1
+      </if>
+
+    </where>
+  </select>
+
+
+  <select id="selectFullBorrowAmount" parameterType="com.tuodao.bp.model.business.product.input.ProductQueryInput" resultType="java.lang.Integer">
+    SELECT
+  COUNT(1)
+    FROM
+    `product` p
+    WHERE
+    p.is_yet_issue = 1
+    AND p.is_timing_show = 1
+    AND borrow_full_status = 1
+    AND is_jion = 0
+
+    <if test="productType != null">
+      AND product_type = ${productType}
+    </if>
+    <if test="productPeriodStart != null and productPeriodEnd != null">
+      and case  when period_unit= 0 then 0.03 when period_unit=2 then 12 else 1 end * product_period
+      BETWEEN ${productPeriodStart} and ${productPeriodEnd}
+    </if>
+    <if test="refundWay != null ">
+      AND refund_way = ${refundWay}
+    </if>
+    <if test="isJunior == 0 ">
+      AND define_type != 1
+    </if>
+    ORDER BY
+    borrow_full_time DESC
+  </select>
+
+
+  <select id="selectPlanByPage" parameterType="com.tuodao.bp.model.business.product.input.ProductQueryInput" resultMap="ResultMapWithBLOBs">
+    SELECT
+    p.*
+    FROM
+    `product` p
+     WHERE
+     AND p.is_yet_issue = 1
+    AND p.is_timing_show = 1
+    AND surplus_invest_amount > 0
+     AND product_type = 1
+    <if test="productPeriodStart != null and productPeriodEnd != null">
+      and case  when period_unit= 0 then 0.03 when period_unit=2 then 12 else 1 end * product_period
+      BETWEEN ${productPeriodStart} and ${productPeriodEnd}
+    </if>
+    <if test="refundWay != null ">
+      AND refund_way = ${refundWay}
+    </if>
+    <if test="isJunior == 0 ">
+      AND define_type != 1
+    </if>
+
+    ORDER BY
+    p.borrow_full_status ASC,
+    p.borrow_full_time DESC,
+    ty.`order_number` ASC,
+    p.period_unit DESC,
+    p.product_period ASC,
+    p.surplus_invest_amount DESC
+  </select>
+
+  <select id="selectTimeBorrow" parameterType="com.tuodao.bp.model.business.product.input.ProductQueryInput" resultMap="ResultMapWithBLOBs">
+    SELECT * from (
+    SELECT
+    p.*
+    FROM
+    `product` p
+    WHERE
+    p.is_yet_issue = 1
+    AND p.is_timing_show = 1
+    AND is_auto_publish = 1
+    AND is_jion = 0
+    AND auto_publish_time > now()
+    ORDER BY
+    auto_publish_time ASC
+    ) as tt
+    <where>
+      <if test="productType != null">
+        AND product_type = ${productType}
+      </if>
+      <if test="productPeriodStart != null and productPeriodEnd != null">
+        and case  when period_unit= 0 then 0.03 when period_unit=2 then 12 else 1 end * product_period
+        BETWEEN ${productPeriodStart} and ${productPeriodEnd}
+      </if>
+      <if test="refundWay != null ">
+        AND refund_way = ${refundWay}
+      </if>
+      <if test="isJunior == 0 ">
+        AND define_type != 1
+      </if>
+
+    </where>
+      LIMIT 0,3
+
+
+  </select>
+
+
+  <select id="selectFullBorrow" parameterType="com.tuodao.bp.model.business.product.input.ProductQueryInput" resultMap="ResultMapWithBLOBs">
+    SELECT
+    p.*
+    FROM
+    `product` p
+    WHERE
+    p.is_yet_issue = 1
+    AND p.is_timing_show = 1
+    AND borrow_full_status = 1
+    AND is_jion = 0
+
+    <if test="productType != null">
+      AND product_type = ${productType}
+    </if>
+    <if test="productPeriodStart != null and productPeriodEnd != null">
+      and case  when period_unit= 0 then 0.03 when period_unit=2 then 12 else 1 end * product_period
+      BETWEEN ${productPeriodStart} and ${productPeriodEnd}
+    </if>
+    <if test="refundWay != null ">
+      AND refund_way = ${refundWay}
+    </if>
+    <if test="isJunior == 0 ">
+      AND define_type != 1
+    </if>
+    ORDER BY
+    borrow_full_time DESC
+
+
+    <if test="limitSize > 0 ">
+      LIMIT ${limitBegin},${limitSize}
+    </if>
+
+  </select>
+
+
+  <select id="getBorrowAmount" parameterType="com.tuodao.bp.model.business.product.input.ProductQueryInput" resultType="java.lang.Integer">
+    SELECT
+     count(1)
+    FROM
+    `product` p
+    WHERE
+    p.is_yet_issue = 1
+    AND p.is_timing_show = 1
+    AND is_jion = 0
+
+    <if test="productType != null">
+      AND product_type = ${productType}
+    </if>
+    <if test="productPeriodStart != null and productPeriodEnd != null">
+      and case  when period_unit= 0 then 0.03 when period_unit=2 then 12 else 1 end * product_period
+      BETWEEN ${productPeriodStart} and ${productPeriodEnd}
+    </if>
+    <if test="refundWay != null ">
+      AND refund_way = ${refundWay}
+    </if>
+    <if test="isJunior == 0 ">
+      AND define_type != 1
+    </if>
+
+  </select>
+
+
+<select id="selectProduct" parameterType="com.tuodao.bp.model.business.product.input.ProductQueryInput" resultMap="ResultMapWithBLOBs">
+     select *from product where id= #{id,jdbcType=INTEGER} and product_status = #{productStatus,jdbcType=INTEGER}
+</select>
+
+
+  <select id="selectExpiredList" parameterType="java.lang.Boolean" resultMap="ResultMapWithBLOBs">
+    SELECT
+    p.*
+    FROM
+    `product` p
+    WHERE
+    product_type = 1
+    AND product_status = 7
+
+    <if test="contain">
+      AND date_format(repay_last_time,'%Y-%m%-%d')  =  curdate()
+    </if>
+    <if test="!contain">
+      and date_format(repay_last_time,'%Y-%m%-%d')  <![CDATA[<=]]>  curdate()
+    </if>
+
+    ORDER BY id asc
+
+  </select>
+
+
+  <select id="getPlanReverifyBorrowList"  resultMap="ResultMapWithBLOBs">
+    SELECT
+    p.*
+    FROM
+    `product` p
+    WHERE
+    product_type = 0
+    AND is_jion = 1
+    AND product_status = 6
+
+    ORDER BY id asc
+
+  </select>
+
+  <select id="getReverifyPlanList"  resultMap="ResultMapWithBLOBs">
+    SELECT
+    p.*
+    FROM
+    `product` p
+    WHERE
+    product_type = 1
+    AND product_status = 6
+
+    ORDER BY id asc
+
+  </select>
+
+</mapper>

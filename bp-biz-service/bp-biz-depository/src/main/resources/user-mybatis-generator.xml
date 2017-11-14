@@ -1,0 +1,55 @@
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="generatorTables" targetRuntime="MyBatis3">
+
+		<plugin type="com.tuodao.hechuan.mybatis.plugin.SerializableModelExamplePlugin"></plugin>
+
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://72.127.2.158:3306/finance?useUnicode=true&amp;characterEncoding=UTF-8"
+						userId="root" password="tuodao_mysql">
+		</jdbcConnection>
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+		<!--connectionURL="jdbc:mysql://localhost:3306/finance?useUnicode=true&amp;characterEncoding=UTF-8"-->
+		<!--userId="root" password="root">-->
+		<!--</jdbcConnection>-->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="com.tuodao.bp.depository.db.model.basic"
+							targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="xml.basic" targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER"
+							 targetPackage="com.tuodao.bp.depository.db.mapper.basic" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- <table tableName="account" enableCountByExample="true" enableSelectByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"/>
+		 -->
+		 <table tableName="http_receive_log" schema=""
+			domainObjectName="ReconciliationInfo" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="http_request_log" schema=""
+			domainObjectName="ReconciliationInfo" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		
+		
+	</context>
+
+</generatorConfiguration>

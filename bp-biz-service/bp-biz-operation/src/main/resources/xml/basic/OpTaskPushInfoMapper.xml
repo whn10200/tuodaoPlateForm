@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.operation.persistence.mapper.basic.OpTaskPushInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.operation.persistence.model.basic.OpTaskPushInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="trigger_time" property="triggerTime" jdbcType="INTEGER" />
+    <result column="completed_tasks" property="completedTasks" jdbcType="VARCHAR" />
+    <result column="incompleted_tasks" property="incompletedTasks" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="sms_code" property="smsCode" jdbcType="VARCHAR" />
+    <result column="push_code" property="pushCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, trigger_time, completed_tasks, incompleted_tasks, remark, sms_code, push_code
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpTaskPushInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from op_task_push_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from op_task_push_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from op_task_push_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpTaskPushInfoExample" >
+    delete from op_task_push_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpTaskPushInfo" >
+    insert into op_task_push_info (id, trigger_time, completed_tasks, 
+      incompleted_tasks, remark, sms_code, 
+      push_code)
+    values (#{id,jdbcType=BIGINT}, #{triggerTime,jdbcType=INTEGER}, #{completedTasks,jdbcType=VARCHAR}, 
+      #{incompletedTasks,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{smsCode,jdbcType=VARCHAR}, 
+      #{pushCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpTaskPushInfo" >
+    insert into op_task_push_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="triggerTime != null" >
+        trigger_time,
+      </if>
+      <if test="completedTasks != null" >
+        completed_tasks,
+      </if>
+      <if test="incompletedTasks != null" >
+        incompleted_tasks,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="smsCode != null" >
+        sms_code,
+      </if>
+      <if test="pushCode != null" >
+        push_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="triggerTime != null" >
+        #{triggerTime,jdbcType=INTEGER},
+      </if>
+      <if test="completedTasks != null" >
+        #{completedTasks,jdbcType=VARCHAR},
+      </if>
+      <if test="incompletedTasks != null" >
+        #{incompletedTasks,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCode != null" >
+        #{smsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pushCode != null" >
+        #{pushCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpTaskPushInfoExample" resultType="java.lang.Integer" >
+    select count(*) from op_task_push_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update op_task_push_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.triggerTime != null" >
+        trigger_time = #{record.triggerTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.completedTasks != null" >
+        completed_tasks = #{record.completedTasks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.incompletedTasks != null" >
+        incompleted_tasks = #{record.incompletedTasks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smsCode != null" >
+        sms_code = #{record.smsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pushCode != null" >
+        push_code = #{record.pushCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update op_task_push_info
+    set id = #{record.id,jdbcType=BIGINT},
+      trigger_time = #{record.triggerTime,jdbcType=INTEGER},
+      completed_tasks = #{record.completedTasks,jdbcType=VARCHAR},
+      incompleted_tasks = #{record.incompletedTasks,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      sms_code = #{record.smsCode,jdbcType=VARCHAR},
+      push_code = #{record.pushCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpTaskPushInfo" >
+    update op_task_push_info
+    <set >
+      <if test="triggerTime != null" >
+        trigger_time = #{triggerTime,jdbcType=INTEGER},
+      </if>
+      <if test="completedTasks != null" >
+        completed_tasks = #{completedTasks,jdbcType=VARCHAR},
+      </if>
+      <if test="incompletedTasks != null" >
+        incompleted_tasks = #{incompletedTasks,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="smsCode != null" >
+        sms_code = #{smsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pushCode != null" >
+        push_code = #{pushCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.operation.persistence.model.basic.OpTaskPushInfo" >
+    update op_task_push_info
+    set trigger_time = #{triggerTime,jdbcType=INTEGER},
+      completed_tasks = #{completedTasks,jdbcType=VARCHAR},
+      incompleted_tasks = #{incompletedTasks,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      sms_code = #{smsCode,jdbcType=VARCHAR},
+      push_code = #{pushCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

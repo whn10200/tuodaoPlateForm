@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.operation.persistence.mapper.biz.BizOpLabelTaskMapper" >
+
+  <!-- 查看用户标签任务完成情况 -->
+  <select id="userLabelTaskFinishStatus" resultType="com.tuodao.bp.model.business.operation.output.UserLabelTaskStatusOutput" parameterType="java.lang.String" >
+    SELECT
+      olt.task_id AS labelTaskId,
+      olt.task_name AS labelTaskName,
+      (
+        IF (
+          ISNULL(
+            (
+              SELECT
+                user_id
+              FROM
+                op_user_task_relation
+              WHERE
+                user_id = #{userId,jdbcType=VARCHAR}
+                AND task_id = olt.score_task_id
+            )
+          ),
+          "no",
+          "yes"
+        )
+      ) AS isComplete
+    FROM
+    op_label_task AS olt
+  </select>
+</mapper>

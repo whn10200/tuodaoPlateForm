@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.operation.persistence.mapper.biz.BizOpScoreTaskMapper" >
+
+  <!--
+   查找用户任务
+   如果type为2(新手任务),查找op_user_task_relation(新手用户任务任务关系表)如果存在,表示用户已完成任务（isComplete = yes），否则没有完成（isComplete = no）
+   如果type为1(日常任务 ps: 签到任务特殊处理)
+    如果id(任务编号)= 11(ps:11为签到任务的任务编号),查找op_user_sing_history(用户签到记录表),如果存在，表示当前用户当天已签到（isComplete = yes），否则没有签到（isComplete = no）
+   -->
+  <select id="findUserTask" resultType="com.tuodao.bp.model.business.operation.output.UserTaskListOutput" parameterType="com.tuodao.bp.model.business.operation.input.UserTaskListInput" >
+    SELECT
+      ost.id AS taskId,
+      ost.task_name AS taskName,
+      ost.score AS score,
+      ost.type AS type,
+      ost.description AS description,
+      ost.todo AS todo,
+      ost.url AS url,
+      ost.code AS code,
+      CASE ost.type
+        WHEN 2 THEN
+          (
+            IF (
+              ISNULL(
+                (
+                  SELECT
+                    user_id
+                  FROM
+                    op_user_task_relation
+                  WHERE
+                    user_id = #{userId,jdbcType=VARCHAR}
+                    AND task_id = ost.id
+                )
+              ),
+              "no",
+              "yes"
+            )
+          )
+        WHEN 1 THEN
+          (
+            CASE ost.id
+              WHEN 11 THEN
+                (
+                  IF (
+                  ISNULL(
+                    (
+                      SELECT
+                        user_id
+                      FROM
+                        op_user_sing_history
+                      WHERE
+                       user_id = #{userId,jdbcType=VARCHAR}
+                       AND sign_time = date_format(now(), '%Y-%m-%d')
+                    )
+                  ),
+                  "no",
+                  "yes"
+                  )
+                )
+              ELSE
+              "no"
+            END
+          )
+      END AS isComplete
+    FROM
+    op_score_task AS ost
+    WHERE 1=1
+    <if test="type != null and type !='' ">
+      AND ost.type = #{type,jdbcType=BIGINT}
+    </if>
+    ORDER BY isComplete ASC
+  </select>
+</mapper>

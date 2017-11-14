@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.useraccount.persistence.mapper.basic.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.useraccount.persistence.model.basic.UserInfo" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="login_password" property="loginPassword" jdbcType="VARCHAR" />
+    <result column="login_pwd_key" property="loginPwdKey" jdbcType="VARCHAR" />
+    <result column="pw_security_level" property="pwSecurityLevel" jdbcType="INTEGER" />
+    <result column="pay_password" property="payPassword" jdbcType="VARCHAR" />
+    <result column="pay_pwd_key" property="payPwdKey" jdbcType="VARCHAR" />
+    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
+    <result column="direct_inviter_no" property="directInviterNo" jdbcType="VARCHAR" />
+    <result column="indirect_inviter_no" property="indirectInviterNo" jdbcType="VARCHAR" />
+    <result column="user_status" property="userStatus" jdbcType="INTEGER" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="invest_flag" property="investFlag" jdbcType="INTEGER" />
+    <result column="invest_user_type" property="investUserType" jdbcType="INTEGER" />
+    <result column="is_newbie" property="isNewbie" jdbcType="INTEGER" />
+    <result column="is_open_deposit" property="isOpenDeposit" jdbcType="INTEGER" />
+    <result column="is_bind_bank" property="isBindBank" jdbcType="INTEGER" />
+    <result column="register_source" property="registerSource" jdbcType="INTEGER" />
+    <result column="register_ip" property="registerIp" jdbcType="VARCHAR" />
+    <result column="register_version" property="registerVersion" jdbcType="VARCHAR" />
+    <result column="source_channel" property="sourceChannel" jdbcType="VARCHAR" />
+    <result column="invite_type" property="inviteType" jdbcType="INTEGER" />
+    <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP" />
+    <result column="gmt_creator" property="gmtCreator" jdbcType="VARCHAR" />
+    <result column="gmt_modifier" property="gmtModifier" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="userInviteInfoMap" type="com.tuodao.bp.useraccount.persistence.model.basic.UserInviteInfo">
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="financial_planner_level" property="financialPlannerLevel" jdbcType="INTEGER" />
+    <result column="invite_person" property="invitePerson" jdbcType="VARCHAR" />
+    <result column="invite_register_type" property="inviteRegisterType" jdbcType="VARCHAR" />
+    <result column="invite_person_num" property="invitePersonNum" jdbcType="INTEGER" />
+    <result column="invest_times" property="investTimes" jdbcType="INTEGER" />
+    <result column="invest_total" property="investTotal" jdbcType="DECIMAL" />
+    <result column="total_direct_cash" property="totalDirectCash" jdbcType="DECIMAL" />
+    <result column="total_indirect_cash" property="totalIndirectCash" jdbcType="DECIMAL" />
+    <result column="vouchers" property="vouchers" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, user_name, mobile, login_password, login_pwd_key, pw_security_level, pay_password, 
+    pay_pwd_key, avatar_url, direct_inviter_no, indirect_inviter_no, user_status, user_type, 
+    invest_flag, invest_user_type, is_newbie, is_open_deposit, is_bind_bank, register_source, 
+    register_ip, register_version, source_channel, invite_type, invite_code, gmt_create, 
+    gmt_modify, gmt_creator, gmt_modifier, is_del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.useraccount.persistence.model.basic.UserInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_info
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.useraccount.persistence.model.basic.UserInfoExample" >
+    delete from user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.useraccount.persistence.model.basic.UserInfo" >
+    insert into user_info (user_id, user_name, mobile, 
+      login_password, login_pwd_key, pw_security_level, 
+      pay_password, pay_pwd_key, avatar_url, 
+      direct_inviter_no, indirect_inviter_no, user_status, 
+      user_type, invest_flag, invest_user_type, 
+      is_newbie, is_open_deposit, is_bind_bank, 
+      register_source, register_ip, register_version, 
+      source_channel, invite_type, invite_code, 
+      gmt_create, gmt_modify, gmt_creator, 
+      gmt_modifier, is_del)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{loginPassword,jdbcType=VARCHAR}, #{loginPwdKey,jdbcType=VARCHAR}, #{pwSecurityLevel,jdbcType=INTEGER}, 
+      #{payPassword,jdbcType=VARCHAR}, #{payPwdKey,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
+      #{directInviterNo,jdbcType=VARCHAR}, #{indirectInviterNo,jdbcType=VARCHAR}, #{userStatus,jdbcType=INTEGER}, 
+      #{userType,jdbcType=INTEGER}, #{investFlag,jdbcType=INTEGER}, #{investUserType,jdbcType=INTEGER}, 
+      #{isNewbie,jdbcType=INTEGER}, #{isOpenDeposit,jdbcType=INTEGER}, #{isBindBank,jdbcType=INTEGER}, 
+      #{registerSource,jdbcType=INTEGER}, #{registerIp,jdbcType=VARCHAR}, #{registerVersion,jdbcType=VARCHAR}, 
+      #{sourceChannel,jdbcType=VARCHAR}, #{inviteType,jdbcType=INTEGER}, #{inviteCode,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}, #{gmtCreator,jdbcType=VARCHAR}, 
+      #{gmtModifier,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.useraccount.persistence.model.basic.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="loginPassword != null" >
+        login_password,
+      </if>
+      <if test="loginPwdKey != null" >
+        login_pwd_key,
+      </if>
+      <if test="pwSecurityLevel != null" >
+        pw_security_level,
+      </if>
+      <if test="payPassword != null" >
+        pay_password,
+      </if>
+      <if test="payPwdKey != null" >
+        pay_pwd_key,
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url,
+      </if>
+      <if test="directInviterNo != null" >
+        direct_inviter_no,
+      </if>
+      <if test="indirectInviterNo != null" >
+        indirect_inviter_no,
+      </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="investFlag != null" >
+        invest_flag,
+      </if>
+      <if test="investUserType != null" >
+        invest_user_type,
+      </if>
+      <if test="isNewbie != null" >
+        is_newbie,
+      </if>
+      <if test="isOpenDeposit != null" >
+        is_open_deposit,
+      </if>
+      <if test="isBindBank != null" >
+        is_bind_bank,
+      </if>
+      <if test="registerSource != null" >
+        register_source,
+      </if>
+      <if test="registerIp != null" >
+        register_ip,
+      </if>
+      <if test="registerVersion != null" >
+        register_version,
+      </if>
+      <if test="sourceChannel != null" >
+        source_channel,
+      </if>
+      <if test="inviteType != null" >
+        invite_type,
+      </if>
+      <if test="inviteCode != null" >
+        invite_code,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModify != null" >
+        gmt_modify,
+      </if>
+      <if test="gmtCreator != null" >
+        gmt_creator,
+      </if>
+      <if test="gmtModifier != null" >
+        gmt_modifier,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null" >
+        #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwdKey != null" >
+        #{loginPwdKey,jdbcType=VARCHAR},
+      </if>
+      <if test="pwSecurityLevel != null" >
+        #{pwSecurityLevel,jdbcType=INTEGER},
+      </if>
+      <if test="payPassword != null" >
+        #{payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="payPwdKey != null" >
+        #{payPwdKey,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null" >
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="directInviterNo != null" >
+        #{directInviterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="indirectInviterNo != null" >
+        #{indirectInviterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="investFlag != null" >
+        #{investFlag,jdbcType=INTEGER},
+      </if>
+      <if test="investUserType != null" >
+        #{investUserType,jdbcType=INTEGER},
+      </if>
+      <if test="isNewbie != null" >
+        #{isNewbie,jdbcType=INTEGER},
+      </if>
+      <if test="isOpenDeposit != null" >
+        #{isOpenDeposit,jdbcType=INTEGER},
+      </if>
+      <if test="isBindBank != null" >
+        #{isBindBank,jdbcType=INTEGER},
+      </if>
+      <if test="registerSource != null" >
+        #{registerSource,jdbcType=INTEGER},
+      </if>
+      <if test="registerIp != null" >
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="registerVersion != null" >
+        #{registerVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceChannel != null" >
+        #{sourceChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteType != null" >
+        #{inviteType,jdbcType=INTEGER},
+      </if>
+      <if test="inviteCode != null" >
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null" >
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreator != null" >
+        #{gmtCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModifier != null" >
+        #{gmtModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.useraccount.persistence.model.basic.UserInfoExample" resultType="java.lang.Integer" >
+    select count(*) from user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_info
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginPassword != null" >
+        login_password = #{record.loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginPwdKey != null" >
+        login_pwd_key = #{record.loginPwdKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwSecurityLevel != null" >
+        pw_security_level = #{record.pwSecurityLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.payPassword != null" >
+        pay_password = #{record.payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payPwdKey != null" >
+        pay_pwd_key = #{record.payPwdKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatarUrl != null" >
+        avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.directInviterNo != null" >
+        direct_inviter_no = #{record.directInviterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.indirectInviterNo != null" >
+        indirect_inviter_no = #{record.indirectInviterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userStatus != null" >
+        user_status = #{record.userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.investFlag != null" >
+        invest_flag = #{record.investFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.investUserType != null" >
+        invest_user_type = #{record.investUserType,jdbcType=INTEGER},
+      </if>
+      <if test="record.isNewbie != null" >
+        is_newbie = #{record.isNewbie,jdbcType=INTEGER},
+      </if>
+      <if test="record.isOpenDeposit != null" >
+        is_open_deposit = #{record.isOpenDeposit,jdbcType=INTEGER},
+      </if>
+      <if test="record.isBindBank != null" >
+        is_bind_bank = #{record.isBindBank,jdbcType=INTEGER},
+      </if>
+      <if test="record.registerSource != null" >
+        register_source = #{record.registerSource,jdbcType=INTEGER},
+      </if>
+      <if test="record.registerIp != null" >
+        register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerVersion != null" >
+        register_version = #{record.registerVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceChannel != null" >
+        source_channel = #{record.sourceChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inviteType != null" >
+        invite_type = #{record.inviteType,jdbcType=INTEGER},
+      </if>
+      <if test="record.inviteCode != null" >
+        invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null" >
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModify != null" >
+        gmt_modify = #{record.gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtCreator != null" >
+        gmt_creator = #{record.gmtCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtModifier != null" >
+        gmt_modifier = #{record.gmtModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_info
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      login_password = #{record.loginPassword,jdbcType=VARCHAR},
+      login_pwd_key = #{record.loginPwdKey,jdbcType=VARCHAR},
+      pw_security_level = #{record.pwSecurityLevel,jdbcType=INTEGER},
+      pay_password = #{record.payPassword,jdbcType=VARCHAR},
+      pay_pwd_key = #{record.payPwdKey,jdbcType=VARCHAR},
+      avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      direct_inviter_no = #{record.directInviterNo,jdbcType=VARCHAR},
+      indirect_inviter_no = #{record.indirectInviterNo,jdbcType=VARCHAR},
+      user_status = #{record.userStatus,jdbcType=INTEGER},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      invest_flag = #{record.investFlag,jdbcType=INTEGER},
+      invest_user_type = #{record.investUserType,jdbcType=INTEGER},
+      is_newbie = #{record.isNewbie,jdbcType=INTEGER},
+      is_open_deposit = #{record.isOpenDeposit,jdbcType=INTEGER},
+      is_bind_bank = #{record.isBindBank,jdbcType=INTEGER},
+      register_source = #{record.registerSource,jdbcType=INTEGER},
+      register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      register_version = #{record.registerVersion,jdbcType=VARCHAR},
+      source_channel = #{record.sourceChannel,jdbcType=VARCHAR},
+      invite_type = #{record.inviteType,jdbcType=INTEGER},
+      invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{record.gmtModify,jdbcType=TIMESTAMP},
+      gmt_creator = #{record.gmtCreator,jdbcType=VARCHAR},
+      gmt_modifier = #{record.gmtModifier,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.useraccount.persistence.model.basic.UserInfo" >
+    update user_info
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null" >
+        login_password = #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwdKey != null" >
+        login_pwd_key = #{loginPwdKey,jdbcType=VARCHAR},
+      </if>
+      <if test="pwSecurityLevel != null" >
+        pw_security_level = #{pwSecurityLevel,jdbcType=INTEGER},
+      </if>
+      <if test="payPassword != null" >
+        pay_password = #{payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="payPwdKey != null" >
+        pay_pwd_key = #{payPwdKey,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="directInviterNo != null" >
+        direct_inviter_no = #{directInviterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="indirectInviterNo != null" >
+        indirect_inviter_no = #{indirectInviterNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="investFlag != null" >
+        invest_flag = #{investFlag,jdbcType=INTEGER},
+      </if>
+      <if test="investUserType != null" >
+        invest_user_type = #{investUserType,jdbcType=INTEGER},
+      </if>
+      <if test="isNewbie != null" >
+        is_newbie = #{isNewbie,jdbcType=INTEGER},
+      </if>
+      <if test="isOpenDeposit != null" >
+        is_open_deposit = #{isOpenDeposit,jdbcType=INTEGER},
+      </if>
+      <if test="isBindBank != null" >
+        is_bind_bank = #{isBindBank,jdbcType=INTEGER},
+      </if>
+      <if test="registerSource != null" >
+        register_source = #{registerSource,jdbcType=INTEGER},
+      </if>
+      <if test="registerIp != null" >
+        register_ip = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="registerVersion != null" >
+        register_version = #{registerVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceChannel != null" >
+        source_channel = #{sourceChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteType != null" >
+        invite_type = #{inviteType,jdbcType=INTEGER},
+      </if>
+      <if test="inviteCode != null" >
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null" >
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtCreator != null" >
+        gmt_creator = #{gmtCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtModifier != null" >
+        gmt_modifier = #{gmtModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.useraccount.persistence.model.basic.UserInfo" >
+    update user_info
+    set user_name = #{userName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      login_password = #{loginPassword,jdbcType=VARCHAR},
+      login_pwd_key = #{loginPwdKey,jdbcType=VARCHAR},
+      pw_security_level = #{pwSecurityLevel,jdbcType=INTEGER},
+      pay_password = #{payPassword,jdbcType=VARCHAR},
+      pay_pwd_key = #{payPwdKey,jdbcType=VARCHAR},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      direct_inviter_no = #{directInviterNo,jdbcType=VARCHAR},
+      indirect_inviter_no = #{indirectInviterNo,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=INTEGER},
+      user_type = #{userType,jdbcType=INTEGER},
+      invest_flag = #{investFlag,jdbcType=INTEGER},
+      invest_user_type = #{investUserType,jdbcType=INTEGER},
+      is_newbie = #{isNewbie,jdbcType=INTEGER},
+      is_open_deposit = #{isOpenDeposit,jdbcType=INTEGER},
+      is_bind_bank = #{isBindBank,jdbcType=INTEGER},
+      register_source = #{registerSource,jdbcType=INTEGER},
+      register_ip = #{registerIp,jdbcType=VARCHAR},
+      register_version = #{registerVersion,jdbcType=VARCHAR},
+      source_channel = #{sourceChannel,jdbcType=VARCHAR},
+      invite_type = #{inviteType,jdbcType=INTEGER},
+      invite_code = #{inviteCode,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      gmt_creator = #{gmtCreator,jdbcType=VARCHAR},
+      gmt_modifier = #{gmtModifier,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAll" resultMap="userInviteInfoMap">
+      SELECT
+      ui.user_id,
+	  (
+		(
+			SELECT
+				count(1)
+			FROM
+				borrow_tender bt
+			WHERE
+				bt.STATUS IN(1,2,5)
+			AND
+				bt.user_id = ui.user_id
+		) + (
+			SELECT
+				count(1)
+			FROM
+				borrow_choiceness_tender bct
+			WHERE
+				bct.STATUS IN(1,4)
+			AND
+				bct.user_id = ui.user_id
+		)
+	  ) AS invest_times,-- 投资次数
+      (
+		(
+			SELECT
+				SUM(bt.account)
+			FROM
+				borrow_tender bt
+			WHERE
+				bt.STATUS IN(1,2,5)
+			AND
+				bt.user_id = ui.user_id
+		) + (
+			SELECT
+				SUM(bct.pre_account)
+			FROM
+				borrow_choiceness_tender bct
+			WHERE
+				bct.STATUS IN(1,4)
+			AND
+				bct.user_id = ui.user_id
+		)
+	  ) AS invest_total,-- 投资总额
+	  SUM(oir.direct_cashback) AS total_direct_cash,
+	  SUM(oir.indirect_cashback) AS total_indirect_cash,
+	  SUM(oir.vouchers) AS vouchers,-- 抵用券总额
+	  ui.mobile AS user_phone,
+	  (
+		SELECT
+			o.mobile
+		FROM
+			user_info o
+		WHERE
+			o.user_id = ui.direct_inviter_no
+	) AS invite_person,
+	ui.invite_type AS invite_register_type,
+	(
+		SELECT
+			COUNT(1)
+		FROM
+			user_info u
+		WHERE
+			u.invite_code = ui.invite_code
+	) AS invite_person_num
+  FROM
+	user_info ui
+  LEFT JOIN op_invite_record oir ON ui.user_id = oir.user_id
+  GROUP BY
+  ui.mobile
+  </select>
+</mapper>
